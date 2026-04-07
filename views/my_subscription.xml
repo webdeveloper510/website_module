@@ -1,0 +1,295 @@
+<odoo>
+    <template id="my_subscription_template" name="My Subscription">
+        <t t-call="website.layout">
+            <div class="container py-5">
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <!-- Sidebar -->
+                    </div>
+
+                    <div class="col-lg-9">
+                        <h2 class="mb-4">My Subscription</h2>
+
+                        <t t-if="request.params.get('reactivated')">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                ✅ Your subscription has been successfully reactivated!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        </t>
+
+                        <t t-if="subscription and subscription.id">
+                            <!-- Show all active subscriptions (multi-group support) -->
+                            <t t-if="active_subscriptions">
+                                <t t-foreach="active_subscriptions" t-as="sub_detail">
+                                    <div class="card shadow-sm mb-4">
+                                        <div class="card-header bg-success text-white">
+                                            <h4 class="mb-0">
+                                                ✓ <t t-esc="sub_detail['subscription_name']"/>
+                                                <t t-if="sub_detail['group_name']">
+                                                    <span class="badge bg-light text-success ms-2" style="font-size:0.75rem">
+                                                        <t t-esc="sub_detail['group_name']"/>
+                                                    </span>
+                                                </t>
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h5>Subscription Details</h5>
+                                                    <table class="table table-sm">
+                                                        <tr>
+                                                            <td><strong>Plan:</strong></td>
+                                                            <td><t t-esc="sub_detail['subscription_name']"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Price:</strong></td>
+                                                            <td>$<t t-esc="'%.2f' % sub_detail['price']"/>/<t t-esc="sub_detail['interval']"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Start Date:</strong></td>
+                                                            <td>
+                                                                <t t-esc="sub_detail['subscription'].start_date.strftime('%B %d, %Y') if sub_detail['subscription'].start_date else 'N/A'"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Next Billing:</strong></td>
+                                                            <td>
+                                                                <t t-esc="sub_detail['subscription'].next_billing_date.strftime('%B %d, %Y') if sub_detail['subscription'].next_billing_date else 'N/A'"/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Status:</strong></td>
+                                                            <td>
+                                                                <span class="badge bg-success text-capitalize">
+                                                                    <t t-esc="sub_detail['status']"/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <h5>Your Benefits</h5>
+                                                    <ul class="list-unstyled">
+                                                        <t t-foreach="sub_detail['benefit_lines']" t-as="benefit">
+                                                            <li class="mb-2">
+                                                                <i class="fas fa-check-circle text-success"></i>
+                                                                <strong><t t-esc="benefit['discount']"/>% Off</strong>
+                                                                <t t-esc="benefit['label']"/>
+                                                            </li>
+                                                        </t>
+                                                        <t t-if="not sub_detail['benefit_lines']">
+                                                            <li class="text-muted small">Additional benefits may vary by plan</li>
+                                                        </t>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <hr/>
+
+                                            <div class="text-center">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-danger"
+                                                    data-bs-toggle="modal"
+                                                    t-attf-data-bs-target="#cancelModal{{ sub_detail['id'] }}">
+                                                    Cancel <t t-esc="sub_detail['subscription_name']"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Per-subscription Cancel Modal -->
+                                    <div class="modal fade" t-attf-id="cancelModal{{ sub_detail['id'] }}" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Cancel <t t-esc="sub_detail['subscription_name']"/></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to cancel <strong><t t-esc="sub_detail['subscription_name']"/></strong>?</p>
+                                                    <p class="text-muted">You will lose access to all benefits for this plan.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Keep Subscription
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-danger"
+                                                            t-attf-onclick="confirmCancelSub({{ sub_detail['id'] }})">
+                                                        Yes, Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+
+                                <!-- Link to add more plans from different groups -->
+                                <div class="text-center mt-3">
+                                    <a href="/subscription/plans" class="btn btn-outline-primary">
+                                        ➕ Add Another Plan
+                                    </a>
+                                </div>
+                            </t>
+
+                            <!-- Cancelled Subscription -->
+                            <t t-elif="subscription.status == 'cancelled'">
+                                <div class="alert alert-warning">
+                                    <h4>⚠️ Subscription Cancelled</h4>
+                                    <p>Your subscription was cancelled on <t t-esc="subscription.cancelled_date"/>.</p>
+                                    <p>You can reactivate anytime!</p>
+                                    <a href="/subscription/reactivate" class="btn btn-primary">Reactivate Subscription</a>
+                                </div>
+                            </t>
+
+                            <!-- Other statuses -->
+                            <t t-else="">
+                                <div class="alert alert-info">
+                                    <h4>Subscription Status: <t t-esc="subscription.status"/></h4>
+                                    <p>Start Date: <t t-esc="subscription.start_date"/></p>
+                                    <p>End Date: <t t-esc="subscription.end_date"/></p>
+                                </div>
+                            </t>
+                        </t>
+
+
+                        <!-- No Subscription -->
+                        <t t-else="">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center py-5">
+                                    <h1 style="font-size: 4rem;">⭐</h1>
+                                    <h4>No Active Subscription</h4>
+                                    <p class="text-muted">Subscribe now to get exclusive benefits and discounts!</p>
+                                    <a href="/subscription/plans" class="btn btn-primary btn-lg">
+                                        View Plans
+                                    </a>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Toast Container -->
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+                <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            <span id="successMessage"></span>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <span id="errorMessage"></span>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"/> -->
+
+<script>
+
+// Only initialize Stripe if on checkout page
+<t t-if="stripe_publishable_key">
+const stripe = Stripe('<t t-esc="stripe_publishable_key"/>');
+const elements = stripe.elements();
+const cardElement = elements.create('card');
+
+// Only mount if card-element exists
+if (document.getElementById('card-element')) {
+    cardElement.mount('#card-element');
+}
+
+const isReactivation = <t t-esc="is_reactivation and 'true' or 'false'"/>;
+
+const form = document.getElementById('subscription-form');
+if (form) {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+        
+        try {
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: '<t t-esc="partner.name"/>',
+                    email: '<t t-esc="partner.email"/>',
+                },
+            });
+            
+            if (error) {
+                showError(error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = isReactivation ? 'Reactivate Subscription' : 'Subscribe Now';
+                return;
+            }
+            
+            const endpoint = isReactivation ? '/subscription/reactivate/process' : '/subscription/create_stripe';
+            
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    method: 'call',
+                    params: {
+                        payment_method_id: paymentMethod.id,
+                    }
+                })
+            });
+            
+            const result = await response.json();
+            const data = result.result;
+            
+            if (data.status === 'success') {
+                window.location.href = data.redirect;
+            } else if (data.status === 'requires_action') {
+                const { error: confirmError } = await stripe.confirmCardPayment(data.client_secret);
+                if (confirmError) {
+                    showError(confirmError.message);
+                } else {
+                    window.location.href = '/my_subscription';
+                }
+            } else {
+                showError(data.message);
+            }
+        } catch (err) {
+            showError('An error occurred. Please try again.');
+            console.error(err);
+        }
+        
+        submitBtn.disabled = false;
+        submitBtn.textContent = isReactivation ? 'Reactivate Subscription' : 'Subscribe Now';
+    });
+}
+
+function showError(message) {
+    const errorDiv = document.getElementById('card-errors');
+    if (errorDiv) {
+        errorDiv.textContent = message;
+    }
+}
+</t>
+</script>
+        </t>
+    </template>
+</odoo>

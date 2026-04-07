@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 
+    ============================================
+    Payment Discount Validation Template (FIXED)
+    File: views/payment_discount_fix.xml
+    ============================================
+    -->
+    
+    <!-- Inherit the payment page to add discount validation -->
+    <template id="payment_discount_validation" inherit_id="website_sale.payment" name="Payment Discount Validation">
+        
+        <!-- Add JavaScript for discount validation -->
+        <xpath expr="//div[@id='payment_method']" position="after">
+            <script type="text/javascript">
+                <![CDATA[
+                (function() {
+                    'use strict';
+                    
+                    // Wait for DOM to be ready
+                    function initDiscountValidation() {
+                        console.log('Initializing discount validation...');
+                        
+                        // Find discount/promo code elements
+                        var $promoInput = $('input[name="promo"]');
+                        
+                        if (!$promoInput.length) {
+                            console.log('Promo input not found');
+                            return;
+                        }
+                        
+                        console.log('Promo input found:', $promoInput);
+                        
+                        // Get the form and apply button
+                        var $promoForm = $promoInput.closest('form');
+                        var $applyBtn = $promoForm.find('button[type="submit"]');
+                        
+                        // Fallback: find any submit button near the promo input
+                        if (!$applyBtn.length) {
+                            $applyBtn = $promoInput.closest('.input-group').find('button');
+                        }
+                        
+                        if (!$applyBtn.length) {
+                            console.log('Apply button not found');
+                            return;
+                        }
+                        
+                        console.log('Apply button found:', $applyBtn);
+                        
+                        // Function to update button state
+                        function updateButtonState() {
+                            var promoValue = $promoInput.val().trim();
+                            var hasValue = promoValue.length > 0;
+                            
+                            if (hasValue) {
+                                $applyBtn.prop('disabled', false)
+                                        .removeClass('disabled')
+                                        .css({
+                                            'opacity': '1',
+                                            'cursor': 'pointer',
+                                            'pointer-events': 'auto'
+                                        });
+                            } else {
+                                $applyBtn.prop('disabled', true)
+                                        .addClass('disabled')
+                                        .css({
+                                            'opacity': '0.5',
+                                            'cursor': 'not-allowed',
+                                            'pointer-events': 'auto'
+                                        });
+                            }
+                        }
+                        
+                        // Function to show error message
+                        function showError(message, type) {
+                            // Remove existing error messages
+                            $('.discount-validation-error').remove();
+                            
+                            // Create error element
+                            var alertClass = type === 'danger' ? 'alert-danger' : 'alert-warning';
+                            var errorHtml = '<div class="alert ' + alertClass + ' discount-validation-error mt-2" role="alert">' +
+                                          '<strong>Error:</strong> ' + message +
+                                          '</div>';
+                            
+                            // Insert after input group
+                            var $container = $promoInput.closest('.input-group');
+                            if (!$container.length) {
+                                $container = $promoInput.closest('.form-group');
+                            }
+                            $container.after(errorHtml);
+                            
+                            // Auto-hide after 3 seconds
+                            setTimeout(function() {
+                                $('.discount-validation-error').fadeOut(400, function() {
+                                    $(this).remove();
+                                });
+                            }, 3000);
+                        }
+                        
+                        // Prevent form submission with empty code
+                        $promoForm.on('submit', function(e) {
+                            var promoCode = $promoInput.val().trim();
+                            
+                            if (!promoCode) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                e.stopImmediatePropagation();
+                                
+                                showError('Please enter a discount code before clicking Apply.', 'danger');
+                                
+                                return false;
+                            }
+                            
+                            // Clear any existing errors if code is valid
+                            $('.discount-validation-error').remove();
+                        });
+                        
+                        // Monitor input changes
+                        $promoInput.on('input keyup paste', function() {
+                            updateButtonState();
+                            
+                            // Clear errors when user starts typing
+                            if ($(this).val().trim().length > 0) {
+                                $('.discount-validation-error').fadeOut(200, function() {
+                                    $(this).remove();
+                                });
+                            }
+                        });
+                        
+                        // Prevent button click when empty
+                        $applyBtn.on('click', function(e) {
+                            var promoCode = $promoInput.val().trim();
+                            
+                            if (!promoCode) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                e.stopImmediatePropagation();
+                                
+                                showError('Please enter a discount code first.', 'warning');
+                                
+                                // Focus the input
+                                $promoInput.focus();
+                                
+                                return false;
+                            }
+                        });
+                        
+                        // Set initial button state
+                        updateButtonState();
+                        
+                        console.log('Discount validation fully initialized');
+                    }
+                    
+                    // Initialize when DOM is ready
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', function() {
+                            setTimeout(initDiscountValidation, 100);
+                        });
+                    } else {
+                        // DOM already loaded
+                        setTimeout(initDiscountValidation, 100);
+                    }
+                    
+                    // Also try with jQuery ready (backup)
+                    if (typeof jQuery !== 'undefined') {
+                        jQuery(document).ready(function($) {
+                            setTimeout(initDiscountValidation, 200);
+                        });
+                    }
+                })();
+                ]]>
+            </script>
+        </xpath>
+        
+        <!-- Add CSS styling for better UX -->
+        <xpath expr="//div[@id='payment_method']" position="after">
+            <style>
+                /* Style for disabled Apply button */
+                button.disabled[type="submit"],
+                button[disabled][type="submit"],
+                input[name="promo"] ~ button[disabled],
+                input[name="promo"] ~ .input-group-append button[disabled] {
+                    opacity: 0.5 !important;
+                    cursor: not-allowed !important;
+                    pointer-events: auto !important;
+                }
+                
+                /* Ensure button is clickable when enabled */
+                input[name="promo"] ~ button:not([disabled]),
+                input[name="promo"] ~ .input-group-append button:not([disabled]) {
+                    opacity: 1 !important;
+                    cursor: pointer !important;
+                    pointer-events: auto !important;
+                }
+                
+                /* Error message styling */
+                .discount-validation-error {
+                    animation: slideDown 0.3s ease-out;
+                    margin-top: 10px;
+                    border-radius: 4px;
+                }
+                
+                @keyframes slideDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                /* Highlight input when there's an error */
+                .discount-validation-error ~ .input-group input[name="promo"],
+                input[name="promo"].error {
+                    border-color: #dc3545;
+                    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+                }
+            </style>
+        </xpath>
+        
+    </template>
+    
+</odoo>

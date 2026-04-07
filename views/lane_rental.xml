@@ -1,0 +1,1134 @@
+<odoo>
+    <template id="lane_rental_page_template" name="Lane Rental Page">
+        <t t-call="website.layout">
+            <!-- AOS Library -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+            <section class="hero-section">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <h1 class="hero-title" data-aos="fade-right" data-aos-duration="1000"
+                            style="font-family:Roboto !important; font-size:40px;">
+                            Cricket Lane Rental At United Sports Arena
+                        </h1>
+                        <h3 class="hero-subtitle" data-aos="fade-up" data-aos-duration="1200"
+                            style="font-family:Roboto !important;font-size:25px;">
+                            Elevate Your Game at Boston’s Premier Indoor Cricket Facility
+                        </h3>
+                        <p class="hero-description" data-aos="fade-up" data-aos-duration="1400"
+                           style="font-family:Roboto !important;font-size:18px;">
+                            Welcome to United Sports Arena - your go-to destination for top-tier cricket lane rentals.
+                            Whether you’re a seasoned pro aiming to refine your skills or a newcomer eager to step onto
+                            the pitch for the first time, our fully equipped facility in Boston offers the perfect
+                            setting
+                            for you to practice and play.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <style>
+                /* Hero Section */
+                .hero-section {
+                background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center / cover;
+                min-height: 70vh; /* Ensures full screen height */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                position: relative;
+                padding: 40px 15px;
+                }
+                body {
+                overflow-x: hidden;
+                }
+
+                /* Dark Overlay */
+                .hero-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                }
+
+                /* Hero Content */
+                .hero-content {
+                position: relative;
+                z-index: 1;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                }
+
+                /* Hero Title */
+                .hero-title {
+                font-size: 40px;
+                font-weight: bold;
+                color: #d7af43; /* Highlighted color */
+                font-family: 'Poppins', sans-serif;
+                margin-bottom: 15px;
+                }
+
+                /* Subtitle */
+                .hero-subtitle {
+                font-size: 22px;
+                font-weight: 600;
+                margin-bottom: 10px;
+                }
+
+                /* Description */
+                .hero-description {
+                font-size: 18px;
+                line-height: 1.6;
+                color: white;
+                }
+
+                /* Coming Soon Section */
+                .coming-soon-section {
+                width: 100%;
+                background: white;
+                padding: 50px 20px;
+                text-align: center;
+                }
+
+                .coming-soon-text {
+                font-family: Roboto, sans-serif;
+                font-size: 2rem;
+                font-weight: 600;
+                color: #d4a017;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 992px) {
+                .hero-section {
+                min-height: 80vh;
+                }
+                .hero-title {
+                font-size: 36px;
+                white-space: normal;
+                }
+                .hero-subtitle {
+                font-size: 18px;
+                }
+                .hero-description {
+                font-size: 16px;
+                max-width: 90%;
+                }
+                }
+
+                @media (max-width: 768px) {
+                .hero-section {
+                min-height: 70vh;
+                padding: 40px 15px;
+                }
+                .hero-title {
+                font-size: 30px;
+                }
+                .hero-subtitle {
+                font-size: 16px;
+                }
+                .hero-description {
+                font-size: 14px;
+                }
+                .coming-soon-text {
+                font-size: 1.5rem;
+                }
+                }
+            </style>
+
+            <script>
+                AOS.init();
+            </script>
+
+
+            <section class="why-choose-section">
+                <h4 class="section-subtitle" data-aos="fade-down" data-aos-duration="1000"
+                    style="font-family:Roboto!important; font-size:18px;">WHAT MAKES US SPECIAL
+                </h4>
+                <h2 class="section-title" data-aos="fade-down" data-aos-duration="1000"
+                    style="font-size:32px;font-family:Roboto!important; ">Why Choose United Sports Arena for
+                    Lane Rental?
+                </h2>
+                <p class="section-description" data-aos="fade-up" data-aos-duration="1000"
+                   style="font-family:Roboto; font-family:18px;">
+                    Our state-of-the-art indoor cricket facility is designed to cater to players of all levels.
+                    With advanced technology and high-quality equipment, we provide an unparalleled cricket experience
+                    that rivals internationally renowned academies.
+                </p>
+
+                <div class="feature-container">
+                    <div class="feature-box" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="feature-icon">
+                            <img src="https://22yardsaustin.com/wp-content/uploads/2024/06/pitch.png"
+                                 alt="Smart Lane Technology"/>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title" style="color:#d7af43; font-family:Roboto; font-size:32px;">Smart
+                                Lane Technology
+                            </h3>
+                            <p class="feature-text" style="font-family:Roboto; font-size:18px;">
+                                Each lane is equipped with the latest technology, including automatic feed bowling
+                                machines,
+                                digital video analysis, and customizable pitch settings to cater to each player’s needs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box" data-aos="fade-left" data-aos-duration="1000">
+                        <div class="feature-icon">
+                            <img src="https://22yardsaustin.com/wp-content/uploads/2024/06/cricket-1.png"
+                                 alt="Top-of-the-Line Equipment"/>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title" style="color:#d7af43;font-family:Roboto; font-size:32px;">
+                                Top-of-the-Line Equipment
+                            </h3>
+                            <p class="feature-text" style="font-family:Roboto; font-size:18px;">
+
+                                Practice with cutting-edge tools like our BOLA and TrueMan bowling machines, which offer adjustable speeds and deliveries.
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-box" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="feature-icon">
+                            <img src="https://22yardsaustin.com/wp-content/uploads/2024/06/booking.png"
+                                 alt="Flexible Booking Options"/>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title" style="color:#d7af43;font-family:Roboto; font-size:32px;">Flexible
+                                Booking Options
+                            </h3>
+                            <p class="feature-text" style="font-family:Roboto; font-size:18px;">
+                                Rent a lane by the hour or sign up for extended sessions at competitive rates.
+                                Our flexible scheduling makes it easy to find a time that works best for you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                /* Section Styling */
+                .why-choose-section {
+                text-align: center;
+                padding: 50px 20px;
+                font-family: 'Poppins', sans-serif;
+                }
+
+                /* Subtitle */
+                .section-subtitle {
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: #000;
+                margin-bottom: 10px;
+                }
+
+                /* Title */
+                .section-title {
+                font-size: 32px;
+                font-weight: 700;
+                color: #d7af43;
+                margin-bottom: 15px;
+                }
+
+                /* Description */
+                .section-description {
+                font-size: 18px;
+                color: #666;
+                max-width: 800px;
+                margin: 0 auto 40px;
+                }
+
+                /* Feature Box Container */
+                .feature-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                }
+
+                /* Feature Box */
+                .feature-box {
+                display: flex;
+                align-items: center;
+                background-color: #004a98;
+                color: white;
+                border-radius: 10px;
+                padding: 25px;
+                max-width: 1000px; /* Increased width */
+                width: 95%; /* Allows it to adapt to screen width */
+                border: 2px solid #f6b10a;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                /* Feature Box Hover Effect */
+                .feature-box:hover {
+                transform: translateY(-5px);
+                box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
+                }
+
+                /* Feature Icon */
+                .feature-icon img {
+                width: 60px; /* Slightly larger icon */
+                height: auto;
+                margin-right: 25px;
+                }
+
+                /* Added Space Below Icon */
+                .feature-icon {
+                flex-shrink: 0;
+                margin-bottom: 10px;
+                }
+
+                /* Feature Content */
+                .feature-content {
+                text-align: left;
+                flex: 1; /* Ensures content fills available space */
+                }
+
+                /* Feature Title */
+                .feature-title {
+                font-size: 22px;
+                font-weight: 600;
+                color: #f6b10a;
+                margin-bottom: 10px;
+                }
+
+                /* Feature Text */
+                .feature-text {
+                font-size: 16px;
+                line-height: 1.6;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 1024px) {
+                .feature-box {
+                max-width: 90%; /* Adjust width for tablets */
+                padding: 20px;
+                }
+                }
+
+                @media (max-width: 768px) {
+                .feature-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                }
+
+                .feature-icon img {
+                margin-bottom: 12px;
+                }
+
+                .feature-content {
+                text-align: center;
+                }
+                }
+
+                @media (max-width: 480px) {
+                .section-title {
+                font-size: 28px;
+                }
+
+                .section-description {
+                font-size: 16px;
+                }
+
+                .feature-title {
+                font-size: 20px;
+                }
+
+                .feature-text {
+                font-size: 14px;
+                }
+                }
+
+            </style>
+
+            <script>
+                AOS.init();
+            </script>
+
+            <section class="benefits-section">
+                <div class="overlay3"></div>
+                <span style="color:white;font-weight:600; font-family:Roboto">More Reasons to Choose us</span>
+                <h2 class="benefits-title mt-2" style="color:#d7af43;font-family:Roboto; font-size:32px;">Benefits of
+                    Practicing at US Sports Arena
+                </h2>
+
+                <div class="benefits-container">
+                    <div class="benefit-card">
+                        <img src="/us_arena_website/static/src/img/img4.jpg" alt="Skill Improvement"/>
+                        <div class="benefit-text-card">
+                            <h3 class="benefit-heading" style="font-family:Roboto; font-size:25px;">Skill Improvement
+                            </h3>
+                            <p class="benefit-text" style="font-family:Roboto; font-size:18px;">
+                                Train in smart lanes to work on specific aspects of your game, from batting to bowling
+                                precision.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <img src="/us_arena_website/static/src/img/img1.jpg" alt="Personalized Environment"/>
+                        <div class="benefit-text-card">
+                            <h3 class="benefit-heading" style="font-family:Roboto; font-size:25px;">Personalized
+                                Environment
+                            </h3>
+                            <p class="benefit-text" style="font-family:Roboto; font-size:18px;">
+                                Enjoy the privacy and focus of our sophisticated lanes, ensuring a distraction-free
+                                experience.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <img src="/us_arena_website/static/src/img/img2.jpg" alt="Professional Coaching"/>
+                        <div class="benefit-text-card">
+                            <h3 class="benefit-heading" style="font-family:Roboto; font-size:25px;">Professional
+                                Coaching
+                            </h3>
+                            <p class="benefit-text" style="font-family:Roboto; font-size:18px;">
+                                Enhance your practice with guidance from experienced coaches who can provide valuable
+                                insights.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                /* Section Styling */
+                .benefits-section {
+                text-align: center;
+                background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center/cover;
+                padding: 90px 20px;
+                font-family: 'Poppins', sans-serif;
+                position: relative;
+                }
+
+                /* Dark overlay */
+                .overlay3 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                }
+
+                /* Title */
+                .benefits-title {
+                font-size: 36px;
+                font-weight: 700;
+                color: #f6b10a;
+                margin-bottom: 50px;
+                }
+
+                /* Benefits Container */
+                .benefits-container {
+                display: flex;
+                justify-content: center;
+                gap: 35px;
+                flex-wrap: wrap;
+                }
+
+                /* Benefit Card */
+                .benefit-card {
+                width: 380px; /* Increased size */
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 8px;
+                overflow: hidden;
+                }
+
+                /* Card Hover Effect */
+                .benefit-card:hover {
+                transform: scale(1.07);
+                transition: transform 0.3s ease; /* Adjusted hover transition speed */
+                }
+
+                /* Card Image */
+                .benefit-card img {
+                width: 100%;
+                height: 300px; /* Increased height */
+                object-fit: cover;
+                }
+
+                /* Benefit Text Card */
+                .benefit-text-card {
+                padding: 25px;
+                background: #243b55;
+                color: white;
+                text-align: center;
+                }
+
+                /* Benefit Heading */
+                .benefit-heading {
+                font-size: 22px;
+                font-weight: 700;
+                color: #f6b10a;
+                margin-bottom: 10px;
+                }
+
+                /* Benefit Text */
+                .benefit-text {
+                font-size: 17px;
+                line-height: 1.6;
+                }
+
+                /* Responsive */
+                @media (max-width: 768px) {
+                .benefits-container {
+                flex-direction: column;
+                align-items: center;
+                }
+
+                .benefit-card {
+                width: 90%;
+                }
+                }
+                /* Add this animation keyframes for sliding effect */
+                @keyframes slideInFromLeftRight {
+                0% {
+                transform: translateX(-100%); /* Starts off-screen to the left */
+                opacity: 0;
+                }
+                50% {
+                transform: translateX(0); /* Moves to the center */
+                opacity: 1;
+                }
+                100% {
+                transform: translateX(0); /* Stays at the center */
+                opacity: 1; /* Fully visible */
+                }
+                }
+
+                /* Apply the animation on the heading */
+                .benefits-title {
+                font-size: 36px;
+                font-weight: 700;
+                color: #f6b10a;
+                margin-bottom: 50px;
+                animation: slideInFromLeftRight 2s ease-out forwards; /* Add animation */
+                }
+
+            </style>
+
+            <link
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+                    rel="stylesheet"
+            />
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+            <style>
+                /* FAQ Section */
+                .faq-section {
+                background: url("https://22yardsaustin.com/wp-content/uploads/2024/05/BG2.jpg")
+                no-repeat center center/cover;
+                padding: 60px 15px;
+                text-align: center;
+                font-family: "Poppins", sans-serif;
+                }
+
+                /* Title Styling */
+                .faq-title {
+                font-size: 32px;
+                font-weight: 700;
+                color: black;
+                margin-bottom: 40px;
+                }
+
+                /* FAQ Container - Wider Now */
+                .faq-container {
+                max-width: 1200px;
+                width: 90%;
+                margin: 0 auto;
+                text-align: left;
+                }
+
+                /* FAQ Item */
+                .faq-item {
+                background: #fff;
+                border-radius: 1px;
+                margin-bottom: 12px;
+                overflow: hidden;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease-in-out;
+                }
+
+                /* FAQ Question */
+                .faq-question {
+                background: white;
+                color: black;
+                padding: 18px 25px;
+                font-size: 18px;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: all 0.3s ease-in-out;
+                font-family: "Arial", sans-serif;
+                border-bottom: 2px solid #ddd;
+                }
+
+                /* First FAQ (Default Open) */
+                .faq-item.active .faq-question {
+                background: #004a99; /* Blue */
+                color: #d7af43; /* Gold */
+                }
+
+                /* FAQ Answer */
+                .faq-answer {
+                padding: 15px 25px;
+                font-family: "Arial", sans-serif;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 1.5;
+                color: #333;
+                display: none;
+                transition: all 0.3s ease-in-out;
+                }
+
+                /* Open Answer */
+                .faq-item.active .faq-answer {
+                display: block;
+                }
+
+                /* FAQ Icon */
+                .faq-icon {
+                font-size: 20px;
+                transition: transform 0.3s ease-in-out;
+                }
+
+                /* Rotate Arrow for Active */
+                .faq-item.active .faq-icon {
+                transform: rotate(180deg);
+                }
+
+                @media (max-width: 768px) {
+                .faq-title {
+                font-size: 28px;
+                }
+
+                .faq-question {
+                font-size: 16px;
+                padding: 15px 20px;
+                }
+
+                .faq-answer {
+                font-size: 14px;
+                padding: 12px 20px;
+                }
+                }
+            </style>
+
+            <section class="faq-section">
+                <span
+                        class="faq-subtitle"
+                        style="
+      color: black;
+      font-family: Sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      font-style: italic;
+    "
+                >GOT QUESTIONS? WE HAVE ANSWERS
+                </span
+                >
+                <h2 class="faq-title mt-4" style="font-size:32px; font-family:Roboto!important">Frequently Asked
+                    Questions
+                </h2>
+
+                <div class="faq-container">
+                    <!-- FAQ Items -->
+                    <div class="faq-item active"> <!-- First one is active by default -->
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">Can I book a lane on short
+                            notice?
+                            <span class="faq-icon">▲</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            Yes, you can book lanes on short notice depending on availability. However, we recommend
+                            booking in advance to ensure your preferred time slot is available.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">What should I bring to my
+                            lane rental session?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            For your session, you should bring your cricket gear, including a bat, appropriate shoes,
+                            and protective equipment.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">Is there a minimum or
+                            maximum time I can book a lane?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            The minimum booking time for a lane is one hour. There is no maximum time limit; however,
+                            extended sessions will depend on lane availability.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">Do you offer discounts for
+                            group bookings or long-term rentals?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            Yes, we offer discounted rates for group bookings and long-term rentals. Contact us at (508) 709-5635 for more details.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">Can I cancel or reschedule
+                            my booking?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            Yes, bookings can be canceled or rescheduled. We do not provide refunds upon cancellation
+                            however you will receive credits that you can use. For more information on our cancellation
+                            policy, please visit our website or contact us at (508) 709-5635.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">Are coaching services
+                            available during the lane rental?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            Yes, professional coaching services are available upon request during your booking.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">Are there facilities
+                            available for teams to practice together?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            Yes, our facility can accommodate team practices. Multiple lanes can be booked
+                            simultaneously.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" style="font-family:Roboto; font-size:25px;">How do I get to United Sports
+                            Arena?
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer" style="font-family:Roboto; font-size:18px;">
+                            United Sports Arena is located at 839 Upper Union Street, Franklin - MA - 02038. We offer
+                            ample parking. For detailed directions, contact us at (508) 709-5635.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                const faqItems = document.querySelectorAll(".faq-item");
+
+                faqItems.forEach((item) => {
+                const question = item.querySelector(".faq-question");
+                const icon = item.querySelector(".faq-icon");
+                const answer = item.querySelector(".faq-answer");
+
+                question.addEventListener("click", function () {
+                const isOpen = item.classList.contains("active");
+
+                // Close all other items
+                faqItems.forEach((el) => {
+                el.classList.remove("active");
+                el.querySelector(".faq-answer").style.display = "none";
+                el.querySelector(".faq-icon").textContent = "▼";
+                });
+
+                // Toggle current item
+                if (!isOpen) {
+                item.classList.add("active");
+                answer.style.display = "block";
+                icon.textContent = "▲";
+                }
+                });
+                });
+                });
+            </script>
+
+
+        </t>
+    </template>
+
+
+    <template id="book_lane_template">
+        <t t-call="website.layout">
+            <div class="container o_slot_selection mt-5">
+                <div class="row">
+                    <!-- Product Image -->
+                    <div class="col-md-6 text-center">
+                        <div t-field="product.image_1920"
+                             name="o_img_with_max_suggested_width"
+                             class="product-detail-img"
+                             t-options="{
+                             'widget': 'image',
+                             'preview_image': 'image_1024',
+                             'class': 'oe_unmovable',
+                             'alt-field': 'name',
+                         }"/>
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="col-md-6">
+                        <h2 class="text-primary product-name">
+                            <t t-esc="product.name"/>
+                        </h2>
+                        <p class="text-muted product-description">
+                            <t t-esc="product.description"/>
+                        </p>
+
+                        <!-- Price Display -->
+                        <p class="h4 product-price">Price:
+                            <span id="product_price" style="color:#2575fc" t-att-data-price="product.list_price">
+                                $
+                                <t t-esc="product.list_price"/>
+                            </span>
+                        </p>
+
+                        <!-- Select Date & Available Slots -->
+                        <div class="mt-4">
+                            <div class="form-group">
+                                <label for="booking_type" class="form-label">Booking Type:</label>
+                                <select id="booking_type" class="form-control" onchange="toggleDateFields()">
+                                    <option value="daily">Daily</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+
+                            <!-- Date Range Field (Visible only for Monthly) -->
+                            <div class="row mt-4">
+                                <div class="col-6">
+                                    <div class="form-group" id="monthly_date_range" style="display: none;">
+                                        <label for="date_from" class="form-label">From Date:</label>
+                                        <input type="date" id="date_from" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group" id="monthly_to_date_range" style="display: none;">
+                                        <label for="date_to" class="form-label">To Date:</label>
+                                        <input type="date" id="date_to" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Date Picker (Visible only for Daily) -->
+                            <div class="form-group" id="daily_date_range">
+                                <label for="booking_date_range" class="form-label">Select Date:</label>
+                                <input type="date" id="booking_date_range" class="form-control date-input"/>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">Selected Slots:</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn" id="show_all_slots">
+                                            <i class="fa fa-hand-pointer-o me-2"></i>
+                                            Choose Slots
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="available_slots" class="d-flex flex-wrap gap-2 mb-3 mt-1">
+                                    <!-- Selected slots will be shown here -->
+                                </div>
+                                <t t-set="product_id" t-value="product.id"/>
+                                <input type="hidden" id="product_id" t-att-value="product.id"/>
+
+                            </div>
+                        </div>
+
+                        <!-- Counter -->
+                        <div id="o_wsale_cta_wrapper" class="d-flex flex-wrap align-items-center mt-4">
+                            <!-- Quantity Selector -->
+                            <!--                        <div class="css_quantity input-group d-inline-flex me-2 mb-2 align-middle">-->
+                            <!--                            <a class="btn btn-link js_add_cart_json" aria-label="Remove one" title="Remove one"-->
+                            <!--                               href="#" id="decrease_qty">-->
+                            <!--                                <i class="fa fa-minus"></i>-->
+                            <!--                            </a>-->
+                            <!--                            <input type="text" class="form-control quantity text-center" value="1" min="1" id="quantity"/>-->
+                            <!--                            <a class="btn btn-link js_add_cart_json" aria-label="Add one" title="Add one" href="#" id="increase_qty">-->
+                            <!--                                <i class="fa fa-plus"></i>-->
+                            <!--                            </a>-->
+                            <!--                        </div>-->
+
+                            <div id="add_to_cart_wrap" class="d-inline-flex align-items-center mt-3 mb-4">
+                                <a role="button" id="add_to_cart" href="#" class="btn btn-gradient btn-sm">
+                                    <i class="fa fa-shopping-cart me-2"></i>
+                                    Add to Cart
+                                </a>
+
+
+                            </div>
+                            <form action="/shop/cart/update" method="POST" class="w-100">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="product_id" t-att-value="product_data.id"/>
+                                <input type="hidden" id="add_qty" name="add_qty" value="1"/>
+
+                                <button type="submit" id="btn-hide" class="btn btn-lg w-100 d-block d-none"
+                                        style="background-color:#007bff; color: white; font-weight: 600;">
+                                    <i class="fa fa-shopping-cart me-2"></i>
+                                    Proceed To Checkout
+                                </button>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Modal Popup for All Slots -->
+            <div class="modal" id="slotsModal" tabindex="-1" role="dialog" aria-labelledby="slotsModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="slotsModalLabel">Select Slots</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div id="all_slots" class="d-flex flex-wrap gap-2">
+                                <!-- Time Slots -->
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('12:00 AM')">12:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('1:00 AM')">1:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('2:00 AM')">2:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('3:00 AM')">3:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('4:00 AM')">4:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('5:00 AM')">5:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('6:00 AM')">6:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('7:00 AM')">7:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('8:00 AM')">8:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('9:00 AM')">9:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('10:00 AM')">10:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('11:00 AM')">11:00
+                                    AM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('12:00 PM')">12:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('1:00 PM')">1:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('2:00 PM')">2:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('3:00 PM')">3:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('4:00 PM')">4:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('5:00 PM')">5:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('6:00 PM')">6:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('7:00 PM')">7:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('8:00 PM')">8:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('9:00 PM')">9:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('10:00 PM')">10:00
+                                    PM
+                                </button>
+                                <button class="btn btn-outline-primary slot-btn" onclick="selectSlot('11:00 PM')">11:00
+                                    PM
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                /* General Button Styling */
+                .btn {
+                border-radius: 8px;
+                padding: 12px 24px;
+                font-size: 1rem;
+                text-align: center;
+                transition: all 0.3s ease;
+                }
+                body{
+                background: linear-gradient(to right, #2c3e50, #822f3f); /* Dark navy to dark maroon */
+                }
+
+                /* Slot Button Styling */
+                .slot-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+                border-radius: 12px;
+                min-width: 100px;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                }
+
+                .slot-btn:hover {
+                background-color: #0069d9;
+                color: white;
+                transform: scale(1.1);
+                }
+
+                /* Selected Slot Button Styling */
+                .selected-slot {
+                background-color: #2575fc;
+                color: white;
+                }
+
+                /* Add to Cart Button Styling */
+                #add_to_cart {
+                background-color: #2575fc;
+                color: white;
+                border: none;
+                font-size: 1rem;
+                padding: 10px 20px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                }
+
+                #add_to_cart:hover {
+                background-color: #0069d9;
+                transform: scale(1.05);
+                }
+
+                #show_all_slots {
+                background-color: #2575fc;
+                color: white;
+                border: none;
+                font-size: 1rem;
+                padding: 10px 20px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                }
+
+                #show_all_slots:hover {
+                background-color: #0069d9;
+                transform: scale(1.05);
+                }
+
+                /* For Mobile */
+                @media (max-width: 768px) {
+                .modal-body {
+                max-height: 70vh;
+                overflow-y: auto;
+                }
+                }
+            </style>
+
+            <script>
+                document.getElementById('show_all_slots').addEventListener('click', function() {
+                $('#slotsModal').modal('show');
+                });
+
+                function selectSlot(slot) {
+                const availableSlotsDiv = document.getElementById('available_slots');
+
+                if (availableSlotsDiv.innerHTML.includes(slot)) {
+                return;
+                }
+
+                const selectedSlotButton = document.createElement('button');
+                selectedSlotButton.classList.add('btn', 'btn-outline-primary', 'slot-btn');
+                selectedSlotButton.innerHTML = slot;
+
+                availableSlotsDiv.appendChild(selectedSlotButton);
+                }
+
+                function toggleDateFields() {
+                var bookingType = document.getElementById('booking_type').value;
+                var dailyDateRange = document.getElementById('daily_date_range');
+                var monthlyDateRange = document.getElementById('monthly_date_range');
+                var monthlyToDateRange = document.getElementById('monthly_to_date_range');
+
+                if (bookingType === 'daily') {
+                dailyDateRange.style.display = 'block';
+                monthlyDateRange.style.display = 'none';
+                monthlyToDateRange.style.display = 'none';
+                } else {
+                dailyDateRange.style.display = 'none';
+                monthlyDateRange.style.display = 'block';
+                monthlyToDateRange.style.display = 'block';
+                }
+                }
+            </script>
+        </t>
+    </template>
+
+    <template id="inherit_portal_my_home_invoice" name="Customize Show Invoices"
+              inherit_id="account.portal_my_home_invoice" customize_show="True">
+        <xpath expr="//div[@id='portal_client_category']//t[@t-set='title']" position="replace">
+            <t t-set="title">My Booking</t>
+        </xpath>
+
+
+        <xpath expr="//div[@id='portal_common_category']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//div[@id='portal_vendor_category']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+    </template>
+
+
+</odoo>

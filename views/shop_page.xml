@@ -1,0 +1,258 @@
+<odoo>
+    <template id="shop_page_template" name="store website">
+        <t t-call="website.layout">
+<!--            <div class="container-fluid p-0" style="background-color:#F9F9F9; position: relative;">-->
+<!--            &lt;!&ndash; Full-Screen Overlay &ndash;&gt;-->
+<!--            <div class="coming-soon-overlay">-->
+<!--                <h2 class="coming-soon-text">Coming Soon</h2>-->
+<!--            </div>-->
+
+            <!-- Product List Section -->
+            <div class="container-fluid p-0" style="background-color:#F9F9F9; position: relative;">
+                <!-- Product List Overlay -->
+                <div class="product-section-overlay ">
+                    <h2 class="coming-soon-text" style="margin-top:16%;font-family:Roboto;font-weight:600; color:#d4a017">Coming Soon</h2>
+                </div>
+
+                <!-- Product List Section -->
+                <div class="container mt-5 product-section">
+                    <div class="row mt-2">
+                        <t t-if="products">
+                            <t t-foreach="products" t-as="product">
+                                <div class="col-md-3 mb-5 mt-2" style="height:60%">
+                                    <div class="card product-card"
+                                         style="width: 100%; height: 100%; position: relative; overflow: hidden; border-radius: 15px;">
+                                        <t t-set="product_href"
+                                           t-value="product.website_url + '/shop/' + product.name.replace(' ', '-') + '-' + str(product.id)"/>
+
+                                        <!-- Image Section with Background Color -->
+                                        <div class="card-img-container"
+                                             style="position: relative; border-radius: 15px;">
+                                            <div class="card-img-overlay">
+                                                <div class="overlay-bg"></div>
+                                            </div>
+
+                                            <t t-if="product.image_1920">
+                                                <div t-field="product.image_1920"
+                                                     name="o_img_with_max_suggested_width"
+                                                     class="product-detail-img"
+                                                     t-options="{
+                                             'widget': 'image',
+                                             'preview_image': 'image_1024',
+                                             'class': 'oe_unmovable',
+                                             'alt-field': 'name',
+                                         }"/>
+                                            </t>
+                                            <t t-else="">
+                                                <img src="/path/to/placeholder-image.jpg" alt="Product Image"
+                                                     class="product-detail-img"/>
+                                            </t>
+                                        </div>
+
+                                        <div class="card-body" style="border-radius: 0 0 15px 15px;">
+                                            <a href="#">
+                                                <h5 class="card-title text-dark">
+                                                    <t t-esc="product.name"/>
+                                                </h5>
+                                            </a>
+                                            <p class="card-text text-muted">
+                                                $
+                                                <t t-esc="product.list_price"/>
+                                            </p>
+                                            <a href="#" class="oe_product_image_link d-block position-relative"
+                                               itemprop="url">
+                                                <button type="button" class="btn add-to-cart-btn"
+                                                        t-att-data-name="product.name"
+                                                        t-att-data-id="product.id"
+                                                        t-att-data-image="product.image_1920"
+                                                        t-att-data-price="product.list_price">
+                                                    Add To Cart
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <style>
+                                    /* Product section overlay */
+                                    .product-section-overlay {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: rgba(0, 0, 0, 0.2); /* Dark overlay */
+                                    display: flex;
+<!--                                    align-items: center;-->
+                                    justify-content: center;
+
+                                    z-index: 10;
+                                    color: white;
+                                    font-size: 3rem;
+                                    font-weight: bold;
+                                    text-align: center;
+                                    }
+
+                                    /* Blur effect and disable interactions only on the product section */
+                                    .product-section {
+                                    filter: blur(2px);
+                                    pointer-events: none; /* Prevents interaction */
+                                    }
+                                </style>
+                            </t>
+                        </t>
+
+
+
+                        <!-- If no products, show Coming Soon message -->
+                        <t t-else="">
+                            <div class="col-12 text-center mt-5"
+                                 style="font-size: 1.5rem; font-weight: bold; color: #333;">
+                                <div class="coming-soon-message"
+                                     style="padding: 50px; background-color: #f9f9f9; border: 2px dashed #007bff; border-radius: 15px; font-size: 1.2rem; color: #007bff;">
+                                    <p>Product Coming Soon</p>
+                                    <p style="font-size: 1rem; color: #777;">We are working hard to bring exciting
+                                        products to you. Stay tuned!
+                                    </p>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                body{
+    background: linear-gradient(90deg, aliceblue, gray);
+
+                }
+                .text-dark {
+                color: #333; /* Dark color for text */
+                }
+
+                .font-weight-bold {
+                font-weight: 600; /* Bold text for headers */
+                }
+
+                /* Product Card Styling */
+                .product-card {
+                border: none;
+                background-color: #fff;
+                box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 15px; /* Rounded corners for the card */
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                overflow: hidden;
+                }
+
+                .product-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2); /* Hover effect with bigger shadow */
+                }
+
+                /* Image Section */
+                .card-img-container {
+                height: 250px;
+                overflow: hidden;
+                position: relative;
+                border-radius: 15px; /* Round corners for image container */
+                }
+
+                .product-detail-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+                }
+
+                .product-card:hover .product-detail-img {
+                transform: scale(1.1); /* Slight zoom effect on hover */
+                }
+
+                .overlay-bg {
+                background-color: #f4f4f4; /* Light grey overlay for contrast */
+                border-radius: 15px;
+                }
+
+                /* Card Body Styling */
+                .card-body {
+                background-color: #f2e9ee;
+                padding: 20px;
+                border-top: 2px solid #f4f4f4;
+                border-radius: 0 0 15px 15px; /* Round bottom corners for card body */
+                }
+
+                /* Title and Text Styling */
+                .card-title {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #333;
+                transition: color 0.3s ease;
+                }
+
+                .card-title:hover {
+                color: #007bff; /* Blue color for title on hover */
+                }
+
+                .card-text {
+                font-size: 1rem;
+                color: #777;
+                }
+
+                /* Add to Cart Button */
+                .add-to-cart-btn {
+                background-color: #007bff;
+                color: #fff;
+                font-weight: bold;
+                font-size: 14px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+                background-image: linear-gradient(45deg, #007bff, #66b3ff);
+                }
+
+                .add-to-cart-btn:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .add-to-cart-btn:active {
+                transform: scale(1);
+                background-color: #003f7f;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 1200px) {
+                .col-lg-3 {
+                flex: 0 0 25%; /* 4 items per row for large screens */
+                max-width: 25%;
+                }
+                }
+
+                @media (max-width: 992px) {
+                .col-md-4 {
+                flex: 0 0 33.33%; /* 3 items per row for medium screens */
+                max-width: 33.33%;
+                }
+                }
+
+                @media (max-width: 768px) {
+                .col-sm-6 {
+                flex: 0 0 50%; /* 2 items per row for small screens */
+                max-width: 50%;
+                }
+                }
+
+                @media (max-width: 576px) {
+                .col-sm-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                }
+                }
+            </style>
+        </t>
+    </template>
+
+</odoo>

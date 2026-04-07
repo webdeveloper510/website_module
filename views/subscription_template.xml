@@ -1,0 +1,295 @@
+<odoo>
+    <template id="member_subscription" name="Cricket Coaching Page">
+        <t t-call="website.layout">
+            <section class="subscription-plans py-5">
+                <div class="container">
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-5">
+                        <h1 class="display-4 fw-bold" style="color:#0a2351">Monthly Subscription Package</h1>
+                        <p class="lead text-muted">Get exclusive access and savings with our monthly membership</p>
+                    </div>
+
+                    <!-- Error Messages -->
+                    <t t-if="error">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <t t-if="error == 'same_plan'">
+                                <strong>ℹ️ Same Plan</strong><br/>
+                                You already have this subscription active.
+                            </t>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    </t>
+
+                    <!-- Benefits Section -->
+                    <section class="subscription-info mb-5">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="info-item text-center p-4 border rounded h-100">
+                                    <span class="icon display-1"></span>
+                                    <h5 class="mt-3">Lane Rentals</h5>
+                                    <p class="text-muted">Save on every lane booking with your subscription</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="info-item text-center p-4 border rounded h-100">
+                                    <span class="icon display-1">🛍️</span>
+                                    <h5 class="mt-3">Merchandise</h5>
+                                    <p class="text-muted">Exclusive discounts on all pro shop items</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Dynamic Pricing Cards -->
+                    <div class="row g-4">
+                        <!-- Loop through plans from controller -->
+                        <t t-foreach="plans" t-as="plan">
+                            <!-- Only show plans that are not "Unknown Plan" -->
+                            <t t-if="plan['name'] != 'Unknown Plan'">
+                                <div class="col-lg-4">
+                                    <div class="card shadow-lg border-0" t-att-class="plan['has_active'] and 'border-success border-3' or ''">
+                                        <div class="info-item p-5 text-center border rounded h-100">
+                                            <!-- Popular Badge for active plan -->
+                                            <t t-if="plan['has_active']">
+                                                <span class="badge bg-success position-absolute top-0 end-0 m-3">
+                                                    Your Current Plan
+                                                </span>
+                                            </t>
+                                            
+                                            <h2 class="fw-bold mb-3" style="color:#0a2351">
+                                                <t t-esc="plan['name']"/>
+                                            </h2>
+                                            
+                                            <div class="price-display mb-4">
+                                                <span class="display-3 fw-bold" style="color:#0a2351">
+                                                    <t t-esc="'$%.2f' % plan['price']"/>
+                                                </span>
+                                                <span class="fs-4 text-muted">
+                                                    /<t t-esc="plan['interval']"/>
+                                                </span>
+                                            </div>
+                                            
+                                            <ul class="list-unstyled text-start mb-4">
+                                                <li class="mb-2">
+                                                    ✅ <t t-esc="plan['lane_discount']"/>% Discount on Lane Rentals
+                                                </li>
+                                                <li class="mb-2">
+                                                    ✅ <t t-esc="plan['merch_discount']"/>% Discount on Merchandise
+                                                </li>
+                                                <li class="mb-2">✅ Cancel Anytime</li>
+                                                <li class="mb-2">✅ Automatic Monthly Renewal</li>
+                                            </ul>
+
+                                                <!-- Check if user is logged in -->
+                                                <t t-if="is_logged_in">
+                                                    <!-- Already has this exact plan -->
+                                                    <t t-if="plan['has_active']">
+                                                        <a href="/my_subscription" class="btn btn-success btn-lg w-100">
+                                                            ✓ Active Subscription
+                                                        </a>
+                                                    </t>
+                                                    <!-- Same-group conflict: different plan in the same group -->
+                                                    <t t-elif="plan['same_group_conflict']">
+                                                        <a t-attf-href="/subscription/upgrade?new_subscription_type={{ plan['type'] }}"
+                                                           class="btn btn-warning btn-lg w-100">
+                                                            <i class="fa fa-exchange"></i> Switch to This Plan
+                                                        </a>
+                                                        <p class="text-muted small mt-2 mb-0">
+                                                            Replaces your current <t t-esc="plan['conflicting_sub_name']"/>
+                                                        </p>
+                                                    </t>
+                                                    <!-- No conflict: different group OR no group at all -->
+                                                    <t t-elif="plan['can_add']">
+                                                        <a t-attf-href="/subscription/checkout?subscription_type={{ plan['type'] }}"
+                                                           class="btn btn-primary btn-lg w-100">
+                                                            <t t-if="has_any_active">➕ Add This Plan</t>
+                                                            <t t-else="">Subscribe Now</t>
+                                                        </a>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <a t-attf-href="/web/login?redirect=/subscription/checkout?subscription_type={{ plan['type'] }}"
+                                                       class="btn btn-primary btn-lg w-100">
+                                                        Login to Subscribe
+                                                    </a>
+                                                </t>
+
+
+                                            <p class="text-muted small mt-3 mb-0">
+                                                Secure payment powered by Stripe
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+
+                    <!-- Membership Details Section -->
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-5">
+                                    <h3 class="text-center fw-bold mb-4" style="color:#0a2351">Membership Details &amp; Terms</h3>
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled">
+                                                <li class="mb-3 d-flex align-items-start">
+                                                    <i class="fa fa-calendar-check-o text-primary mt-1 me-3"></i>
+                                                    <div>
+                                                        <strong>Advance Booking</strong><br/>
+                                                        Book our 110ft lanes up to <span class="text-dark fw-bold">one week in advance</span>.
+                                                    </div>
+                                                </li>
+                                                <li class="mb-3 d-flex align-items-start">
+                                                    <i class="fa fa-clock-o text-primary mt-1 me-3"></i>
+                                                    <div>
+                                                        <strong>Daily Limit</strong><br/>
+                                                        Usage limit of <span class="text-dark fw-bold">2 hours per day</span> per member.
+                                                    </div>
+                                                </li>
+                                                <li class="mb-3 d-flex align-items-start">
+                                                    <i class="fa fa-ban text-danger mt-1 me-3"></i>
+                                                    <div>
+                                                        <strong>Non-Peak Hours Only</strong><br/>
+                                                        <small class="text-muted">Peak hours excluded:</small><br/>
+                                                        Fri 7–10 PM, Sat &amp; Sun 10 AM–12 PM.
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled">
+                                                <li class="mb-3 d-flex align-items-start">
+                                                    <i class="fa fa-users text-primary mt-1 me-3"></i>
+                                                    <div>
+                                                        <strong>Guest Policy</strong><br/>
+                                                        One guest <span class="text-success fw-bold">FREE</span> each time.<br/>
+                                                        Extra guests: <span class="text-dark fw-bold">$30/hour</span> per guest.<br/>
+                                                        Ex:<br/>
+                                                        <span class="ms-2">Parent + 1 kid, additional kids $30/hour</span>
+                                                    </div>
+                                                </li>
+                                                <li class="mb-3 d-flex align-items-start">
+                                                    <i class="fa fa-refresh text-primary mt-1 me-3"></i>
+                                                    <div>
+                                                        <strong>Renewal</strong><br/>
+                                                        Membership renews monthly on the same date you signed up.
+                                                    </div>
+                                                </li>
+                                                <li class="mb-3 d-flex align-items-start">
+                                                    <i class="fa fa-money text-primary mt-1 me-3"></i>
+                                                    <div>
+                                                        <strong>Bowling Machines</strong><br/>
+                                                        Regular price applies:<br/>
+                                                        <span class="badge bg-light text-dark border">Trueman Bowling Machine $30/hr</span>
+                                                        <span class="badge bg-light text-dark border">BOLA Professional Bowling Machine $20/hr</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Help Text for Users -->
+                    <t t-if="has_any_active">
+                        <div class="alert alert-info mt-5">
+                            <h5 class="alert-heading">
+                                <i class="fa fa-info-circle"></i> Subscription Management
+                            </h5>
+                            <p class="mb-2"><strong>To switch within a group:</strong> Click "Switch to This Plan" — your current plan in that group will be replaced</p>
+                            <p class="mb-2"><strong>To add a plan from a different category:</strong> Click "Add This Plan" — both subscriptions run independently</p>
+                            <p class="mb-0"><strong>To cancel:</strong> Visit <a href="/my_subscription">My Subscription</a> page</p>
+                        </div>
+                    </t>
+
+                </div>
+            </section>
+
+            <style>
+                body {
+                    background: linear-gradient(to right, #d4e7c5, #a7c7e7);
+                }
+                
+                .subscription-plans {
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                    min-height: 80vh;
+                }
+                
+                .info-item {
+                    transition: transform 0.3s ease;
+                    background: white;
+                }
+                
+                .info-item:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                }
+                
+                .card {
+                    transition: transform 0.3s ease;
+                    position: relative;
+                }
+                
+                .card:hover {
+                    transform: scale(1.02);
+                }
+                
+                .btn-primary {
+                    background: #0a2351 !important;
+                    border: none;
+                    padding: 15px 30px;
+                    font-size: 1.1rem;
+                    transition: all 0.3s ease;
+                }
+                
+                .btn-primary:hover {
+                    background: #0d2f6e !important;
+                    box-shadow: 0 5px 20px rgba(10, 35, 81, 0.4);
+                }
+                
+                .btn-success {
+                    padding: 15px 30px;
+                    font-size: 1.1rem;
+                }
+                
+                .btn-warning {
+                    background: #ff8c00 !important;
+                    border: none;
+                    padding: 15px 30px;
+                    font-size: 1.1rem;
+                    color: white !important;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                }
+                
+                .btn-warning:hover {
+                    background: #ff7700 !important;
+                    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.5);
+                    transform: translateY(-2px);
+                    color: white !important;
+                }
+                
+                .btn-warning i {
+                    margin-right: 8px;
+                }
+                
+                .btn-secondary {
+                    padding: 15px 30px;
+                    font-size: 1.1rem;
+                    cursor: not-allowed;
+                    opacity: 0.6;
+                }
+                
+                .badge {
+                    font-size: 0.8rem;
+                    padding: 8px 12px;
+                }
+            </style>
+        </t>
+    </template>
+</odoo>

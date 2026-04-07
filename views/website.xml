@@ -1,0 +1,458 @@
+<odoo>
+
+    <template id="custom_navbar_template" inherit_id="website.layout" name="Custom Navbar">
+        <xpath expr="//header" position="replace">
+            <header style="width: 100%; margin: 0; padding: 0;">
+                <t t-set="is_connected" t-value="False"/>
+                <t t-if="website">
+                    <t t-set="is_connected" t-value="website.user_id != user_id"/>
+                </t>
+                <div class="top-nav">
+                    <div class="container d-flex justify-content-between align-items-center py-2">
+                        <div class="contact-info d-flex align-items-center">
+                            <span>
+                                <a href="https://www.google.com/maps/search/?api=1&amp;query=839+Upper+Union+Street,+Franklin,+MA,+02038"
+                                   target="_blank"
+                                   class="contact-link">
+                                    <i class="fa fa-map-marker golden-icon me-2"></i>
+                                    839 Upper Union Street, Franklin - MA - 02038
+                                </a>
+                            </span>
+                            <span>
+                                <a href="tel:(508) 709-5635" class="contact-link"><i
+                                        class="fa fa-phone golden-icon me-2"></i>(508) 709-5635
+                                </a>
+                            </span>
+                        </div>
+                        <div class="auth-buttons d-flex align-items-center">
+                            <t t-if="not is_connected">
+                                <a class="btn btn-warning mx-3 text-black fw-bold wide-btn"
+                                   style="  width: 120px!important;text-align: center!important;" href="/web/signup">
+                                    <i class="fa fa-user-plus me-2" aria-hidden="true"></i>
+                                    Sign Up
+                                </a>
+                                <a class="btn btn-danger mx-3 text-light fw-bold wide-btn"
+                                   style="  width: 120px!important;text-align: center!important;" href="/web/login">
+                                    <i class="fa fa-sign-in me-2" aria-hidden="true"></i>
+                                    Login
+                                </a>
+
+                            </t>
+                            <t t-if="is_connected">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        <t t-esc="request.env.user.name"/>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <li>
+                                            <a class="dropdown-item" href="/my">My Account</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/web/session/logout?redirect=/"
+                                               onclick="clearSessionAndLogout()">Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <script>function clearSessionAndLogout() {
+                                    sessionStorage.removeItem("selectedSlots");
+                                    sessionStorage.clear();
+                                    window.location.href = "/web/session/logout?redirect=/";
+                                    }
+                                </script>
+                            </t>
+                            <div class="social-icons mx-3">
+                                <a href="https://www.facebook.com/unitedsportsarena.ne" class="mx-3"
+                                   style="color:transparent!important;">
+                                    <i class="fa fa-facebook golden-icon"></i>
+                                </a>
+                                <a href="https://www.instagram.com/unitedsportsarena.ne?igsh=bWYydmM1ZGZhdjc2"
+                                   class="mx-3">
+                                    <i class="fa fa-instagram golden-icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                    <div class="container">
+                        <a href="/" class="navbar-brand">
+                            <img t-attf-src="/us_arena_website/static/src/img/usarena.png"
+                                 style="height: 80px; width: auto; object-fit: contain;" alt="Logo" class="logo"/>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarResponsive">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav mx-auto" style="gap: 0px;">
+                                <li class="nav-item">
+                                    <a class="nav-link  fw-bold" href="/about" style="color:#0a2351!important">ABOUT
+                                        US
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  fw-bold" href="/coaching" style="color:#0a2351!important">
+                                        COACHING
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  fw-bold" href="/lane-rental" style="color:#002D62!important">
+                                        LANE RENTALS
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  fw-bold" href="/coming-soon" style="color:#0a2351!important">
+                                        Champion's Choice
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" t-if="not request.env.user.has_group('base.group_system')">
+                                    <a class="nav-link fw-bold"
+                                    href="/subscription/plans"
+                                    style="color:#0a2351!important">
+                                        Buy Subscription
+                                    </a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link  fw-bold" href="/gallery" style="color:#0a2351!important">
+                                        Gallery
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="btn ms-3" href="/book-lanes" style="background-color:#0a2351;color:white">BOOK A
+                                LANE
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <style>
+
+                .navbar-nav .nav-item {
+                padding: 2px 4px;
+                transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+                }
+
+                .navbar-nav .nav-item:hover {
+                background-color: #e4e4e7;
+                color: blue !important;
+                }
+
+                .navbar-nav .nav-item:hover .nav-link {
+                color: blue !important;
+                }
+
+                .top-nav { background-color: #004A99; color: white; font-size: 14px; }
+                .contact-info span { margin-right: 15px; font-weight: bold; }
+                .contact-link { color: white; text-decoration: none; }
+                .contact-link:hover { text-decoration: underline; }
+                .auth-buttons .btn { font-size: 14px; padding: 6px 12px; }
+                .navbar-nav .nav-link { font-weight: bold; color: black !important; text-transform: uppercase;
+                font-size: 16px; }
+                .btn-primary { background-color: #004A99; border: none; padding: 8px 16px; }
+                .social-icons a { color: white; font-size: 16px; }
+                .golden-icon { color: #FFC107 !important; font-size: 18px; }
+                .dropdown-menu { background-color: #004A99; }
+                .dropdown-menu .dropdown-item { color: white; }
+                .dropdown-menu .dropdown-item:hover { background-color: #003366; }
+                @media (max-width: 991px) {
+                .top-nav .container { flex-direction: column; text-align: center; }
+                .contact-info, .auth-buttons { flex-direction: column; gap: 5px; }
+                .navbar-brand img { height: 70px; }
+                }
+                .top-nav .container {
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+                max-width: 1200px;
+                }
+                .top-nav {
+                background-color: #004A99;
+                color: white;
+                font-size: 14px !important;
+                }
+                .contact-info span {
+                margin-right: 15px;
+                font-weight: bold !important;
+                font-size: 14px !important;
+                }
+
+                .contact-link {
+                color: white !important;
+                text-decoration: none !important;
+                }
+
+                .auth-buttons .btn {
+                font-size: 14px !important;
+                padding: 6px 12px !important;
+                font-weight: bold !important;
+                }
+
+                .navbar-nav .nav-link {
+                font-weight: bold !important;
+                color: black !important;
+                text-transform: uppercase !important;
+                font-size: 16px !important;
+                }
+
+                .btn-primary {
+                background-color: #004A99 !important;
+                border: none !important;
+                padding: 8px 16px !important;
+                font-size: 16px !important;
+                }
+
+                .social-icons a {
+                color: white !important;
+                font-size: 16px !important;
+                }
+
+                .golden-icon {
+                color: #FFC107 !important;
+                font-size: 18px !important;
+                }
+
+                .dropdown-menu {
+                background-color: #004A99 !important;
+                }
+
+                .dropdown-menu .dropdown-item {
+                color: white !important;
+                font-size: 14px !important;
+                }
+
+                .dropdown-menu .dropdown-item:hover {
+                background-color: #003366 !important;
+                }
+
+                @media (max-width: 991px) {
+                .top-nav .container {
+                flex-direction: column !important;
+                text-align: center !important;
+                }
+
+
+                .contact-info, .auth-buttons {
+                flex-direction: column !important;
+                gap: 5px !important;
+                }
+
+                .navbar-brand img {
+                height: 70px !important;
+                }
+                }
+            </style>
+        </xpath>
+    </template>
+
+    <template id="custom_footer" inherit_id="website.layout">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <footer class="custom-footer">
+                <div class="container">
+                    <div class="row">
+                        <!-- Left Side: Logo & Contact Info (Properly Aligned) -->
+                        <div class="col-md-5">
+                            <div class="footer-logo">
+                                <img src="/us_arena_website/static/src/img/whitearena.png" alt="22Yards Austin"
+                                     class="footer-main-logo" style="margin-left:-10px;"/>
+                                <div class="footer-contact-info">
+                                    <span class="footer-title"
+                                          style="font-size:22px!important; font-family:Roboto!important;">United Sports
+                                        Arena
+                                    </span>
+                                    <span class="footer-subtext"
+                                          style="font-size:15px!important; font-family:Roboto!important;">New England’s
+                                        Premier Indoor Cricket Destination.
+                                    </span>
+                                    <div class="footer-contact">
+                                        <a href="mailto:contactus@unitedsportsarena.com" class="contact-link"
+                                           style="font-size:15px!important; font-family:Roboto!important;">
+                                            <span class="icon">📧</span>
+                                            contactus@unitedsportsarena.com
+                                        </a>
+                                        <a href="tel:(508) 709-5635" class="contact-link"
+                                           style="font-size:15px!important; font-family:Roboto!important;">
+                                            <span class="icon">📞</span>
+                                            (508) 709-5635
+                                        </a>
+                                        <a href="https://www.google.com/maps/search/?api=1&amp;query=839+Upper+Union+Street,+Franklin,+MA,+02038"
+                                           target="_blank" class="contact-link"
+                                           style="font-size:15px!important; font-family:Roboto!important;">
+                                            <span class="icon">📍</span>
+                                            839 Upper Union Street, Franklin - MA - 02038
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Links -->
+                        <div class="col-md-3">
+                            <h4 class="footer-heading" style="font-size:22px!important; font-family:Roboto!important;">
+                                Quick Links
+                            </h4>
+                            <ul class="footer-links">
+                                <li>
+                                    <a href="/" style="font-size:18px!important; font-family:Roboto!important;">Home</a>
+                                </li>
+                                <li>
+                                    <a href="/about" style="font-size:18px!important; font-family:Roboto!important;">
+                                        About Us
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/coaching" style="font-size:18px!important; font-family:Roboto!important;">
+                                        Coaching
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/lane-rental"
+                                       style="font-size:18px!important; font-family:Roboto!important;">Lane Rentals
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/contact-us"
+                                       style="font-size:18px!important; font-family:Roboto!important;">Contact Us
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Legal Section -->
+                        <div class="col-md-4">
+                            <h4 class="footer-heading" style="font-size:22px!important; font-family:Roboto!important;">
+                                Legal
+                            </h4>
+                            <ul class="footer-links">
+                                <li>
+                                    <a href="/coming-soon"
+                                       style="font-size:18px!important; font-family:Roboto!important;">Privacy Policy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/coming-soon"
+                                       style="font-size:18px!important; font-family:Roboto!important;">Terms of Use
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/coming-soon"
+                                       style="font-size:18px!important; font-family:Roboto!important;">Disclaimer
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/coming-soon"
+                                       style="font-size:18px!important; font-family:Roboto!important;">Waiver &amp;
+                                        Cancellations Policy
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+
+                    .custom-footer {
+                    background-color: #212529;
+                    padding: 40px 0;
+                    color: #fff;
+                    }
+
+                    .custom-footer .row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    }
+
+                    .footer-logo {
+                    display: flex;
+                    flex-direction: column;
+                    }
+
+                    .footer-main-logo {
+                    max-width: 300px;
+                    margin-bottom: 5px;
+                    }
+
+                    .footer-contact-info {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    }
+
+
+                    .footer-title {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #fff;
+                    margin-bottom: 2px; /* Reduced space */
+                    }
+
+                    .footer-subtext {
+                    color: #fff;
+                    font-size: 16px;
+                    margin-bottom: 8px; /* Reduced space */
+                    }
+
+                    .footer-contact {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3px; /* Closer spacing */
+                    }
+
+                    .footer-contact a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    }
+
+                    .footer-contact a:hover {
+                    color: #1E90FF;
+                    }
+
+                    .icon {
+                    font-size: 18px;
+                    }
+
+                    .footer-heading {
+                    font-size: 20px;
+                    color: #1E90FF;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                    }
+
+                    .footer-links {
+                    list-style: none;
+                    padding-left: 0;
+                    }
+
+                    .footer-links li {
+                    margin-bottom: 10px;
+                    }
+
+                    .footer-links li a {
+                    text-decoration: none;
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #fff;
+                    }
+
+                    .footer-links li a:hover {
+                    color: #1E90FF;
+                    }
+                </style>
+            </footer>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend the My Account page to add subscription section -->
+    <template id="portal_my_home_subscription" name="Portal My Home: Subscription" inherit_id="portal.portal_my_home" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-set="subscription" t-value="request.env['user.subscription'].sudo().search([('partner_id', '=', request.env.user.partner_id.id)], order='create_date desc', limit=1)"/>
+            
+            <t t-if="subscription">
+                <div class="col-lg-6 col-md-6 mb-3">
+                    <a href="/my_subscription" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm subscription-card">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <i class="fa fa-star fa-3x" t-attf-style="color: #{subscription.status == 'active' and '#28a745' or '#6c757d'};"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="card-title mb-1">My Subscription</h5>
+                                    <p class="card-text text-muted mb-0">
+                                        <t t-if="subscription.status == 'active'">
+                                            <span class="badge bg-success">Active</span>
+                                            <!-- <span class="ms-2">$<t t-esc="subscription.price"/>/month</span> -->
+                                        </t>
+                                        <t t-elif="subscription.status == 'cancelled'">
+                                            <span class="badge bg-warning">Cancelled</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="badge bg-secondary"><t t-esc="subscription.status.title()"/></span>
+                                        </t>
+                                    </p>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="col-lg-6 col-md-6 mb-3">
+                    <a href="/subscription/plans" class="text-decoration-none">
+                        <div class="card h-100 border-0 shadow-sm subscription-card">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <i class="fa fa-star-o fa-3x text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="card-title mb-1">Get Subscription</h5>
+                                    <p class="card-text text-muted mb-0">
+                                        Subscribe for exclusive benefits
+                                    </p>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </t>
+        </xpath>
+    </template>
+      <template id="portal_my_home_slots" name="Show Bookings" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <div class="col-lg-6 col-md-6 mb-3">
+                <a href="/my/slots" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm subscription-card">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="flex-shrink-0 me-3">
+                                <i class="fa fa-calendar fa-3x text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="card-title mb-1">My Bookings</h5>
+                                <p class="card-text text-muted mb-0">
+                                    View your past and future lane bookings
+                                    <span t-if="slot_count" class="badge bg-secondary rounded-pill ms-2" t-esc="slot_count"/>
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_my_slots" name="My Bookings">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Bookings</t>
+            </t>
+
+            <t t-if="not slots">
+                <p>There are no bookings.</p>
+            </t>
+            
+            <t t-if="slots">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="active">
+                                <th>Booking Ref</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Lane</th>
+                                <th>Product</th>
+                                <th>Add-ons</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="slots" t-as="slot">
+                                <tr>
+                                    <td>
+                                        <a t-if="slot['sale_id']" t-att-href="slot['sale_id'].get_portal_url()">
+                                            <t t-esc="slot['sale_id'].name"/>
+                                        </a>
+                                        <span t-else="">N/A</span>
+                                    </td>
+                                    <td><span t-esc="slot['date']" t-options='{"widget": "date"}'/></td>
+                                    <td><span t-esc="slot['time_slot']"/></td>
+                                    <td><span t-esc="slot['lane_name']"/></td>
+                                    <td><span t-esc="slot['product_id'].name"/></td>
+                                    <td>
+                                        <t t-if="slot['sale_id']">
+                                            <t t-set="addons" t-value="slot['sale_id'].get_unique_addons()"/>
+                                            <t t-if="addons">
+                                                <div t-foreach="addons" t-as="addon_name">
+                                                    <span class="badge bg-info text-dark" t-esc="addon_name"/>
+                                                </div>
+                                            </t>
+                                            <span t-else="" class="text-muted">-</span>
+                                        </t>
+                                        <span t-else="">-</span>
+                                    </td>
+                                    <td>
+                                        <span t-if="slot['is_booked']" class="badge bg-success">Booked</span>
+                                        <span t-else="" class="badge bg-warning">Pending</span>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_breadcrumbs_slots" name="Portal Breadcrumbs Slots" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'slots'" class="breadcrumb-item active">
+                My Bookings
+            </li>
+        </xpath>
+    </template>
+</odoo>

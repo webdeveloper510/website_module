@@ -1,0 +1,258 @@
+<odoo>
+    <template id="add_to_lane_cart" name="Lane Rental Page">
+        <t t-call="website.layout">
+            <style>
+                /* Custom CSS for a more modern and fancy look */
+                .availslot {
+                background-color: #f5f5f5;
+                padding: 40px 0;
+                font-family: 'Arial', sans-serif;
+                }
+
+                .availslot h2 {
+                font-size: 30px;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 30px;
+                color: #333;
+                }
+
+                .product-card {
+                display: flex;
+                align-items: center;
+                background-color: #fff;
+                border-radius: 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                margin-bottom: 20px;
+                transition: transform 0.3s ease;
+                justify-content: space-between;
+                }
+
+                .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                }
+
+                .product-img {
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 10px;
+                }
+
+                .product-info {
+                flex-grow: 1;
+                margin-left: 20px;
+                }
+
+                .product-name {
+                font-size: 18px;
+                font-weight: bold;
+                color: #444;
+                margin-bottom: 10px;
+                }
+
+                .total-price {
+                font-size: 16px;
+                font-weight: 700;
+                color: #2d2d2d;
+                margin-bottom: 10px;
+                }
+
+                .remove-btn {
+                background-color: #6b070c;
+                margin-top:28px;
+                color: #fff;
+                border-radius: 30px;
+                border: none;
+                padding: 10px 20px;
+                font-size: 14px;
+                text-transform: uppercase;
+                transition: background-color 0.3s ease;
+                align-self: flex-start;
+                }
+
+                .remove-btn:hover {
+                background-color: #ff3d00;
+                }
+
+                .slots-list {
+                margin-top: 10px;
+                }
+
+                .slot-item {
+                background-color: #8acf90;
+                border-radius: 10px;
+                padding: 8px 15px;
+                font-size: 12px;
+                font-weight: 600;
+                color: #00796b;
+                margin-right: 10px;
+                margin-bottom: 10px;
+                display: inline-block;
+                }
+
+                /* Media Query for Mobile Responsiveness */
+                @media (max-width: 768px) {
+                .product-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                }
+
+                .product-info {
+                margin-left: 0;
+                margin-top: 15px;
+                }
+
+                .product-name {
+                font-size: 16px;
+                }
+
+                .total-price {
+                font-size: 14px;
+                }
+
+                .remove-btn {
+                font-size: 12px;
+                margin-top: 10px;
+                }
+                }
+            </style>
+
+            <div class="container availslot">
+                <h2>Lane Cart</h2>
+
+                <t t-set="products" t-value="[
+                    {
+                        'name': 'Cricket Bat',
+                        'image_url': '/path/to/bat_image.jpg',
+                        'price': '50.00',
+                        'slots': [
+                            {'name': 'Morning Session', 'price': '10.00'},
+                            {'name': 'Afternoon Session', 'price': '12.00'}
+                        ]
+                    },
+                    {
+                        'name': 'Cricket Ball',
+                        'image_url': '/path/to/ball_image.jpg',
+                        'price': '20.00',
+                        'slots': [
+                            {'name': 'Evening Session', 'price': '8.00'},
+                            {'name': 'Night Session', 'price': '9.00'}
+                        ]
+                    },
+                    {
+                        'name': 'Cricket Gloves',
+                        'image_url': '/path/to/gloves_image.jpg',
+                        'price': '30.00',
+                        'slots': [
+                            {'name': 'Morning Session', 'price': '7.00'},
+                            {'name': 'Noon Session', 'price': '7.50'}
+                        ]
+                    }
+                ]"/>
+
+                <!-- Products Loop -->
+                <div class="row">
+                    <t t-foreach="products" t-as="product">
+                        <div class="col-12">
+                            <!-- Product Row -->
+                            <div class="product-card">
+                                <!-- Product Image -->
+                                <img src="https://media.gettyimages.com/id/962058410/photo/chris-lane-of-wisden-runs-for-shelter-as-rain-interrupts-a-game-of-cricket-at-wormsley-cricket.jpg?s=612x612&amp;w=gi&amp;k=20&amp;c=07zUNcWeTHk3JoyqYuZVg1uMlEs6S0kTSYtGhZcV9Tk="
+                                     class="product-img" alt="Product Image"/>
+
+                                <!-- Product Info -->
+                                <div class="product-info">
+                                    <div class="product-name">
+                                        Test Product
+                                    </div>
+                                    <div class="total-price">
+                                        Price: $900.00
+                                    </div>
+                                    <!-- Available Slots -->
+                                    <div class="slots-list">
+                                        <t t-foreach="product" t-as="slot">
+                                            <span class="slot-item">
+                                                04:00 PM - $300
+                                            </span>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <!-- Remove Button -->
+                                <button class="remove-btn">Remove</button>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <style></style>
+        </t>
+    </template>
+
+
+    <template id="portal_my_orders_inherit" inherit_id="sale.portal_my_orders">
+        <xpath expr="//thead/tr/th[1]/span[@class='d-none d-md-inline']" position="replace">
+            <span class='d-none d-md-inline'>Booking ID</span>
+        </xpath>
+        <xpath expr="//thead/tr/th[1]/span[@class='d-block d-md-none']" position="replace">
+            <span class='d-block d-md-none'>Booking</span>
+        </xpath>
+
+        <xpath expr="//thead/tr/th[contains(text(), 'Order Date')]" position="replace">
+            <th class="text-end">Booking Date</th>
+        </xpath>
+
+
+    </template>
+
+    <template id="sale_order_portal_content_inherit" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//section[@id='details']//table//thead/tr/th[last()]" position="after">
+            <th></th>
+        </xpath>
+
+<!--        <xpath expr="//section[@id='details']//table//tbody//tr" position="inside">-->
+<!--            <td >-->
+<!--                <t t-if="request.env.user.video_file">-->
+<!--                    <a t-att-href="'/web/content/' + str(request.env.user.id) + '?model=res.users&amp;field=video_file&amp;filename_field=video_filename&amp;download=true'"-->
+<!--                       class="btn btn-sm btn-outline-primary"-->
+<!--                       title="Download Video">-->
+<!--                        <i class="fa fa-download"></i>-->
+<!--                    </a>-->
+<!--                </t>-->
+
+<!--                <t t-if="request.env.user.video_url">-->
+<!--                    <a t-att-href="request.env.user.video_url"-->
+<!--                       target="_blank"-->
+<!--                       class="btn btn-sm btn-outline-secondary"-->
+<!--                       title="Watch Video">-->
+<!--                        <i class="fa fa-eye"></i>-->
+<!--                    </a>-->
+<!--                </t>-->
+<!--                <t t-if="request.env.user.has_group('base.group_system')">-->
+<!--                    <a class="btn btn-sm btn-outline-success"-->
+<!--                       title="Upload Video"-->
+<!--                       href="'/web#id=%s&amp;model=res.users&amp;view_type=form&amp;action=base.action_res_users'"-->
+<!--                       t-att-href="('/web#id=%s&amp;model=res.users&amp;view_type=form&amp;action=base.action_res_users' % sale_order.user_id.id)">-->
+<!--                        <i class="fa fa-upload"></i>-->
+<!--                    </a>-->
+<!--                </t>-->
+
+<!--            </td>-->
+<!--        </xpath>-->
+    </template>
+<template id="sale_order_portal_template_inherit" inherit_id="sale.sale_order_portal_template">
+    <xpath expr="//t[@t-set='classes']" position="replace">
+        <t t-set="classes" t-value="'col-lg-3 col-xxl-3 d-print-none'"/>
+    </xpath>
+
+    <xpath expr="//div[@id='quote_content']" position="attributes">
+        <attribute name="class">col-12 col-lg-9 col-xxl-9 mt-5 mt-lg-0</attribute>
+    </xpath>
+</template>
+
+
+</odoo>

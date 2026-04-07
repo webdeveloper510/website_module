@@ -1,0 +1,457 @@
+<odoo>
+    <template id="coaching_page_template" name="Cricket Coaching Page">
+    <t t-call="website.layout">
+    <section class="coaching-banner">
+    <div class="overlay"></div>
+    <div class="coaching-content">
+        <h2 class="coaching-title" data-aos="fade-up" style="font-family:Roboto !important;font-size:40px; color:#d7af43!important">
+            Our Cricket Coaching &amp; Training Programs At US Arena
+        </h2>
+        <h3 class="coaching-subtitle" data-aos="fade-up" data-aos-delay="200" style="font-family:Roboto !important;font-size:25px;">
+            Develop Your Skills at Boston’s Premier Cricket Academy
+        </h3>
+        <p class="coaching-description" data-aos="fade-up" data-aos-delay="400" style="font-family:Roboto !important;font-size:18px;">
+            Welcome to United Sports Arena, where we provide professional cricket coaching and training tailored for every level of experience. Whether you’re a beginner eager to learn the basics or an advanced player aiming to polish your skills, our diverse programs are designed to cater to all needs.
+        </p>
+    </div>
+</section>
+<!-- Coming Soon Section -->
+<section class="coming-soon-section">
+    <h2 class="coming-soon-text">Coming Soon.</h2>
+</section>
+
+<!-- Styles -->
+<style>
+    body {
+        overflow-x: hidden;
+    }
+
+    .coaching-banner {
+        position: relative;
+        width: 100%;
+        height: 450px;
+        background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        animation: zoomInOut 10s ease-in-out infinite;
+    }
+
+    /* Dark Overlay */
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Content */
+    .coaching-content {
+        position: relative;
+        max-width: 800px;
+        color: white;
+        padding: 20px;
+    }
+
+    /* Title */
+    .coaching-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ffcc00;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .coaching-subtitle {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 10px 0;
+        animation: float 3s ease-in-out infinite 0.2s;
+    }
+
+    .coaching-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #e0e0e0;
+        animation: float 3s ease-in-out infinite 0.4s;
+    }
+
+    /* Coming Soon Section */
+    .coming-soon-section {
+        width: 100%;
+        background: white;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .coming-soon-text {
+        font-family: Roboto, sans-serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #d4a017;
+    }
+
+    /* Zoom Animation for Background Image */
+    @keyframes zoomInOut {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .coaching-banner {
+            height: 350px;
+            padding: 10px;
+        }
+
+        .coaching-title {
+            font-size: 1.8rem;
+        }
+
+        .coaching-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .coaching-description {
+            font-size: 0.9rem;
+        }
+
+        .coming-soon-text {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    AOS.init();
+</script>
+
+
+        </t>
+    </template>
+
+    <template id="contact_us_section" name="Contact Us Section">
+    <t t-call="website.layout">
+
+        <!-- Contact Us - Header Section -->
+        <section class="contact-header-section">
+            <div class="contact-overlay"></div>
+            <div class="contact-header-content">
+                <h2 style="font-family:Roboto !important; font-size:40px; font-weight:600">Contact Us</h2>
+                <p style="font-family:Roboto !important">
+                    Come see our facilities firsthand and speak with our staff.
+                    For immediate assistance or to speak with a member of our team, give us a call.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Details Section -->
+       <section class="contact-details-section">
+    <div class="contact-overlay1"></div>
+    <div class="contact-container">
+        <div class="contact-content animate-left">
+            <h3 style="font-size:40px; color:#d4a017; font-weight:600">Get in touch with us</h3>
+            <p style="font-family:'Be Vietnam Pro', Sans-serif !important;color:black">
+                Whether you have questions about our programs, want to book a lane, or need information
+                on events and facilities, we’re here to help. At United Sports Arena, we value communication
+                with our clients and community. Below you’ll find all the ways you can contact us.
+            </p>
+
+            <div class="contact-details">
+                <div class="contact-item">
+                     <a href="https://www.google.com/maps/search/?api=1&amp;query=839+Upper+Union+Street,+Franklin,+MA,+02038"
+                                   target="_blank"
+                                   class="contact-link" style="display:flex">
+                    <img src="https://cdn-icons-png.freepik.com/256/9524/9524872.png?semt=ais_hybrid" class="contact-icon"/>
+                    <div>
+                        <strong style="color:black">OUR FACILITY</strong>
+                        <p style="font-family:'Be Vietnam Pro', Sans-serif !important;color:black">839 Upper Union Street, Franklin - MA - 02038</p>
+                    </div>
+                     </a>
+                </div>
+                <div class="contact-item">
+                     <a href="tel:(508) 709-5635" class="contact-link" style="display:flex">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Telephone_icon_blue_gradient.svg/1200px-Telephone_icon_blue_gradient.svg.png" class="contact-icon"/>
+                    <div>
+                        <strong style="color:black">PHONE NUMBER</strong>
+                        <p style="font-family:'Be Vietnam Pro', Sans-serif !important;color:black">(508) 709-5635</p>
+                    </div>
+                     </a>
+                </div>
+                <div class="contact-item">
+                    <a href="mailto: contactus@unitedsportsarena.com" style="color:white;display:flex">
+                    <img src="https://banner2.cleanpng.com/20180803/pci/a171bd99f4c469933a7cd5bbb1df0fcf.webp" class="contact-icon"/>
+                    <div>
+                        <strong style="color:black">EMAIL</strong>
+                        <p style="font-family:'Be Vietnam Pro', Sans-serif !important;color:black">contactus@unitedsportsarena.com</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+           <p class="social-text" style="font-family:'Be Vietnam Pro', Sans-serif !important;color:black">
+    Follow us on social media to stay updated on the latest news, events, and promotions.
+</p>
+<div class="social-icons">
+    <a href="https://www.facebook.com/unitedsportsarena.ne" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" class="social-icon" alt="Facebook"/>
+    </a>
+    <a href="https://www.instagram.com/unitedsportsarena.ne?igsh=bWYydmM1ZGZhdjc2" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" class="social-icon" alt="Instagram"/>
+    </a>
+
+     <a href="https://www.linkedin.com/company/united-sports-arena/" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="social-icon" alt="LinkedIn"/>
+    </a>
+
+</div>
+
+
+        </div>
+        <div class="contact-logo animate-right">
+            <img src="/us_arena_website/static/src/img/usarena.png" alt="22 Yards Logo"/>
+        </div>
+    </div>
+</section>
+        <style>
+            @keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+            .social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-left {
+    animation: slideInLeft 1s ease-out;
+}
+
+.animate-right {
+    animation: slideInRight 1s ease-out;
+}
+
+
+
+
+    .contact-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-header-content {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards 0.5s;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        opacity: 0;
+        transform: translateX(-100%);
+        animation: slideInLeft 1s ease-out forwards;
+    }
+
+    p {
+        font-size: 1.2rem;
+        opacity: 0;
+        transform: translateX(100%);
+        animation: slideInRight 1s ease-out forwards 0.5s;
+    }
+
+    /* Keyframe Animations */
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+            /* ======================== COMMON STYLES ======================== */
+
+
+
+            /* ======================== HEADER SECTION ======================== */
+            .contact-header-section {
+                position: relative;
+                background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center / cover;
+                height: 60vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: white;
+                padding: 0 20px;
+                margin-bottom: 40px; /* Space between sections */
+            }
+
+            .contact-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5); /* Darker overlay */
+                z-index: 1;
+            }
+
+            .contact-header-content {
+                position: relative;
+                z-index: 2;
+                max-width: 800px;
+                text-align: center;
+            }
+
+            /* ======================== CONTACT DETAILS SECTION ======================== */
+            .contact-details-section {
+                position: relative;
+                background:white;
+                height: auto;
+                padding: 60px 5%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                margin-bottom: 40px;
+            }
+
+            .contact-container {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                max-width: 1200px;
+            }
+
+            .contact-content {
+                max-width: 60%;
+                text-align: left;
+            }
+
+            .contact-details {
+                margin-top: 20px;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .contact-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 15px;
+            }
+
+            .contact-logo img {
+                max-width: 500px;
+            }
+
+            .social-text {
+                margin-top: 20px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            /* ======================== RESPONSIVE DESIGN ======================== */
+            @media (max-width: 768px) {
+                .contact-container {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .contact-content {
+                    max-width: 100%;
+                    text-align: center;
+                }
+
+                .contact-logo img {
+                    margin-top: 20px;
+                }
+            }
+
+
+        </style>
+
+
+
+    </t>
+</template>
+
+
+</odoo>

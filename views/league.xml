@@ -1,0 +1,292 @@
+<odoo>
+    <template id="league_page_template" name="Box Cricket League Page">
+        <t t-call="website.layout">
+            <section class="special-events-section">
+                <div class="special-overlay"></div>
+                <div class="special-content">
+                    <h2>Special Events At 22Yards Austin</h2>
+                    <p class="sub-heading">
+                        Experience Cricket Like Never Before at Austin’s Premier Indoor Cricket Facility
+                    </p>
+                    <p class="description">
+                        Welcome to the Special Events section of 22Yards Austin, where we host a vibrant array of
+                        cricket activities
+                        designed to unite and thrill the cricketing community. From intense local tournaments to
+                        engaging workshops,
+                        corporate events, and lively community gatherings, we offer a diverse calendar that caters to
+                        all ages and interests.
+                    </p>
+                </div>
+            </section>
+
+            <style>
+                /* ======================== COMMON STYLES ======================== */
+                * {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 400;
+                }
+
+                h2 {
+                font-size: 48px;
+                font-weight: 700;
+                color: #f6b10a; /* Yellowish tone */
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                }
+
+                .sub-heading {
+                font-size: 22px;
+                font-weight: 600;
+                color: white;
+                margin-bottom: 20px;
+                }
+
+                .description {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1.6;
+                max-width: 900px;
+                text-align: center;
+                color: white;
+                }
+
+                /* ======================== SPECIAL EVENTS SECTION ======================== */
+                .special-events-section {
+                position: relative;
+                background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center / cover;
+                height: 60vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: white;
+                padding: 0 10%;
+                }
+
+                .special-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+                z-index: 1;
+                }
+
+                .special-content {
+                position: relative;
+                z-index: 2;
+                max-width: 1000px;
+                text-align: center;
+                }
+
+                @media (max-width: 768px) {
+                .special-events-section {
+                height: auto;
+                padding: 60px 5%;
+                }
+
+                .special-content {
+                text-align: center;
+                }
+
+                h2 {
+                font-size: 36px;
+                }
+
+                .sub-heading {
+                font-size: 20px;
+                }
+
+                .description {
+                font-size: 16px;
+                }
+                }
+            </style>
+
+
+<section class="container my-5">
+    <t t-set="counter" t-value="0"/>
+    <t t-foreach="events" t-as="event">
+        <t t-set="is_even" t-value="counter % 2 == 0"/>
+        <t t-set="features_list" t-value="event.features.split('\n')"/>
+
+        <div class="row align-items-center my-5">
+            <t t-if="is_even">
+                <div class="col-md-6 text-content">
+                    <h2 t-esc="event.name" class="event-title"/>
+                    <p t-esc="event.description" class="event-description"/>
+                    <h3 class="features-heading">Features include:</h3>
+                    <ul class="features-list">
+                        <t t-foreach="features_list" t-as="feature">
+                            <li><t t-esc="feature"/></li>
+                        </t>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-images">
+                        <img t-att-src="'/web/image/box.cricket.event/%d/image_1' % event.id" class="event-image-main"/>
+                        <img t-att-src="'/web/image/box.cricket.event/%d/image_2' % event.id" class="event-image-overlay"/>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="col-md-6">
+                    <div class="event-images">
+                        <img t-att-src="'/web/image/box.cricket.event/%d/image_1' % event.id" class="event-image-main"/>
+                        <img t-att-src="'/web/image/box.cricket.event/%d/image_2' % event.id" class="event-image-overlay"/>
+                    </div>
+                </div>
+                <div class="col-md-6 text-content">
+                    <h2 t-esc="event.name" class="event-title"/>
+                    <p t-esc="event.description" class="event-description"/>
+                    <h3 class="features-heading">Features include:</h3>
+                    <ul class="features-list">
+                        <t t-foreach="features_list" t-as="feature">
+                            <li><t t-esc="feature"/></li>
+                        </t>
+                    </ul>
+                </div>
+            </t>
+        </div>
+        <t t-set="counter" t-value="counter + 1"/>
+    </t>
+</section>
+
+
+            <style>
+       /* Importing the required fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:&amp;family=Lora:wght@400;600&amp;display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Event Image Styling */
+.event-images {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Fixed height for image containers */
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.event-image-main, .event-image-overlay {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the images fill the space properly */
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.event-image-overlay {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 60%;
+    border: 5px solid #fff;
+    border-radius: 10px;
+}
+
+/* Text Content Styling */
+.text-content {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 500px; /* Fixed height for text content */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Ensure all event cards have the same height */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Ensures equal height of columns */
+}
+
+.col-md-6 {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Ensures both columns take equal space */
+}
+
+/* Event Title and Description */
+.event-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    overflow: hidden; /* Ensure title stays within the card */
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Prevent the title from breaking into multiple lines */
+}
+
+.event-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Allows description to grow and fill space */
+    overflow: hidden; /* Ensure description stays within the card */
+}
+
+/* Features List */
+.features-heading {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.features-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0; /* Prevent margin from overflowing */
+    flex-grow: 1; /* Allow the list to take available space */
+    overflow-y: auto; /* Allow scrolling within the features list if it overflows */
+}
+
+.features-list li {
+    font-family: 'Lora', serif; /* Updated font style */
+    font-size: 16px;  /* Updated font size for better readability */
+    color: #555;
+    padding: 8px 0;
+    white-space: normal; /* Ensure list items wrap correctly */
+}
+
+/* Responsive Styling */
+@media (max-width: 767px) {
+    .text-content {
+        padding: 15px;
+    }
+
+    .event-title {
+        font-size: 24px;
+    }
+
+    .event-description {
+        font-size: 14px;
+    }
+
+    .features-heading {
+        font-size: 18px;
+    }
+
+    .features-list li {
+        font-size: 14px;
+    }
+}
+
+            </style>
+
+
+        </t>
+    </template>
+</odoo>

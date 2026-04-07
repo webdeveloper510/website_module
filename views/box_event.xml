@@ -1,0 +1,46 @@
+<odoo>
+
+
+
+    <record id="action_box_cricket_event" model="ir.actions.act_window">
+        <field name="name">Upcoming Events</field>
+        <field name="res_model">box.cricket.event</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <record id="view_tree_box_cricket_event" model="ir.ui.view">
+        <field name="name">box.cricket.event.tree</field>
+        <field name="model">box.cricket.event</field>
+        <field name="arch" type="xml">
+            <list>
+               <field name="name"/>
+                        <field name="description"/>
+                        <field name="features" />
+                         <field name="image_1"/>
+                        <field name="image_2"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_form_box_cricket_event" model="ir.ui.view">
+        <field name="name">box.cricket.event.form</field>
+        <field name="model">box.cricket.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="features" />
+                         <field name="image_1"/>
+                        <field name="image_2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <menuitem id="Events" parent="menu_arena"  name="Box Cricket" sequence="4" action="action_box_cricket_event"/>
+
+
+</odoo>

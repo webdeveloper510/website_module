@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================= -->
+    <!-- CATEGORY DISCOUNT LIST VIEWS -->
+    <!-- ============================= -->
+
+    <record id="view_subscription_category_discount_list_a" model="ir.ui.view">
+        <field name="name">subscription.category.discount.list.a</field>
+        <field name="model">subscription.category.discount</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="subscription_type" invisible="1"/>
+                <field name="category_id"/>
+                <field name="discount_percent" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_subscription_category_discount_list_b" model="ir.ui.view">
+        <field name="name">subscription.category.discount.list.b</field>
+        <field name="model">subscription.category.discount</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="subscription_type" invisible="1"/>
+                <field name="category_id"/>
+                <field name="discount_percent" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_subscription_category_discount_list_c" model="ir.ui.view">
+        <field name="name">subscription.category.discount.list.c</field>
+        <field name="model">subscription.category.discount</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="subscription_type" invisible="1"/>
+                <field name="category_id"/>
+                <field name="discount_percent" />
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================= -->
+    <!-- FORM VIEW -->
+    <!-- ============================= -->
+
+    <record id="view_subscription_discount_config_form" model="ir.ui.view">
+        <field name="name">subscription.discount.config.form</field>
+        <field name="model">subscription.discount.config</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Discount Configuration">
+
+                <header>
+                    <button name="apply_to_all_subscriptions"
+                            string="Apply to All Active Subscriptions"
+                            type="object"
+                            class="btn-primary"
+                            confirm="This will update discount rates for all active subscriptions. Continue?"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Configuration Name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+
+                    <notebook>
+
+                        <!-- ============================= -->
+                        <!-- MEMBERSHIP A -->
+                        <!-- ============================= -->
+
+                        <page string="Membership A" name="membership_a">
+                            <group>
+                                <group string="Base Discounts">
+                                    <field name="sub_a_lane_rental" />
+                                    <field name="sub_a_merchandise" />
+                                </group>
+                            </group>
+
+                            <separator string="Category-Specific Discounts"/>
+
+                            <field name="category_discount_a_ids"
+                                   context="{
+                                       'default_subscription_type': 'subscription_a',
+                                       'list_view_ref': 'view_subscription_category_discount_list_a'
+                                   }"/>
+
+                            <group string="Note" class="mt-3">
+                                <div class="alert alert-info" role="alert">
+                                    <p><strong>How it works:</strong></p>
+                                    <ul>
+                                        <li>Base discounts apply to all Lane Rentals and Merchandise products</li>
+                                        <li>Category-specific discounts override base discounts</li>
+                                        <li>Example: Base 10%, Category 15% → Category wins</li>
+                                    </ul>
+                                </div>
+                            </group>
+                        </page>
+
+                        <!-- ============================= -->
+                        <!-- MEMBERSHIP B -->
+                        <!-- ============================= -->
+
+                        <page string="Membership B" name="membership_b">
+                            <group>
+                                <group string="Base Discounts">
+                                    <field name="sub_b_lane_rental" />
+                                    <field name="sub_b_merchandise" />
+                                </group>
+                            </group>
+
+                            <separator string="Category-Specific Discounts"/>
+
+                            <field name="category_discount_b_ids"
+                                   context="{
+                                       'default_subscription_type': 'subscription_b',
+                                       'list_view_ref': 'view_subscription_category_discount_list_b'
+                                   }"/>
+
+                            <group string="Note" class="mt-3">
+                                <div class="alert alert-info" role="alert">
+                                    <p><strong>Membership B Benefits:</strong>
+                                       Configure special discounts for Membership B subscribers
+                                    </p>
+                                </div>
+                            </group>
+                        </page>
+
+                        <!-- ============================= -->
+                        <!-- MEMBERSHIP C -->
+                        <!-- ============================= -->
+
+                        <page string="Membership C" name="membership_c">
+                            <group>
+                                <group string="Base Discounts">
+                                    <field name="sub_c_lane_rental" />
+                                    <field name="sub_c_merchandise" />
+                                </group>
+                            </group>
+
+                            <separator string="Category-Specific Discounts"/>
+
+                            <field name="category_discount_c_ids"
+                                   context="{
+                                       'default_subscription_type': 'subscription_c',
+                                       'list_view_ref': 'view_subscription_category_discount_list_c'
+                                   }"/>
+
+                            <group string="Note" class="mt-3">
+                                <div class="alert alert-info" role="alert">
+                                    <p><strong>Membership C Benefits:</strong>
+                                       Configure special discounts for Membership C subscribers
+                                    </p>
+                                </div>
+                            </group>
+                        </page>
+
+                        <!-- ============================= -->
+                        <!-- OVERVIEW -->
+                        <!-- ============================= -->
+
+                       <page string="Overview" name="overview">
+                            <group>
+
+                                <group string="Membership A">
+                                    <span class="o_form_label">Lane Rentals</span>
+                                    <div>
+                                        <field name="sub_a_lane_rental" class="oe_inline"/> %
+                                    </div>
+
+                                    <span class="o_form_label">Merchandise</span>
+                                    <div>
+                                        <field name="sub_a_merchandise" class="oe_inline"/> %
+                                    </div>
+                                </group>
+
+                                <group string="Membership B">
+                                    <span class="o_form_label">Lane Rentals</span>
+                                    <div>
+                                        <field name="sub_b_lane_rental" class="oe_inline"/> %
+                                    </div>
+
+                                    <span class="o_form_label">Merchandise</span>
+                                    <div>
+                                        <field name="sub_b_merchandise" class="oe_inline"/> %
+                                    </div>
+                                </group>
+
+                                <group string="Membership C">
+                                    <span class="o_form_label">Lane Rentals</span>
+                                    <div>
+                                        <field name="sub_c_lane_rental" class="oe_inline"/> %
+                                    </div>
+
+                                    <span class="o_form_label">Merchandise</span>
+                                    <div>
+                                        <field name="sub_c_merchandise" class="oe_inline"/> %
+                                    </div>
+                                </group>
+
+                            </group>
+
+                            <separator string="All Category Discounts"/>
+
+                            <field name="category_discount_ids" readonly="1">
+                                <list>
+                                    <field name="subscription_type"/>
+                                    <field name="category_id"/>
+                                    <field name="discount_percent" />
+                                </list>
+                            </field>
+                        </page>
+
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================= -->
+    <!-- LIST VIEW -->
+    <!-- ============================= -->
+
+    <record id="view_subscription_discount_config_list" model="ir.ui.view">
+        <field name="name">subscription.discount.config.list</field>
+        <field name="model">subscription.discount.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="sub_a_lane_rental" string="A - Lane (%)" />
+                <field name="sub_a_merchandise" string="A - Merch (%)" />
+                <field name="sub_b_lane_rental" string="B - Lane (%)" />
+                <field name="sub_b_merchandise" string="B - Merch (%)" />
+                <field name="sub_c_lane_rental" string="C - Lane (%)" />
+                <field name="sub_c_merchandise" string="C - Merch (%)" />
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================= -->
+    <!-- ACTION -->
+    <!-- ============================= -->
+
+    <record id="action_subscription_discount_config" model="ir.actions.act_window">
+        <field name="name">Discount Configuration</field>
+        <field name="res_model">subscription.discount.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first discount configuration
+            </p>
+            <p>
+                Configure different discount rates for each membership type.<br/>
+                Set specific discounts for Membership A, B, and C independently.
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================= -->
+    <!-- MENU -->
+    <!-- ============================= -->
+
+    <menuitem id="menu_subscription_discount_config"
+              name="Discount Settings"
+              parent="menu_user_subscription_root"
+              action="action_subscription_discount_config"
+              sequence="20"
+              groups="sales_team.group_sale_manager"/>
+
+</odoo>

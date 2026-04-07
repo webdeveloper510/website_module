@@ -1,0 +1,1185 @@
+<odoo>
+    <template id="about_page_template" name="Cricket Carousel">
+        <t t-call="website.layout">
+            <section class="about-banner">
+                <div class="overlay1"></div>
+                <div class="container">
+
+                     <div class="content position-relative d-flex flex-column align-items-center justify-content-center text-center text-white"
+                     style="height: 50vh;">
+                         
+                    <!-- Heading -->
+                    <h1 class="fw-bold text-white px-4 py-2 rounded section-heading"
+                        style="background-color: #0066cc; font-size: 40px; font-family:Roboto !important">
+                       About United Sports Arena
+                    </h1>
+                     </div>
+                </div>
+            </section>
+
+            <style>
+
+                /* About Banner Section */
+.about-banner {
+    position: relative;
+    background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center / cover;
+    height: 400px; /* Default height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    animation: zoomBackground 10s ease-in-out infinite; /* Keep background zoom effect */
+}
+
+/* Overlay */
+.overlay1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Container */
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Title */
+.about-title1 {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 2px; /* Add space between letters for a clean look */
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Removed animation */
+}
+
+.breadcrumb span {
+    display: inline-block;
+}
+
+.breadcrumb .separator {
+    color: #f6b10a;
+    margin: 0 8px;
+}
+
+.breadcrumb .active {
+    color: #f6b10a;
+}
+
+/* Keep only the background image animation */
+@keyframes zoomBackground {
+    0% {
+        background-size: 100%; /* Start with normal size */
+    }
+    50% {
+        background-size: 120%; /* Zoom in */
+    }
+    100% {
+        background-size: 100%; /* Return to normal size */
+    }
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .about-banner {
+        height: 300px; /* Adjust height for smaller screens */
+    }
+
+    .about-title1 {
+        font-size: 36px; /* Reduce font size for smaller screens */
+    }
+
+    .breadcrumb {
+        font-size: 16px; /* Adjust breadcrumb font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .about-banner {
+        height: 250px; /* Further reduce height for very small screens */
+    }
+
+    .about-title1 {
+        font-size: 28px; /* Further reduce font size */
+        margin-bottom: 8px;
+    }
+
+    .breadcrumb {
+        font-size: 14px; /* Further reduce breadcrumb font size */
+    }
+
+    .breadcrumb .separator {
+        margin: 0 5px; /* Adjust separator space */
+    }
+}
+
+            </style>
+
+            <!-- Add AOS Library -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+            <section class="about-section">
+                <div class="container">
+                    <div class="about-content">
+                        <!-- Left Side: Logo + Who We Are -->
+                        <div class="about-left" data-aos="fade-right" data-aos-duration="1000">
+                            <img src="/us_arena_website/static/src/img/usarena.png" alt="United Sports Aren Logo"
+                                 class="about-logo"/>
+                            <h2 class="about-title" style="font-family:Roboto !important;font-size:32px; margin-top:81px;">Who We Are</h2>
+                            <p class="about-description" style="font-family:Roboto !important;font-size:18px!important;">
+                                Located right here in Franklin, Massachusetts, United Sports Arena is more than just a cricket
+                                facility;
+                                it’s a community where we nurture talent and celebrate the spirit of cricket.
+                                Established in 2024 by a group of cricket enthusiasts with extensive experience,
+                                our goal is simple: to offer top-notch cricket training facility for everyone,
+                                from young beginners to seasoned players.
+                            </p>
+                        </div>
+
+                        <!-- Right Side: Quote + Content -->
+                        <div class="about-right" data-aos="fade-left" data-aos-duration="1000">
+                            <!-- Quote Box -->
+                            <div class="quote-box">
+                                <p class="quote-text">
+                                    <blockquote class="blockquote  fw-bold custom-quote-font pulse-animation" style="color:#d4a017 !important">
+                                "Cricket is not just a sport for me; it's a way of life, it's a way of thinking, it's a
+                                way of seeing the world."
+                            </blockquote>
+                                </p>
+                            <footer class="blockquote-footer  custom-quote-font" style="color:#0a2351;font-size:16px; font-weight:600">Sachin Tendulkar</footer>
+                            </div>
+
+                            <!-- Title & Description -->
+                            <h2 class="section-title" style="font-family:Roboto !important;font-size:32px;">New England’s top choice for Cricket Training</h2>
+                            <p class="section-description" style="font-family:Roboto !important;font-size:18px!important;">
+                                At United Sports Arena, we’re all about cricket. Our facility is equipped with the
+                                latest
+                                gear and coached by some of the best in the game. We’re here to help you hone your
+                                skills, understand the nuances of cricket, and enjoy every moment on the pitch.
+                            </p>
+                            <p class="section-description" style="font-family:Roboto !important;font-size:18px !important;">
+                                United Sports Arena represents a holistic cricket development center, engineered by
+                                experts
+                                passionate about the sport. Equipped with the latest in training technology and staffed
+                                by experienced coaches, we provide an unparalleled environment for learning and growth
+                                in cricket.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                 .custom-quote-font {
+                font-family: 'Playfair Display', serif; /* Elegant serif font for quotes */
+                font-weight: 400;
+                margin-bottom: 15px; /* Added margin to create space below the quote box */
+                }
+                /* About Section */
+                .about-section {
+                padding: 60px 0;
+                background: #f8f8f8;
+                }
+
+                /* Flex container for two-column layout */
+                .about-content {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                margin: auto;
+                gap: 40px;
+                flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+                }
+
+                /* Left Side */
+                .about-left {
+                width: 40%;
+                text-align: left;
+                }
+
+                /* Bigger Logo */
+                .about-logo {
+                max-width: 350px;
+                height: auto;
+                display: block;
+                margin-bottom: 20px;
+                }
+
+                /* Subtitle */
+                .about-subtitle {
+                font-size: 14px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #333;
+                }
+
+                /* Title */
+                .about-title {
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 15px;
+                }
+
+                /* Paragraph */
+                .about-description {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #333;
+                }
+
+                /* Right Side */
+                .about-right {
+                flex: 1;
+                }
+
+                /* Quote Box */
+                .quote-box {
+                background: #f0f0f0;
+                padding: 15px 20px;
+                border-left: 5px solid #007bff;
+                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+                }
+
+                .quote-text {
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 1.5;
+                }
+
+                .quote-author {
+                font-size: 16px;
+                font-weight: bold;
+                color: #007bff;
+                margin-top: 5px;
+                }
+
+                /* Section Titles */
+                .section-title {
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                }
+
+                /* Paragraph */
+                .section-description {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #333;
+                }
+
+                /* Responsive Styles */
+                @media (max-width: 768px) {
+                /* Adjust layout for tablets */
+                .about-content {
+                flex-direction: column;
+                gap: 20px; /* Reduced gap */
+                }
+
+                /* Left Side */
+                .about-left {
+                width: 100%; /* Full width for small screens */
+                text-align: center;
+                }
+
+                /* Right Side */
+                .about-right {
+                width: 100%; /* Full width for small screens */
+                }
+
+                /* Adjust logo size */
+                .about-logo {
+                max-width: 250px;
+                }
+
+                /* Adjust title size */
+                .about-title {
+                font-size: 24px;
+                }
+
+                /* Adjust subtitle size */
+                .about-subtitle {
+                font-size: 12px;
+                }
+
+                /* Adjust paragraph text size */
+                .about-description {
+                font-size: 14px;
+                }
+
+                /* Adjust quote text size */
+                .quote-text {
+                font-size: 16px;
+                }
+
+                /* Adjust section title size */
+                .section-title {
+                font-size: 24px;
+                }
+
+                /* Adjust description text size */
+                .section-description {
+                font-size: 14px;
+                }
+                }
+
+                @media (max-width: 480px) {
+                /* Adjust layout for mobile */
+                .about-content {
+                padding: 0 10px; /* Add padding to ensure content doesn't touch edges */
+                }
+
+                /* Adjust quote box padding */
+                .quote-box {
+                padding: 10px 15px;
+                }
+
+                /* Adjust font sizes further */
+                .about-title {
+                font-size: 20px;
+                }
+
+                .section-title {
+                font-size: 20px;
+                }
+
+                .quote-text {
+                font-size: 14px;
+                }
+
+                .about-description,
+                .section-description {
+                font-size: 12px;
+                }
+
+               .about-logo {
+    max-width: 100%; /* Ensures it doesn't overflow */
+    height: auto;
+    display: block;
+    margin: 0 auto 20px; /* Centers the logo in smaller screens */
+}
+@media (max-width: 768px) {
+    .about-left {
+        width: 100%;
+        text-align: center; /* Center align content for a better mobile view */
+    }
+
+    .about-logo {
+        max-width: 80%; /* Adjust size to fit smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .about-logo {
+        max-width: 70%; /* Further reduce size for smaller devices */
+    }
+}
+
+
+                }
+            </style>
+
+            <script>
+                AOS.init();
+            </script>
+
+
+            <section class="vision-mission-section">
+                <div class="vision-mission-container">
+                    <!-- Left Side Content -->
+                    <div class="vision-mission-header" data-aos="fade-right">
+                        <h3 style="color:white;font-family:Roboto !important;font-size:32px;font-weight:600">Guiding Future Champions</h3>
+                        <p style="color:white; font-family:Roboto !important;font-size: 18px !important;">
+                            At United Sports Arena, we are dedicated to shaping the future of cricket by empowering
+                            young
+                            talent and setting new benchmarks in sports excellence. Our mission and vision reflect our
+                            commitment to nurture, inspire, and lead.
+                        </p>
+                    </div>
+
+                    <!-- Right Side: Vision & Mission Boxes -->
+                    <div class="vision-mission-boxes">
+                        <div class="vision-mission-box" data-aos="fade-left">
+                            <h2 style="font-family:Roboto !important;font-size:32px;">Our Vision</h2>
+                            <p style="font-family:Roboto !important;font-size: 18px !important;">
+                                Leading with Innovation and Integrity: Our vision is to become a cornerstone of cricket in the United States and a beacon for sports excellence in the Greater Boston Area. We aim to lead by example, fostering a culture of innovation, integrity, and inclusivity. By continuously advancing our training methods and embracing cutting-edge technology, we envision setting new standards in cricket education and athlete development.
+                            </p>
+                        </div>
+
+                        <div class="vision-mission-box" data-aos="fade-left" data-aos-delay="200">
+                            <h2 style="font-family:Roboto !important;font-size:32px;">Our Mission</h2>
+                            <p style="font-family:Roboto !important;font-size: 18px !important;">
+                               Empower and Excel: At United Sports Arena, our mission is to empower aspiring cricketers through comprehensive training and development programs. We strive to provide the highest standard of cricket coaching, facilities, and support services. Our goal is to nurture talent, build character, and develop the skills necessary for our athletes to excel both on and off the cricket field.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Styles -->
+            <style>
+                .vision-mission-boxes {
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reduce gap between boxes */
+}
+
+.vision-mission-box {
+    border: 2px dashed rgba(255, 255, 255, 0.6);
+    padding: 30px;
+    margin-bottom: 10px; /* Reduce bottom margin */
+    background: rgba(0, 0, 0, 0); /* Increase transparency */
+    backdrop-filter: blur(1px);
+}
+
+                .vision-mission-section {
+                position: relative;
+                background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center/cover;
+                padding: 130px 0; /* Section height */
+                text-align: left;
+                }
+
+                .vision-mission-section::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6); /* Black overlay with 60% opacity */
+                }
+
+                /* Ensure content is above the overlay */
+                .vision-mission-container {
+                position: relative;
+                z-index: 2;
+                }
+
+
+                .vision-mission-container {
+                margin: 0 auto;
+                padding: 0 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 40px; /* Gap between left and right sections */
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+                }
+
+                /* Left Content */
+                .vision-mission-header {
+                max-width: 500px;
+                }
+
+                .vision-mission-header h2 {
+                font-size: 50px;
+                font-weight: 800;
+                color: #152674;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                }
+
+                .vision-mission-header p {
+                font-size: 20px;
+                line-height: 1.8;
+                color: #152674;
+                }
+
+                .vision-mission-boxes {
+                max-width: 550px;
+                }
+
+                .vision-mission-box {
+                border: 2px dashed rgba(255, 255, 255, 0.9);
+                padding: 30px;
+                margin-bottom: 20px;
+                background: rgba(0, 0, 0, 0);
+                backdrop-filter: blur(1px);
+                }
+
+                .vision-mission-box h2 {
+                font-size: 26px;
+                font-weight: bold;
+                color: #ffbf00;
+                margin-bottom: 12px;
+                }
+
+                .vision-mission-box p {
+                font-size: 18px;
+                line-height: 1.2;
+                color: #ddd;
+                }
+
+                /* Responsive Styles */
+                @media (max-width: 992px) {
+                /* Stack the left and right content on tablets */
+                .vision-mission-container {
+                flex-direction: column;
+                text-align: center;
+                }
+
+                /* Right-side boxes alignment */
+                .vision-mission-boxes {
+                margin-top: 40px;
+                }
+
+                /* Adjust padding on smaller screens */
+                .vision-mission-header {
+                padding: 0 10px;
+                }
+
+                /* Title font size adjustment */
+                .vision-mission-header h2 {
+                font-size: 40px; /* Smaller font size */
+                }
+
+                .vision-mission-header p {
+                font-size: 18px; /* Smaller font size */
+                }
+
+                .vision-mission-box h2 {
+                font-size: 22px;
+                }
+
+                .vision-mission-box p {
+                font-size: 16px; /* Adjust box paragraph font size */
+                }
+                }
+
+                @media (max-width: 480px) {
+                /* Stack sections in mobile view */
+                .vision-mission-container {
+                padding: 0 10px;
+                }
+
+                /* Adjust title and paragraph sizes for mobile */
+                .vision-mission-header h2 {
+                font-size: 30px;
+                }
+
+                .vision-mission-header p {
+                font-size: 16px;
+                }
+
+                .vision-mission-box h2 {
+                font-size: 20px;
+                }
+
+                .vision-mission-box p {
+                font-size: 14px;
+                }
+
+                /* Adjust section padding and margins */
+                .vision-mission-box {
+                padding: 20px;
+                margin-bottom: 15px;
+                }
+                }
+            </style>
+
+            <!-- Animation Script -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+            <script>
+                AOS.init();
+            </script>
+
+            <section class="offer-section">
+                <div class="offer-container">
+                    <!-- Left Image -->
+                    <div class="offer-image" data-aos="fade-right">
+                        <img src="/us_arena_website/static/src/img/about.JPEG"
+                             alt="Coach Training"/>
+                    </div>
+
+                    <!-- Right Content -->
+                    <div class="offer-content" data-aos="fade-left">
+                        <p class="offer-subtitle" style="font-family:Roboto!important">WHY YOU SHOULD JOIN US</p>
+                        <h2 class="offer-title" style="font-family:Roboto !important;font-size:32px;">What We Offer</h2>
+                        <p class="offer-description" style="font-family:Roboto !important;font-size: 18px !important;">
+                            At United Sports Arena, we believe that everyone has the potential to excel in cricket. Our
+                            training programs are designed to boost physical fitness, enhance understanding of the game,
+                            and build essential life skills like teamwork and discipline.
+                        </p>
+
+                        <div class="offer-list">
+                            <div class="offer-item" data-aos="fade-up">
+                                <span class="offer-icon">➤</span>
+                                <div>
+                                    <h3 style="font-family:Roboto !important;">Tailored Training for All</h3>
+                                    <p style="font-family: Roboto !important;">Our programs adapt to all skill levels, ensuring personalized progress.</p>
+                                </div>
+                            </div>
+
+                            <div class="offer-item" data-aos="fade-up" data-aos-delay="100">
+                                <span class="offer-icon">➤</span>
+                                <div>
+                                    <h3 style="font-family:Roboto !important;">A Welcoming Atmosphere</h3>
+                                    <p style="font-family:Roboto !important;">We provide coaching in a supportive environment focused on individual growth.</p>
+                                </div>
+                            </div>
+
+                            <div class="offer-item" data-aos="fade-up" data-aos-delay="200">
+                                <span class="offer-icon">➤</span>
+                                <div>
+                                    <h3 style="font-family:Roboto !important;">Advanced Training Technology</h3>
+                                    <p style="font-family:Roboto !important;">Utilizing cutting-edge technology for precise feedback and performance
+                                        enhancement.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="offer-item" data-aos="fade-up" data-aos-delay="300">
+                                <span class="offer-icon">➤</span>
+                                <div>
+                                    <h3 style="font-family:Roboto !important;">Comprehensive Skill Development</h3>
+                                    <p style="font-family:Roboto !important;">Covering technical, physical, and mental aspects to prepare players for
+                                        competition.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Styles -->
+            <style>
+                .offer-section {
+                padding: 80px 20px;
+                background: #f8f8f8;
+                }
+
+                .offer-container {
+                margin: auto;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 40px;
+                }
+
+                .offer-image {
+                flex: 1;
+                min-width: 300px;
+                text-align: center;
+                }
+
+                .offer-image img {
+                width: 100%;
+                max-width: 600px;
+                max-height: 900px; /* Reduced image height */
+                object-fit: cover;
+                }
+
+                .offer-content {
+                flex: 1;
+                min-width: 300px;
+                }
+
+                .offer-subtitle {
+                font-weight: 700;
+                color: #ff9900;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                }
+
+                .offer-title {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin: 10px 0;
+                }
+
+                .offer-description {
+                font-size: 1rem;
+                color: #555;
+                line-height: 1.6;
+                }
+
+                .offer-list {
+                margin-top: 20px;
+                }
+
+                .offer-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                margin-bottom: 15px;
+                }
+
+                .offer-icon {
+                color: #007bff;
+                font-size: 1.5rem;
+                font-weight: bold;
+                }
+
+                .offer-item h3 {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 5px;
+                }
+
+                .offer-item p {
+                font-size: 0.9rem;
+                color: #666;
+                }
+
+                /* Mobile Responsiveness */
+                @media (max-width: 768px) {
+                .offer-container {
+                flex-direction: column;
+                text-align: center;
+                }
+
+                .offer-item {
+                flex-direction: column;
+                align-items: center;
+                }
+
+                .offer-icon {
+                font-size: 2rem;
+                }
+
+                .offer-image img {
+                max-height: 300px; /* Further reduced height on mobile */
+                }
+                }
+            </style>
+
+            <script>
+                AOS.init();
+            </script>
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700"/>
+
+    <style>
+        /* Section Styling */
+        .coaching-section {
+            padding: 80px 20px;
+            background: linear-gradient(to right, #f8f8f8, #ffffff);
+        }
+
+        /* Carousel Images */
+        .coaching-images {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+       .coach-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 280px;
+    width: 100%;
+    height: 320px; /* Set a fixed height */
+}
+
+.coach-image img {
+    width: 100%;
+    height: 100%; /* Ensure it fills the container */
+    border-radius: 10px;
+    object-fit: cover; /* Ensures uniform scaling */
+    transition: transform 0.3s ease-in-out;
+}
+
+
+        .coach-image img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Overlay Effect */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 102, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .coach-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .coach-role {
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Hover Effect */
+        .coach-image:hover .overlay {
+            opacity: 1;
+        }
+
+        .coach-image:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Carousel Indicator Styling */
+        .carousel-indicators button {
+            background-color: #ff9900;
+            border: none;
+            width: 12px;
+            height: 12px;
+            margin: 0 4px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .carousel-indicators .active {
+            background-color: #fff;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .coaching-images {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .coach-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+
+<section class="coaching-section">
+    <div class="container">
+       <div class="row d-flex align-items-center">
+    <!-- Left Content - Text -->
+    <div class="col-md-7 col-12 coaching-content text-md-start text-center" data-aos="fade-right">
+        <h2 class="coaching-title" style="font-size:32px; font-weight:600; font-family: Roboto !important;">
+            Experience Excellence in Coaching
+        </h2>
+        <p class="coaching-description" style="font-size:18px;font-family:Roboto !important;">
+            At United Sports Arena, our coaching team is the backbone of our training programs.
+            Comprised of former professional players and certified coaching experts, our staff
+            brings a wealth of knowledge and experience to every session. Meet the dedicated
+            professionals committed to transforming your cricketing potential into excellence.
+        </p>
+        <a href="/coaching" class="btn text-center text-dark mt-2 custom-btn-hover">
+            Meet Our Coaches
+        </a>
+                <style>
+                 .custom-btn-hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #d7af43;
+    color: #000; /* Ensure text is always visible */
+    font-size: 14px;
+    padding: 6px 12px;
+    height: auto; /* Allow it to adjust */
+    width: fit-content; /* Keeps width small by default */
+    min-width: 120px; /* Prevents it from becoming too small */
+    max-width: 100%; /* Ensures it doesn't overflow */
+    font-weight: 600;
+    white-space: nowrap; /* Prevents text from wrapping */
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: all 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* Hover effect - Make sure it doesn't disappear */
+.custom-btn-hover:hover {
+    background-color: #c2983b; /* Slightly darker yellow */
+    color: #000; /* Ensures text remains visible */
+    transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Tablet  Small Screens */
+@media (max-width: 768px) {
+    .custom-btn-hover {
+        width: auto; /* Keeps it dynamic */
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
+
+/* Mobile Screens */
+@media (max-width: 480px) {
+    .custom-btn-hover {
+        width: auto; /* Makes button adjust dynamically */
+        font-size: 12px;
+        padding: 8px; /* Comfortable tap size */
+        min-width: 100px; /* Ensures minimum size */
+    }
+}
+
+</style>
+            </div>
+
+            <!-- Right Content - Carousel -->
+            <div class="col-md-5 col-12 mt-4 mt-md-0">
+                <div id="coachCarousel" class="carousel slide mt-4" data-bs-ride="carousel" data-bs-interval="3000">
+                    <div class="carousel-inner">
+                        <!-- Carousel Item 1 -->
+                        <div class="carousel-item active">
+                            <div class="coaching-images">
+                                <div class="coach-image">
+                                    <img src="/us_arena_website/static/src/img/coach1.jpg" alt="Coach 1"/>
+                                    <div class="overlay">
+                                        <p class="coach-name" style="font-family:Roboto !important; font-size:18px;">Raghunanadan Sridhar</p>
+                                        <p class="coach-role" style="font-family:Roboto !important;font-size:18px">Head Coach</p>
+                                    </div>
+                                </div>
+                                <div class="coach-image">
+                                    <img src="/us_arena_website/static/src/img/coach2.jpg" alt="Coach 2"/>
+                                    <div class="overlay">
+                                        <p class="coach-name" style="font-family:Roboto!important;font-size:18px">Sumanth Kedilaya</p>
+                                        <p class="coach-role" style="font-family:Roboto!important;font-size:18px">Coach</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel Item 2 -->
+                        <div class="carousel-item">
+                            <div class="coaching-images">
+                                <div class="coach-image">
+                                    <img src="/us_arena_website/static/src/img/coach3.jpg" alt="Coach 3"/>
+                                    <div class="overlay">
+                                        <p class="coach-name" style="font-family:Roboto!important;font-size:18px">Vijayesh Hassan</p>
+                                        <p class="coach-role" style="font-family:Roboto !important;font-size:18px">Coach</p>
+                                    </div>
+                                </div>
+                                  <div class="coach-image">
+                                    <img src="/us_arena_website/static/src/img/coach4.jpg" alt="Coach 4"/>
+                                    <div class="overlay">
+                                        <p class="coach-name" style="font-family:Roboto !important;font-size:18px">Avinash Naik</p>
+                                        <p class="coach-role" style="font-family:Roboto!important;font-size:18px">Coach</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AOS Animation JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init();
+</script>
+
+
+
+        </t>
+    </template>
+
+   <template id="gallery_temp" name="Gallery">
+    <t t-call="website.layout">
+        <section class="gallery-section">
+            <div class="overlay"></div>
+            <div class="content">
+                <h2 class="title" style="font-size:32px !important;font-family:Roboto !important;color:#d7af43">Our Gallery</h2>
+                <p class="subtitle" style="font-family:Roboto !important;font-size:18px !important;">Discover the Spirit of Cricket Through Our Lens</p>
+            </div>
+        </section>
+
+        <!-- Coming Soon Section -->
+        <section class="coming-soon-section">
+            <h3 class="coming-soon-text" style="font-size:32px !important;font-family:Roboto !important;">Coming Soon</h3>
+        </section>
+
+        <style>
+        .gallery-section {
+            position: relative;
+            background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            animation: slideInLeft 1.5s ease-in-out;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            animation: slideInRight 1.5s ease-in-out;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon-section {
+            width: 100%;
+            background: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .coming-soon-text {
+            font-family: 'Roboto'!important;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #d4a017;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        </style>
+    </t>
+</template>
+
+
+    <template id="coming_soon" name="Gallery">
+    <t t-call="website.layout">
+        <section class="gallery-section">
+            <div class="overlay"></div>
+            <div class="content">
+              <div class="content position-relative d-flex flex-column align-items-center justify-content-center text-center text-white"
+                     style="height: 50vh;">
+
+                    <!-- Heading -->
+                    <h1 class="fw-bold text-white px-4 py-2 rounded section-heading"
+                        style="background-color: #0066cc; font-size: 40px; font-family: Roboto !important">
+                       Coming Soon
+                    </h1>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <style>
+        .gallery-section {
+            position: relative;
+            background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            animation: slideInLeft 1.5s ease-in-out;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            animation: slideInRight 1.5s ease-in-out;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon-section {
+            width: 100%;
+            background: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .coming-soon-text {
+            font-family: 'Roboto'!important;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #d4a017;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        </style>
+    </t>
+</template>
+
+</odoo>

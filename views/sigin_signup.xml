@@ -1,0 +1,125 @@
+<odoo>
+    <data>
+
+        <!-- Inherit and Modify the auth_signup.fields Template -->
+        <template id="custom_auth_signup_fields" name="Custom Auth Signup Fields" inherit_id="auth_signup.fields">
+            <xpath expr="//div[@class='mb-3 field-login']" position="replace">
+                <div class="mb-3 field-login" style="margin-bottom: 20px;">
+                    <label for="login" class="form-label" style="font-size: 1rem; font-weight: 600; color: #333;">Your Email</label>
+                    <input type="text" name="login" t-att-value="login" id="login" class="form-control"
+                           autofocus="autofocus" autocapitalize="off" required="required"
+                           t-att-readonly="'readonly' if only_passwords else None" placeholder="Enter your email address"
+                           style="border-radius: 5px; padding: 10px 15px; font-size: 1rem; border: 1px solid #ccc; width: 100%; box-sizing: border-box;" />
+                </div>
+            </xpath>
+
+            <!-- Modify the Name Field -->
+            <xpath expr="//div[@class='mb-3 field-name']" position="replace">
+                <div class="mb-3 field-name" style="margin-bottom: 20px;">
+                    <label for="name" class="form-label" style="font-size: 1rem; font-weight: 600; color: #333;">Your Name</label>
+                    <input type="text" name="name" t-att-value="name" id="name" class="form-control"
+                           placeholder="John Doe" required="required"
+                           t-att-readonly="'readonly' if only_passwords else None"
+                           t-att-autofocus="'autofocus' if login and not only_passwords else None"
+                           style="border-radius: 5px; padding: 10px 15px; font-size: 1rem; border: 1px solid #ccc; width: 100%; box-sizing: border-box;" />
+                </div>
+            </xpath>
+
+            <!-- Add Phone Field -->
+            <xpath expr="//div[@class='mb-3 field-name']" position="after">
+                <div class="mb-3 field-phone" style="margin-bottom: 20px;">
+                    <label for="phone" class="form-label" style="font-size: 1rem; font-weight: 600; color: #333;">Phone Number</label>
+                     <input type="tel" name="phone" t-att-value="phone" id="phone" class="form-control"
+                           placeholder="+1 (555) 555-5555" required="required"
+                           style="border-radius: 5px; padding: 10px 15px; font-size: 1rem; border: 1px solid #ccc; width: 100%; box-sizing: border-box;" />
+                </div>
+            </xpath>
+            
+            <!-- Modify the Password Field -->
+            <xpath expr="//div[@class='mb-3 field-password pt-2']" position="replace">
+                <div class="mb-3 field-password" style="margin-bottom: 20px;">
+                    <label for="password" class="form-label" style="font-size: 1rem; font-weight: 600; color: #333;">Password</label>
+                    <input type="password" name="password" id="password" class="form-control"
+                           required="required" placeholder="Your secure password"
+                           style="border-radius: 5px; padding: 10px 15px; font-size: 1rem; border: 1px solid #ccc; width: 100%; box-sizing: border-box;" />
+                </div>
+            </xpath>
+
+            <!-- Add Confirm Password Field -->
+            <xpath expr="//div[@class='mb-3 field-confirm_password']" position="replace">
+                <div class="mb-3 field-confirm_password" style="margin-bottom: 20px;">
+                    <label for="confirm_password" class="form-label" style="font-size: 1rem; font-weight: 600; color: #333;">Confirm Password</label>
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control"
+                           required="required" placeholder="Re-enter your password"
+                           style="border-radius: 5px; padding: 10px 15px; font-size: 1rem; border: 1px solid #ccc; width: 100%; box-sizing: border-box;" />
+                </div>
+            </xpath>
+            <xpath expr="//div[@class='mb-3 field-confirm_password']" position="after">
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" />
+                    <script src="https://www.google.com/recaptcha/api.js?render=6LfpHIcrAAAAAP7dpO7p8jo1Qp18ywOtMJmMUKeQ"></script>
+
+                     <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var form = document.querySelector('form');
+                            if (form) {
+                                form.addEventListener('submit', function(e) {
+                                    e.preventDefault(); // stop immediate submit
+                                    grecaptcha.ready(function() {
+                                        grecaptcha.execute('6LfpHIcrAAAAAP7dpO7p8jo1Qp18ywOtMJmMUKeQ', {action: 'signup'}).then(function(token) {
+                                            document.getElementById('g-recaptcha-response').value = token;
+                                            console.log("reCAPTCHA token:", token); // debug
+                                            form.submit(); // now submit the form
+                                        });
+                                    });
+                                });
+                            }
+                        });
+                    </script>
+            </xpath>
+        </template>
+
+        <odoo>
+    <data>
+        <!-- Inherit the auth_signup.signup Template and Modify the Button Design -->
+        <template id="custom_signup" name="Custom Sign up Button" inherit_id="auth_signup.signup">
+            <xpath expr="//button[@type='submit' and contains(@class, 'btn btn-primary')]" position="attributes">
+                <!-- Modify the button's class to add custom styles -->
+                <attribute name="class">btn btn-primary btn-signup</attribute>
+                <attribute name="style">
+                    background-color: #007bff; color: white; border: none; padding: 14px 40px; font-size: 1.1rem; font-weight: 600; border-radius: 30px; width: 100%; cursor: pointer;
+                    transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); outline: none;
+                </attribute>
+            </xpath>
+
+            <!-- Add Hover Effect to the Button -->
+            <xpath expr="//button[@type='submit' and contains(@class, 'btn-signup')]" position="attributes">
+                <attribute name="onmouseover">
+                    this.style.backgroundColor='#0056b3'; this.style.boxShadow='0 6px 10px rgba(0, 123, 255, 0.5)';
+                </attribute>
+                <attribute name="onmouseout">
+                    this.style.backgroundColor='#007bff'; this.style.boxShadow='0 4px 6px rgba(0, 123, 255, 0.3)';
+                </attribute>
+            </xpath>
+
+            <!-- Modify the "Already have an account?" Link Style -->
+            <xpath expr="//a[contains(text(), 'Already have an account?')]" position="attributes">
+                <attribute name="style">font-size: 0.9rem; color: #007bff; text-decoration: none; display: inline-block; margin-top: 10px;</attribute>
+            </xpath>
+             <xpath expr="//input[@name='redirect']" position="replace">
+                        <input type="hidden" name="redirect" t-attf-value="{{ request.params.get('redirect')  or '/' }}"/>
+                    </xpath>
+
+        </template>
+        <template id="web_login_redirect" inherit_id="web.login">
+        <!-- Replace the value of the 'redirect' hidden field to '/' -->
+        <xpath expr="//input[@name='redirect']" position="replace">
+            <input type="hidden" name="redirect" t-attf-value="{{ request.params.get('redirect')  or '/' }}"/>
+        </xpath>
+    </template>
+
+    </data>
+</odoo>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,250 @@
+<odoo>
+    <template id="subscription_checkout_template" name="Subscription Checkout">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="card shadow-lg border-0">
+                            <div class="card-body p-5">
+                                <h2 class="text-center mb-4" style="color:#0a2351">
+                                    <t t-esc="subscription_name"/>
+                                </h2>
+                                
+                                <div class="text-center mb-4">
+                                    <div class="price-display">
+                                        <span class="display-4 fw-bold" style="color:#0a2351">
+                                            <t t-esc="currency"/> $<t t-esc="'{:.2f}'.format(subscription_price)"/>
+                                        </span>
+                                        <span class="fs-5 text-muted">/month</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Subscription Benefits -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Membership Benefits:</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">✅ Full Gym Access</li>
+                                        <li class="mb-2">✅ Discount on Lane Rentals</li>
+                                        <li class="mb-2">✅ Discount on Merchandise</li>
+                                        <li class="mb-2">✅ Cancel Anytime</li>
+                                        <li class="mb-2">✅ Automatic Monthly Renewal</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Payment Form -->
+                                <div id="payment-form">
+                                    <div class="mb-3">
+                                        <label for="card-holder-name" class="form-label">Cardholder Name</label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="card-holder-name" 
+                                               placeholder="John Doe" 
+                                               required="required"/>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="card-element" class="form-label">Card Details</label>
+                                        <div id="card-element" class="form-control" style="height: 40px; padding-top: 10px;">
+                                            <!-- Stripe Card Element will be inserted here -->
+                                        </div>
+                                        <div id="card-errors" class="text-danger mt-2" role="alert"></div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 mt-4">
+                                        <button type="button" 
+                                                id="submit-payment" 
+                                                class="btn btn-primary btn-lg">
+                                            <span id="button-text">
+                                                Subscribe Now - <t t-esc="currency"/> $<t t-esc="'{:.2f}'.format(subscription_price)"/>/month
+                                            </span>
+                                            <span id="spinner" class="spinner-border spinner-border-sm d-none" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-4">
+                                    <p class="text-muted small mb-0">
+                                        🔒 Secure payment powered by Stripe
+                                    </p>
+                                    <t t-if="is_test_mode">
+                                        <p class="text-warning small mb-0">
+                                            <strong>TEST MODE</strong> - Use card 4242 4242 4242 4242
+                                        </p>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a href="/subscription/plans" class="text-muted">
+                                ← Back to Plans
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script src="https://js.stripe.com/v3/"></script>
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    
+                    // Initialize Stripe
+                    const stripe = Stripe('<t t-esc="stripe_publishable_key"/>');
+                    const elements = stripe.elements();
+                    
+                    // Create card element
+                    const cardElement = elements.create('card', {
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                color: '#32325d',
+                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                                '::placeholder': {
+                                    color: '#aab7c4'
+                                }
+                            },
+                            invalid: {
+                                color: '#dc3545',
+                                iconColor: '#dc3545'
+                            }
+                        }
+                    });
+                    
+                    cardElement.mount('#card-element');
+                    
+                    // Handle card errors
+                    cardElement.on('change', function(event) {
+                        const displayError = document.getElementById('card-errors');
+                        if (event.error) {
+                            displayError.textContent = event.error.message;
+                        } else {
+                            displayError.textContent = '';
+                        }
+                    });
+                    
+                    // Handle form submission
+                    const submitButton = document.getElementById('submit-payment');
+                    const buttonText = document.getElementById('button-text');
+                    const spinner = document.getElementById('spinner');
+                    
+                    submitButton.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        
+                        const cardholderName = document.getElementById('card-holder-name').value.trim();
+                        
+                        if (!cardholderName) {
+                            alert('Please enter cardholder name');
+                            return;
+                        }
+                        
+                        // Disable button and show spinner
+                        submitButton.disabled = true;
+                        buttonText.classList.add('d-none');
+                        spinner.classList.remove('d-none');
+                        
+                        try {
+                            // Create payment method
+                            const {paymentMethod, error} = await stripe.createPaymentMethod({
+                                type: 'card',
+                                card: cardElement,
+                                billing_details: {
+                                    name: cardholderName,
+                                }
+                            });
+                            
+                            if (error) {
+                                throw new Error(error.message);
+                            }
+
+                            console.log('Created payment method:', paymentMethod.id);
+                            console.log('Using publishable key:', '<t t-esc="stripe_publishable_key"/>'.substring(0, 20));
+                            
+                            // Create subscription via backend
+                            const response = await fetch('/subscription/create_stripe', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    jsonrpc: '2.0',
+                                    method: 'call',
+                                    params: {
+                                        payment_method_id: paymentMethod.id,
+                                        subscription_type: '<t t-esc="subscription_type"/>',
+                                        stripe_price_id: '<t t-esc="stripe_price_id"/>'
+                                    }
+                                })
+                            });
+                            
+                            const result = await response.json();
+                            const data = result.result;
+                            
+                            if (data.status === 'success') {
+                                window.location.href = data.redirect;
+                            } else if (data.status === 'requires_action') {
+                                // Handle 3D Secure authentication
+                                const {error: confirmError} = await stripe.confirmCardPayment(
+                                    data.client_secret
+                                );
+                                
+                                if (confirmError) {
+                                    throw new Error(confirmError.message);
+                                } else {
+                                    window.location.href = '/my_subscription';
+                                }
+                            } else {
+                                throw new Error(data.message || 'Payment failed');
+                            }
+                            
+                        } catch (error) {
+                            console.error('Payment error:', error);
+                            alert('Payment failed: ' + error.message);
+                            
+                            // Re-enable button
+                            submitButton.disabled = false;
+                            buttonText.classList.remove('d-none');
+                            spinner.classList.add('d-none');
+                        }
+                    });
+                })();
+            </script>
+            
+            <style>
+                .card {
+                    border-radius: 15px;
+                }
+                
+                .price-display {
+                    padding: 20px;
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                    border-radius: 10px;
+                    margin: 20px 0;
+                }
+                
+                .btn-primary {
+                    background: #0a2351 !important;
+                    border: none;
+                    font-weight: 600;
+                }
+                
+                .btn-primary:hover {
+                    background: #0d2f6e !important;
+                    box-shadow: 0 5px 20px rgba(10, 35, 81, 0.4);
+                }
+                
+                #card-element {
+                    border: 1px solid #ced4da;
+                    border-radius: 0.375rem;
+                }
+                
+                #card-element.StripeElement--focus {
+                    border-color: #0a2351;
+                    box-shadow: 0 0 0 0.25rem rgba(10, 35, 81, 0.25);
+                }
+            </style>
+        </t>
+    </template>
+</odoo>

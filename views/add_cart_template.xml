@@ -1,0 +1,1282 @@
+<odoo>
+
+    <template id="add_to_my_cart" name="Cricket Coaching Page">
+        <t t-call="website.layout">
+            <div class="container py-5 availslot">
+                <div class="container-fluid p-0">
+                    <div class="product-section" style="position: relative;">
+                        <!-- Bootstrap Modal -->
+
+                        <!-- Bootstrap Modal -->
+<div class="modal fade" id="extraAddonsModal" tabindex="-1" aria-labelledby="extraAddonsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extraAddonsModalLabel" style="font-family:Roboto">Booked Slots</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-body" style="font-family:Roboto">
+                This Product is already Booked For this time
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                        <div class="modal fade" id="recurringModalPopup" tabindex="-1" aria-labelledby="recurringModalPopupLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="recurringModalPopupLabel" style="font-family:Roboto">Booked Slots</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="modal-body-recurring" style="font-family:Roboto">
+                                        These slots are booked already.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="slotWarningModal" tabindex="-1" aria-labelledby="slotWarningLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="slotWarningLabel">Warning</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="font-family:Roboto">
+                                        Not enough continuous slots available!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmModalLabel" style="font-family:Roboto">Confirm Action</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="font-family:Roboto">
+                                        Are you sure you want to continue with current selection? Your previous
+                                        selection will be removed
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="confirmModalAction">Yes,
+                                            Continue
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <t t-foreach="products" t-as="card">
+                                <div class="col-md-4 d-flex justify-content-center mb-4">
+                                    <div class="card text-center card-container animate-bottom"
+                                         t-att-id="'card_' + str(card)">
+                                        <div class="card-img-container">
+<!--                                            <img src="/us_arena_website/static/src/img/bgimgae.png"-->
+<!--                                                 class="card-img-top" alt="Cricket Lane"/>-->
+                                            <div t-field="card.image_1920"
+                                                     name="o_img_with_max_suggested_width"
+                                                     class="product-detail-img"
+                                                     t-options="{
+                                             'widget': 'image',
+                                             'preview_image': 'image_1024',
+                                             'class': 'oe_unmovable',
+                                             'alt-field': 'name',
+                                         }"/>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="fw-bold text-gold">
+                                                <t t-esc="card.name"/>
+                                            </h5>
+                                            <p style="font=size:14px; font-family:Roboto">
+                                                <t t-esc="card.description" style="font=size:14px; font-family:Roboto"/>
+                                            </p>
+
+                                            <input type="hidden" name="product_id" t-att-value="card.id"/>
+                                            <a href="javascript:void(0);"
+                                               class="button select-card mt-2 animate-pulse section-content "
+                                               t-att-id="'card_' + str(card.id)" t-att-data-id="card.id">Reserve
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                    let reserveButtons = document.querySelectorAll(".select-card");
+
+                    reserveButtons.forEach(button => {
+                    button.addEventListener("click", function () {
+                    document.querySelectorAll(".card-container").forEach(card => {
+                    card.classList.remove("selected-card");
+                    });
+                    let parentCard = this.closest(".card-container");
+                    parentCard.classList.add("selected-card");
+                    let productName = parentCard.querySelector("h5").innerText;
+                    document.getElementById("selectedLane").innerText = productName;
+                    });
+                    });
+                    });
+                </script>
+
+                <style>
+                    .selected-card {
+                    border: 3px solid red !important;
+                    }
+
+                    .product-section-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.4);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10;
+                    color: white;
+                    font-size: 3rem;
+                    font-weight: bold;
+                    text-align: center;
+                    }
+                    p{
+                    font-size:12px;}
+                    .coming-soon-text {
+                    font-size: 3rem;
+                    font-weight: bold;
+                    color: #d4a017;
+                    text-transform: uppercase;
+                    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .card-container {
+                    width: 18rem;
+                    min-height: 450px;
+                    background: white;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    border: none;
+                    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    }
+
+                    .card-container:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .card-img-container {
+                    width: 100%;
+                    height: 220px;
+                    overflow: hidden;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    }
+
+                    .card-img-top {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.4s ease-in-out;
+                    border: 2.5px solid white;
+                    border-radius: 5px;
+                    }
+
+                    .card-img-top:hover {
+                    transform: scale(1.05);
+                    }
+
+                    .card-body {
+                    flex-grow: 1;
+                    padding: 20px;
+                    background: white;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    }
+
+                    .text-gold {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #f6b10a;
+                    margin-bottom: 8px;
+                    }
+
+                    /* Description */
+                    .card-description {
+                    font-size: 14px;
+                    color: #555;
+                    line-height: 1.5;
+                    margin-bottom: 15px;
+                    min-height: 65px;
+                    }
+
+                    /* ========== BUTTON STYLING ========== */
+                    .select-card {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    color: black !important;
+                    background-color: #ff9800;
+                    border: none;
+                    border-radius: 6px;
+                    transition: background-color 0.3s ease, transform 0.2s ease;
+                    text-decoration: none;
+                    letter-spacing: 0.5px;
+                    }
+
+                    .disabled-button {
+                    background-color: #9bbbd6;
+                    color: #a1a1a1;
+                    pointer-events: none;
+                    }
+
+                    body {
+                    background: linear-gradient(90deg, aliceblue, gray);
+                    background-size: 400% 400%;
+                    }
+
+                    .select-card:hover {
+                    background-color: #c99c30;
+                    transform: translateY(-2px);
+                    }
+
+                    .select-card:active {
+                    transform: scale(0.98);
+                    }
+                    @media (max-width: 768px) {
+                    .card-container {
+                    width: 90%;
+                    }
+                    .text-gold {
+                    font-size: 18px;
+                    }
+                    .select-card {
+                    font-size: 13px;
+                    padding: 8px 16px;
+                    }
+                    }
+                    .product-section {
+                    position: relative;
+                    }
+                    .product-section-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.4);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10;
+                    color: white;
+                    font-size: 3rem;
+                    font-weight: bold;
+                    text-align: center;
+                    }
+                    .product-section.blur {
+                    filter: blur(2px);
+                    pointer-events: none;
+                    }
+                </style>
+<t t-set="today_date" t-value="datetime.datetime.today().strftime('%Y-%m-%d')"/>
+
+                <div class="container mt-8" id="slotSelection" style="display:none;">
+                    <div class="row">
+                        <div class="col-lg-8 ">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <input type="hidden" id="selectedProductId" t-att-value=""/>
+
+
+ <style>
+                        .pricing-container {
+                            font-family: Arial, sans-serif;
+                        }
+                        .pricing {
+                            font-size: 22px;
+                            font-weight: bold;
+                            color: #333;
+                        }
+                        .price {
+                            font-size: 24px;
+                            font-weight: bold;
+                            color: black;
+                        }
+                        .date-container {
+                            position: relative;
+                            display: inline-block;
+                            margin-right: 10px;
+                        }
+                        .date-container::after {
+
+                            position: absolute;
+                            right: 10px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            pointer-events: none;
+                        }
+                        input[type="date"] {
+                            appearance: none;
+                            background-color: white;
+                            color: black;
+                            font-size: 16px;
+                            border: 1px solid #ccc;
+                            padding: 8px 35px 8px 12px;
+                            border-radius: 5px;
+                            width: 170px;
+                            cursor: pointer;
+                        }
+                        .d-none {
+                            display: none;
+                        }
+     /* Reduce the size of input boxes and text */
+input[type="date"], select {
+    font-size: 14px; /* Reduce text size */
+    padding: 4px 10px; /* Reduce padding */
+    width: 120px; /* Reduce width */
+    height: 32px; /* Adjust height */
+}
+
+/* Reduce label font size */
+label {
+    font-size: 14px;
+}
+
+
+.form-check-input {
+    transform: scale(0.9);
+}
+
+select {
+    font-size: 14px;
+    padding: 4px 8px;
+    width: 110px;
+    height: 32px;
+    text-align: center; /* Center text */
+    text-align-last: center; /* Ensures text stays centered */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+
+.booked-slot {
+    background-color: #ffcccc !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+    pointer-events: none; /* Prevent any click events */
+}
+
+.booked-slot .slot-text {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.available-slot {
+    background-color: #e8f5e9;
+    cursor: pointer;
+}
+
+.selected-slot {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.past-slot {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+                    </style>
+
+                    <!-- First Row: Choose Your Slots + Selected Lane -->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="pricing-container">
+                            <div class="pricing">
+                                <span class="price" style="font-family:Roboto;">Choose Your Slots</span>
+                            </div>
+                        </div>
+                        <div style="font-family:Roboto; font-weight:bold;">
+                            Your Selected Lane: <span id="selectedLane" style="font-weight:bold; color:blue;">None</span>
+                        </div>
+                    </div>
+
+                    <!-- Second Row: Checkbox + Dynamic Date Picker -->
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <label for="recurringBooking" class="form-check-label  me-2" style="font-family:Roboto">Recurring Booking?</label>
+                            <input type="checkbox" id="recurringBooking" class="form-check-input"/>
+                        </div>
+
+                        <!-- Normal Date Picker -->
+                        <div class="date-container" id="singleDate">
+                            <input type="date" id="datePicker" class="date form-control" style="font-family:Roboto"  t-att-value="today_date"/>
+                        </div>
+
+                        <!-- Recurring Date Pickers (Initially Hidden) -->
+                        <div id="recurringDates" class="d-flex align-items-center d-none">
+                         <label class="me-2" style="font-family:Roboto">Day:</label>
+                            <select id="daySelector" class="form-control me-2" style="padding:0px;font-family:Roboto">
+                                <option value="Sunday">Sunday</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                            <label class="me-2" style="font-family:Roboto">From:</label>
+                            <div class="date-container">
+                                <input type="date" id="fromDate" class="date form-control" style="font-family:Roboto" t-att-value="today_date"/>
+                            </div>
+                            <label class="ms-2 me-2" style="font-family:Roboto">To:</label>
+                            <div class="date-container">
+                                <input type="date" id="toDate" class="date form-control" style="font-family:Roboto" t-att-value="today_date"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        document.addEventListener("DOMContentLoaded", function () {
+
+                         let today = new Date().toISOString().split("T")[0];
+
+                         document.getElementById("datePicker").setAttribute("min", today);
+                            document.getElementById("fromDate").setAttribute("min", today);
+                            document.getElementById("toDate").setAttribute("min", today);
+
+                            document.getElementById("fromDate").addEventListener("change", function() {
+                                document.getElementById("toDate").setAttribute("min", this.value);
+                                                 document.getElementById("datePicker").setAttribute("min", this.value);
+
+                            });
+                            let recurringCheckbox = document.getElementById("recurringBooking");
+                            let singleDateDiv = document.getElementById("singleDate");
+                            let recurringDatesDiv = document.getElementById("recurringDates");
+
+                            recurringCheckbox.addEventListener("change", function () {
+                                if (this.checked) {
+                                    singleDateDiv.classList.add("d-none");
+                                    recurringDatesDiv.classList.remove("d-none");
+                                } else {
+                                    singleDateDiv.classList.remove("d-none");
+                                    recurringDatesDiv.classList.add("d-none");
+                                }
+                            });
+                        });
+                    </script>
+
+                                    <div class="slots-container mt-3">
+                                        <div class="table-responsive">
+                                            <div class="table-wrapper">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="bg-light">
+                                                        <tr id="dateHeader">
+                                                            <!-- Dynamic Lanes will be inserted here -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="slotTable">
+                                                        <!-- Slots will be dynamically populated -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <style>
+                                    .slots-container {
+                                    max-height: 400px;
+
+                                    overflow-x: auto;
+                                    position: relative;
+                                    }
+
+                                    .table-wrapper {
+                                    position: relative;
+                                    }
+
+                                    table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                    }
+
+                                    table thead {
+                                    position: sticky;
+                                    top: 0;
+                                    background-color: white;
+                                    z-index: 105; /* Ensures header stays above all */
+                                    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1); /* Enhances visibility */
+                                    }
+                                    tbody{
+                                    overflow-y: auto;
+                                    }
+
+                                    .table thead th {
+                                    position: sticky;
+                                    top: 0;
+                                    background: white;
+                                    z-index: 106;
+                                    padding: 10px;
+                                    border-bottom: 2px solid #ddd;
+                                    }
+
+                                    #slotTable {
+                                    position: relative;
+                                    z-index: 1; /* Keeps slots below header */
+                                    }
+
+
+                                    @media screen and (max-width: 768px) {
+                                    .slots-container {
+                                    overflow-x: auto; /* Allow horizontal scrolling */
+                                    display: block; /* Stack elements for better mobile view */
+                                    }
+
+                                    .table {
+                                    width: 100%;
+                                    /* display: block;  REMOVED to fix alignment */
+                                    overflow-x: auto;
+                                    }
+
+                                    .lane-column {
+                                    min-width: 120px; /* Reduce width for better fit */
+                                    max-width: 130px;
+                                    font-size: 12px;
+                                    padding: 3px;
+                                    }
+
+                                    .slot {
+                                    font-size: 12px;
+                                    padding: 5px;
+                                    margin: 3px 0;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    height: 60px; /* Enforce fixed height on mobile too */
+                                    }
+
+
+                                    }
+                                    @media screen and (max-width: 768px) {
+                                    .d-flex {
+                                    flex-direction: column !important;
+                                    align-items: center !important;
+                                    text-align: center;
+                                    }
+
+                                    .pricing-container {
+                                    width: 100%;
+                                    }
+
+                                    #selectedLane {
+                                    display: block;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    text-align: center;
+                                    margin-top: 8px;
+                                    }
+
+                                    .date-container {
+                                    display: block;
+                                    text-align: center;
+                                    margin-top: 10px;
+                                    }
+
+                                    input[type="date"] {
+                                    display: block;
+                                    margin: 0 auto;
+                                    font-size: 14px;
+                                    padding: 6px;
+                                    width: auto;
+                                    }
+                                    }
+
+
+                                    #slotTable {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    }
+
+                                    .lane-column {
+                                    min-width: 160px;
+                                    max-width: 180px;
+                                    text-align: center;
+                                    padding: 5px;
+                                    }
+
+
+                                    .slot {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    padding: 5px;
+                                    margin: 5px 0;
+                                    border-radius: 6px;
+                                    text-align: center;
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    transition: all 0.3s ease-in-out;
+                                    cursor: pointer;
+                                    border: 1px solid #ddd;
+                                    background-color: #f8f9fa;
+                                    height: 60px; /* Fixed height for consistency */
+                                    }
+
+                                    .available-slot {
+                                    background-color: #f1f1f1;
+                                    color: #333;
+                                    }
+
+                                    .available-slot:hover {
+                                    background-color: #d9e4ff;
+                                    color: #007bff;
+                                    }
+
+                                    .booked-slot {
+                                    background-color: #ffcccc;
+                                    border: 1px solid #ff6666;
+                                    color: #b30000;
+                                    cursor: not-allowed;
+                                    }
+
+                                    .past-slot {
+                                        background-color: #ffcccc;
+                                        color: #fff;
+                                        cursor: not-allowed;
+                                        pointer-events: none;
+                                    }
+
+                                    .selected-slot {
+                                    background-color: #28a745 !important;
+                                    color: white !important;
+
+                                    }
+
+                                </style>
+
+
+                                <style>/* Slots Layout */
+                                    .slots-container {
+                                    max-height: 400px;
+                                    overflow-y: auto;
+                                    display: flex;
+                                    justify-content: center;
+                                    }
+
+
+                                </style>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Right Side: Summary -->
+                        <div class="col-lg-4">
+
+                            <div class="card shadow-lg rounded-lg p-3 fixed-height-container" style="height: 550px; overflow-y: auto">
+                                <style>
+                                    .extra-addons-heading {
+                                    font-size: 1rem;
+                                    text-align: center;
+                                    margin-bottom: 20px;
+                                    padding: 10px;
+                                    background: #333c69;
+                                    color: white;
+                                    border-radius: 8px;
+                                    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+                                    }
+
+                                    .product-card {
+                                    width: 19rem;
+                                    border-radius: 12px;
+                                    background: #fff;
+                                    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+                                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                                    overflow: hidden;
+                                    border: 2px solid #ddd;
+                                    }
+
+                                    .product-card:hover {
+                                    transform: translateY(-5px);
+                                    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+                                    }
+
+
+                                    .product-card img {
+                                    width: 100%;
+                                    height: 190px;
+                                    object-fit: cover;
+                                    transition: transform 0.3s ease;
+                                    }
+
+                                    .product-card:hover img {
+                                    transform: scale(1.05);
+                                    }
+
+                                    .price-add-container {
+                                    border-top: 2px solid #ddd;
+                                    padding: 10px;
+                                    background: #f8f9fa;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    }
+
+                                    .price-add-container span {
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: grey;
+                                    }
+
+                                    .price-add-container button {
+                                    background: #5e6ab7;
+                                    color: white;
+                                    font-size: 14px;
+                                    padding: 6px 12px;
+                                    border: none;
+                                    border-radius: 6px;
+                                    transition: background 0.3s;
+                                    }
+
+                                    .price-add-container button:hover {
+                                    background: #5e6ab7;
+                                    }
+                                    .disabled-slot {
+                                        background-color: #ccc !important;
+                                        color: #888 !important;
+                                        text-decoration: line-through;
+                                        pointer-events: none;
+                                    }
+                                </style>
+                                <h3 class="extra-addons-heading" style=" font-family: 'Times New Roman', Times, serif;">
+                                    Add-Ons
+                                </h3>
+
+                                <div class="container" style="max-height: 400px; overflow-y: auto;">
+
+                                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                                        <t t-foreach="product_addons" t-as="card">
+                                            <div class="product-card" t-att-data-product-id="card.product_tmpl_id.id">
+<!--                                                <img src="https://bowlingmachine.co.in/assets/images/Slider/leverage-cricket-bowling-machines-640.jpg"-->
+<!--                                                     alt="Product Name"/>-->
+                                                 <div t-field="card.image_1920"
+                                                     name="o_img_with_max_suggested_width"
+                                                     class="product-detail-img"
+                                                     t-options="{
+                                             'widget': 'image',
+                                             'preview_image': 'image_1024',
+                                             'class': 'oe_unmovable',
+                                             'alt-field': 'name',
+                                         }"/>
+                                                <div class="card-body text-center">
+                                                    <h6 class="card-title mb-1 product-name">
+                                                        <t t-esc="card.name"/>
+                                                    </h6>
+                                                    <p class="card-text text-muted" style="font-size: 13px;">
+                                                        <t t-esc="card.description"/>
+                                                    </p>
+                                                </div>
+                                                <div class="price-add-container">
+                                                    <p class="product-price">$
+                                                        <t t-esc="card.list_price"/>
+                                                    </p>
+
+
+                                                    <button class="btn-cls" id="select-card"
+                                                            disabled="1">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+
+
+                            <div class="card shadow-lg rounded-lg p-3 fixed-height-container"
+                                 style="max-height: 490px; overflow-y: auto;">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="dropdown mb-4 mt-3">
+                                                <button class="btn" data-bs-toggle="collapse"
+                                                        data-bs-target="#selectedSlotDropdown"
+                                                        style="width:100%; background-color:#e6e6e6;font-family: 'Times New Roman', Times, serif;">
+                                                    <i class="fa fa-clock me-1" aria-hidden="true"></i>
+                                                    <i class="fa-check-to-slot"></i>
+                                                    Selected Slots ▼
+                                                </button>
+                                                <div class="collapse mt-2" id="selectedSlotDropdown">
+                                                    <div class="card card-body bg-light p-2 rounded border"
+                                                         style="max-height: 200px; overflow-y: auto;">
+                                                        <p class="text-muted" id="selectedSlot">No slot selected</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="dropdown mb-4 mt-3">
+                                                <button class="btn" data-bs-toggle="collapse"
+                                                        data-bs-target="#selectedproductDropdown"
+                                                        style="width:100%; background-color:#e6e6e6;font-family: 'Times New Roman', Times, serif;">
+
+                                                    <i class="fa-check-to-slot"></i>
+                                                    Selected Add-ons ▼
+                                                </button>
+                                                <div class="collapse mt-2" id="selectedproductDropdown">
+                                                    <div class="card card-body bg-light p-2 rounded border"
+                                                         style="max-height: 200px; overflow-y: auto;">
+                                                        <p class="text-muted" id="selectedProduct">No Add-ons selected
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown mb-4 mt-3">
+                                                <button class="btn w-100 px-3 py-2" data-bs-toggle="collapse"
+                                                        data-bs-target="#paymentStatusDropdown"
+                                                        style="background-color:#e6e6e6; font-family: 'Times New Roman', Times, serif; font-size: 1rem;">
+                                                    <i class="fa fa-credit-card me-1" aria-hidden="true"></i>
+                                                    Payment Summary ▼
+                                                </button>
+                                                <div class="collapse mt-2" id="paymentStatusDropdown">
+                                                    <div class="card card-body bg-light p-2 rounded border"
+                                                         style="max-height: 200px; overflow-y: auto;">
+                                                        <div class="card p-3 bg-light border rounded mb-3">
+                                                            <h6 class="fw-bold text-primary text-center">Payment
+                                                                Summary
+                                                            </h6>
+                                                            <div class="row">
+                                                                <div class="col-6 text-muted">Number Of Days</div>
+                                                                <div class="col-6 text-end text-muted" id="add"> 1
+                                                                </div>
+                                                            </div>
+                                                            <hr/>
+                                                            <div class="row">
+                                                                <div class="col-6 fw-bold">Booking Cost</div>
+                                                                <div class="col-6 text-end fw-bold text-success"
+                                                                     id="grand_price">$ 3989.83
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <style>
+                                                @media (max-width: 576px) {
+                                                .dropdown button {
+                                                font-size: 0.9rem;
+                                                padding: 10px;
+                                                }
+                                                .card-body {
+                                                padding: 10px;
+                                                }
+                                                .card {
+                                                padding: 10px;
+                                                }
+                                                .row {
+                                                font-size: 0.9rem;
+                                                }
+                                                }
+                                            </style>
+
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>
+                                            <input type="checkbox" id="termsCheckbox" required="1"/>
+                                            <span style="font-family:Roboto;font-weight:18px;">
+                                                Please agree to our <a href="/terms-of-use" target="_blank"
+                                                                       style="color:red">Terms and Conditions
+                                            </a> for lane booking.
+                                            </span>
+                                        </label>
+                                        <br></br>
+                                        <br></br>
+
+                                        <span style="font-family:Roboto;font-weight:18px;" id="warningMessage"
+                                              class="text-danger fw-bold d-none">
+                                            <i class="fa fa-warning" style="font-size:18px;color:red"></i>
+                                            Selected hours for  <span id="selectedLane" style="font-weight:bold;">None
+                                        </span> must be more than 1 hour.
+                                        </span>
+
+                                    </div>
+
+
+                                    <input type="hidden" id="selectedProductconfirm" t-att-value=""/>
+                                    <form action="/shop/cart/update" method="POST" class="w-100">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="product_id" id="cnfrprdid" t-att-value=""/>
+                                        <input type="hidden" id="add_qty" name="add_qty" value="1"/>
+                                        <button type="submit" id="btn-hide"
+                                                class="btn btn-lg w-100 d-block d-none"
+                                                style="background-color:#007bff; color: white; font-weight: 600;">
+                                            <i class="fa fa-shopping-cart me-2"></i>
+                                            Proceed To Checkout
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="blue-box text-white d-flex justify-content-between align-items-center px-3 py-2 rounded"
+                                     style="font-size: 14px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); background-color:#5e6ab7">
+                                    <div class="fw-bold d-flex flex-column">
+                                        <span id="cds"></span>
+                                        <span id="price">
+                                            <span id="total_price">500</span>
+                                        </span>
+                                        <small class="text-white-50 hide_cls">
+                                            <span id="selected_slot_count">0</span>
+                                            SLOT(S) and  <span id="selected_addons_count">0</span>   Add-Ons
+                                            SELECTED
+                                        </small>
+                                    </div>
+
+                                    <t t-set="is_connected" t-value="False"/>
+                                    <t t-if="website">
+                                        <t t-set="is_connected" t-value="website.user_id != user_id"/>
+                                    </t>
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="hidden" name="selected_slots" id="selectedSlotsInput" value=""/>
+                                        <input type="hidden" name="selected_addons" id="selectedAddonsInput" value=""/>
+
+                                        <t t-if="is_connected">
+                                            <button id="confirmBtn"
+                                                    class="btn btn-light btn-sm fw-bold px-3 py-2 same-btn"
+                                                    disabled="True">
+                                                RESERVE
+                                            </button>
+                                        </t>
+                                        <t t-else="">
+                                            <a id="confirmBtn" t-attf-href="/web/login?redirect={{ request.httprequest.path }}"
+                                               class="btn btn-light btn-sm  px-3 py-2 fw-bold same-btn">
+                                                LOGIN / SIGNUP
+                                            </a>
+                                            <input type="hidden" id="bookedHoursInput" value="0"/>
+
+                                        </t>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <style>
+                                .blue-box{
+                                height: 50px;
+                                }
+                                .same-btn {
+                                width: 140px;
+                                text-align: center;
+                                border-radius: 5px;
+                                transition: 0.3s;
+                                }
+
+                                @media (max-width: 600px) {
+                                .blue-box{
+                                height: 90px;
+                                }
+                                .row {
+                                display: flex;
+                                flex-wrap: wrap;
+                                }
+
+                                .col-6 {
+                                flex: 0 0 100%;
+                                max-width: 100%;
+                                }
+
+                                .dropdown button {
+                                width: 100%;
+                                }
+
+                                .fixed-height-container {
+                                max-height: auto;
+                                }
+                                }
+
+
+                            </style>
+                        </div>
+                    </div>
+                    <script>
+                         document.addEventListener("DOMContentLoaded", function () {
+                                let termsCheckbox = document.getElementById("termsCheckbox");
+                                let confirmBtn = document.getElementById("confirmBtn");
+                                let warningMessage = document.getElementById("warningMessage");
+
+                                function validateBooking() {
+                                    let hasWarning = warningMessage &amp;&amp; !warningMessage.classList.contains("d-none"); // Check if warning is visible
+                                    let isTermsChecked = termsCheckbox?.checked || false;
+
+                                    confirmBtn.disabled = hasWarning || !isTermsChecked;
+                                }
+
+                                if (termsCheckbox) {
+                                    termsCheckbox.addEventListener("change", validateBooking);
+                                }
+
+                                validateBooking();
+                            });
+
+                    </script>
+
+
+                </div>
+                <style>
+
+                    .booked-slot {
+                    pointer-events: none;
+                    opacity: 0.6;
+                    background-color: #f8d7da !important;
+                    color: #721c24;
+                    text-align: center;
+                    font-weight: bold;
+                    }
+                </style>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="checkout_layout_inherit" inherit_id="website.step_wizard">
+        <xpath expr="//div[@class='o_wizard d-flex flex-wrap justify-content-between justify-content-md-start my-3 my-sm-4']"
+               position="replace">
+            <div></div>
+        </xpath>
+    </template>
+    <template id="total_inherit" inherit_id="website_sale.total">
+        <xpath expr="//tr[@id='order_delivery']" position="replace">
+        </xpath>
+
+        <xpath expr="//tr[@id='order_total']" position="replace">
+            <tr id="order_total" class="border-top">
+                <td colspan="2" class="border-0 ps-0 pt-3">
+                    <strong>Total</strong>
+                </td>
+                <td class="text-end border-0 px-0 pt-3">
+                    <strong t-out="website_sale_order.amount_total"
+                            class="monetary_field text-end p-0"
+                            t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+    <template id="payment_inherit" inherit_id="website_sale.payment">
+        <xpath expr="//h3[contains(text(), 'Confirm order')]" position="replace">
+            <h3 class="mb-4 d-none"></h3>
+        </xpath>
+
+        <xpath expr="//div[@id='address_on_payment']" position="replace">
+            <div id="address_on_payment" class="d-none"></div>
+        </xpath>
+    </template>
+
+    <template id="inherit_payment_template" inherit_id="website_sale.payment">
+        <xpath expr="//t[@t-call='website_sale.checkout_layout']" position="attributes">
+            <t t-set="selected_slots" t-value="selected_slots"/>
+            <t t-set="selected_addons" t-value="selected_addons"/>
+            <t t-set="sale_order" t-value="selected_addons"/>
+        </xpath>
+    </template>
+
+    <template id="custom_total" inherit_id="website_sale.total">
+        <xpath expr="." position="replace">
+            <div id="cart_total" t-if="sale_order and sale_order.website_order_line">
+                <table class="table mb-0">
+                    <tr t-if="sale_order._has_deliverable_products() and sale_order.carrier_id" id="order_delivery">
+                        <td class="ps-0 pt-0 pb-2 border-0 text-muted" colspan="2"
+                            title="Delivery will be updated after choosing a new delivery method">
+                            Delivery
+                        </td>
+                        <td class="text-end pe-0 pt-0 pb-2 border-0">
+                            <span t-out="sale_order.amount_delivery"
+                                  class="monetary_field"
+                                  style="white-space: nowrap;"
+                                  t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}"/>
+                        </td>
+                    </tr>
+                    <tr id="order_total_untaxed">
+                        <td id="cart_total_subtotal" class="border-0 pb-2 ps-0 pt-0 text-start text-muted" colspan="2">
+                            Subtotal
+                        </td>
+                        <td class="text-end border-0 pb-2 pe-0 pt-0">
+                            <span t-field="sale_order.amount_untaxed"
+                                  class="monetary_field"
+                                  style="white-space: nowrap;"
+                                  t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}"/>
+                        </td>
+                    </tr>
+                    <tr id="order_total_taxes">
+                        <td colspan="2" class="text-muted border-0 ps-0 pt-0 pb-3">Taxes</td>
+                        <td class="text-end border-0 pe-0 pt-0 pb-3">
+                            <span t-field="sale_order.amount_tax"
+                                  class="monetary_field"
+                                  style="white-space: nowrap;"
+                                  t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}"/>
+                        </td>
+                    </tr>
+                    <tr id="order_total" class="border-top">
+                        <td colspan="2" class="border-0 ps-0 pt-3">
+                            <strong>Total</strong>
+                        </td>
+                        <td class="text-end border-0 px-0 pt-3">
+                            <strong t-field="sale_order.amount_total"
+                                    class="monetary_field text-end p-0"
+                                    t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}"/>
+                        </td>
+                    </tr>
+                </table>
+                <t t-call="website_sale.coupon_form"/>
+
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="inherit_checkout_layout" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//button[contains(@data-bs-target, '#o_wsale_accordion_item')]" position="replace">
+            <div class="checkout-selected-data my-3" style="font-family: Roboto, sans-serif;">
+
+                <!-- Selected Slots Dropdown -->
+                <t t-set="decoded_slots" t-value="selected_slots and json.loads(selected_slots) or []"/>
+                <t t-if="decoded_slots">
+                    <details>
+                        <summary style="font-family: Roboto, sans-serif; font-size: 18px; cursor: pointer;">Selected
+                            Slots
+                        </summary>
+
+                        <!-- Display Date under Selected Slots -->
+                        <div style="font-size: 14px; margin-bottom: 10px;">
+                            <t t-set="date" t-value="decoded_slots[0].get('date', 'Unknown')"/>
+                            <span>Lane:
+                                <t t-esc="sale_order.order_line[0].product_id.name"/>
+                            </span>
+                            <br></br>
+                            <span>Selected Date:
+                                <t t-esc="date"/>
+                            </span>
+                            
+                        </div>
+
+                        <ul style="list-style-type: disc; padding-left: 20px;">
+                            <t t-foreach="decoded_slots" t-as="slot">
+                                <li style="font-size: 16px;">
+                                    <t t-esc="slot.get('lane_name', 'N/A')"/>
+                                    -
+                                    <t t-esc="slot.get('time', 'Unknown')"/>
+                                    -
+                                    Price: $
+                                    <t t-esc="slot.get('price', '0')"/>
+                                </li>
+                            </t>
+                        </ul>
+                    </details>
+                </t>
+                <t t-if="not decoded_slots">
+                    <p>No slots selected</p>
+                </t>
+
+                <!-- Selected Add-ons Dropdown -->
+                <t t-set="decoded_addons" t-value="selected_addons and json.loads(selected_addons) or {}"/>
+                <t t-if="decoded_addons">
+                    <details style="margin-top: 20px;" t-att-data-product-id="decoded_addons, product_id">
+                        <summary style="font-family: Roboto, sans-serif; font-size: 18px; cursor: pointer;" t-attf-data="product_id">Selected
+                            Add-ons
+                        </summary>
+                        <ul style="list-style-type: disc; padding-left: 20px;">
+                            <t t-foreach="decoded_addons.items()" t-as="addon">
+                                <t t-set="product_id" t-value="int(addon[0])"/>
+                                <t t-set="product" t-value="env['product.template'].browse(product_id)"/>
+                                <li style="font-size: 16px;">
+                                    <span>
+                                        <t t-esc="product.name or 'Unknown'"/>
+                                    </span>
+                                    - Price: $
+                                    <t t-esc="addon[1]"/>
+                                </li>
+                            </t>
+                        </ul>
+                    </details>
+                </t>
+                <t t-if="not decoded_addons">
+                    <p style="margin-top:20px;">No add-ons selected</p>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="custom_navigation_buttons" inherit_id="website_sale.navigation_buttons">
+
+        <xpath expr="//div[span[text()='or']]" position="replace">
+            <!-- Replaces the div with nothing, effectively removing it -->
+        </xpath>
+
+        <!-- Hide the back button -->
+        <xpath expr="//a[contains(@t-att-href, 'back_button_href')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+
+    <template id="navigation_buttons" name="Navigation buttons" inherit_id="website_sale.navigation_buttons">
+        <xpath expr="//form[@name='o_wsale_confirm_order']" position="inside">
+            <input type="hidden" name="slot_ids" t-att-value="','.join(slot_ids)"/>
+        </xpath>
+    </template>
+
+
+</odoo>

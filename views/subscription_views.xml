@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         USER SUBSCRIPTION : Form + List
+    ============================================================ -->
+    <record id="view_user_subscription_form" model="ir.ui.view">
+        <field name="name">user.subscription.form</field>
+        <field name="model">user.subscription</field>
+        <field name="arch" type="xml">
+            <form string="User Subscription">
+                <header>
+                    <button name="action_cancel_subscription"
+                            string="Cancel Subscription"
+                            type="object"
+                            class="btn-danger"
+                            invisible="status != 'active'"
+                            confirm="Are you sure you want to cancel this subscription?"/>
+
+                    <field name="status"
+                           widget="statusbar"
+                           statusbar_visible="pending,active,cancelled,expired"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group string="Subscription">
+                            <field name="partner_id"/>
+                            <field name="user_id"/>
+                            <field name="subscription_type"/>
+                            <!-- Group is set at the Membership Type level, not per member -->
+                            <field name="price"/>
+                        </group>
+
+                        <group string="Dates">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="next_billing_date"/>
+                            <field name="cancelled_date"
+                                   invisible="status != 'cancelled'"/>
+                            <field name="days_remaining"/>
+                        </group>
+                    </group>
+
+                    <group string="Stripe">
+                        <field name="stripe_subscription_id" readonly="1"/>
+                        <field name="stripe_customer_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_user_subscription_list" model="ir.ui.view">
+        <field name="name">user.subscription.list</field>
+        <field name="model">user.subscription</field>
+        <field name="arch" type="xml">
+            <list decoration-success="status == 'active'"
+                  decoration-muted="status in ('cancelled','expired')">
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="subscription_type"/>
+                <field name="price"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="status" widget="badge"/>
+                <field name="is_active"/>
+                <field name="days_remaining"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         SUBSCRIPTION TYPE CONFIG : admin sets which group each type belongs to
+    ============================================================ -->
+    <record id="view_subscription_type_config_form" model="ir.ui.view">
+        <field name="name">subscription.type.config.form</field>
+        <field name="model">subscription.type.config</field>
+        <field name="arch" type="xml">
+            <form string="Membership Type Settings">
+                <sheet>
+                    <group>
+                        <field name="subscription_type"/>
+                        <field name="group_id"
+                               help="Memberships in the same group are mutually exclusive for each user."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_subscription_type_config_list" model="ir.ui.view">
+        <field name="name">subscription.type.config.list</field>
+        <field name="model">subscription.type.config</field>
+        <field name="arch" type="xml">
+            <list string="Membership Type Settings" editable="bottom">
+                <field name="subscription_type"/>
+                <field name="group_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_subscription_type_config" model="ir.actions.act_window">
+        <field name="name">Membership Type Settings</field>
+        <field name="res_model">subscription.type.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure which group each membership type belongs to.
+            </p>
+            <p>
+                Create one entry per membership type (A, B, C) and assign it to a group.
+                Types in the same group will be mutually exclusive — users can only hold
+                one active subscription per group at a time.
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         SUBSCRIPTION GROUP : create/manage groups
+    ============================================================ -->
+    <record id="view_subscription_group_form" model="ir.ui.view">
+        <field name="name">subscription.group.form</field>
+        <field name="model">subscription.group</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Group">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Membership Types in this Group">
+                            <field name="type_config_ids">
+                                <list editable="bottom">
+                                    <field name="subscription_type"/>
+                                </list>
+                            </field>
+                            <p class="text-muted o_form_label" style="margin-top:8px">
+                                Users can only hold one active subscription per group at a time.
+                            </p>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_subscription_group_list" model="ir.ui.view">
+        <field name="name">subscription.group.list</field>
+        <field name="model">subscription.group</field>
+        <field name="arch" type="xml">
+            <list string="Subscription Groups">
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_subscription_group" model="ir.actions.act_window">
+        <field name="name">Subscription Groups</field>
+        <field name="res_model">subscription.group</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ============================================================
+         ACTIONS + MENUS
+    ============================================================ -->
+    <record id="action_user_subscription" model="ir.actions.act_window">
+        <field name="name">User Subscriptions</field>
+        <field name="res_model">user.subscription</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_user_subscription_root"
+              name="Memberships"
+              sequence="50"/>
+
+    <menuitem id="menu_user_subscription"
+              name="Subscriber Records"
+              parent="menu_user_subscription_root"
+              action="action_user_subscription"
+              sequence="10"/>
+
+    <menuitem id="menu_subscription_type_config"
+              name="Membership Type Settings"
+              parent="menu_user_subscription_root"
+              action="action_subscription_type_config"
+              sequence="20"/>
+
+    <menuitem id="menu_subscription_groups"
+              name="Subscription Groups"
+              parent="menu_user_subscription_root"
+              action="action_subscription_group"
+              sequence="30"/>
+
+</odoo>

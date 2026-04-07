@@ -1,0 +1,301 @@
+<odoo>
+    <template id="subscription_upgrade_template" name="Subscription Upgrade">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-lg border-0">
+                            <div class="card-body p-5">
+                                <h2 class="text-center mb-4" style="color:#0a2351">
+                                    Upgrade Your Subscription
+                                </h2>
+                                
+                                <div class="row mb-4">
+                                    <!-- Current Plan -->
+                                    <div class="col-md-5">
+                                        <div class="plan-box p-4 border rounded bg-light">
+                                            <h5 class="text-muted mb-3">Current Plan</h5>
+                                            <h3 class="fw-bold" style="color:#0a2351">
+                                                <t t-esc="current_subscription_name"/>
+                                            </h3>
+                                            <div class="price-info mt-3">
+                                                <span class="fs-4 fw-bold">
+                                                    $<t t-esc="'{:.2f}'.format(current_subscription.price)"/>
+                                                </span>
+                                                <span class="text-muted">/month</span>
+                                            </div>
+                                            
+                                            <ul class="list-unstyled mt-3 small">
+                                                <li class="mb-2">✅ Full Gym Access</li>
+                                                <li class="mb-2">
+                                                    ✅ <t t-esc="current_subscription.lane_rental_discount"/>% Lane Discount
+                                                </li>
+                                                <li class="mb-2">
+                                                    ✅ <t t-esc="current_subscription.merchandise_discount"/>% Merch Discount
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Arrow -->
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <div class="text-center">
+                                            <i class="fa fa-arrow-right fa-3x" style="color:#0a2351;"></i>
+                                            <p class="small text-muted mt-2">Upgrade to</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- New Plan -->
+                                    <div class="col-md-5">
+                                        <div class="plan-box p-4 border rounded" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                                            <h5 class="text-muted mb-3">New Plan</h5>
+                                            <h3 class="fw-bold" style="color:#0a2351">
+                                                <t t-esc="new_subscription_name"/>
+                                            </h3>
+                                            <div class="price-info mt-3">
+                                                <span class="fs-4 fw-bold">
+                                                    <t t-esc="currency"/> $<t t-esc="'{:.2f}'.format(new_price)"/>
+                                                </span>
+                                                <span class="text-muted">/month</span>
+                                            </div>
+                                            
+                                            <ul class="list-unstyled mt-3 small">
+                                                <li class="mb-2">✅ Full Gym Access</li>
+                                                <li class="mb-2">
+                                                    ✅ <t t-esc="lane_discount"/>% Lane Discount
+                                                </li>
+                                                <li class="mb-2">
+                                                    ✅ <t t-esc="merch_discount"/>% Merch Discount
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Important Information -->
+                                <div class="alert alert-info mb-4">
+                                    <h5 class="alert-heading">
+                                        <i class="fa fa-info-circle"></i> What happens when you upgrade?
+                                    </h5>
+                                    <ul class="mb-0">
+                                        <li>Your current subscription will be cancelled immediately</li>
+                                        <li>You'll be charged <t t-esc="currency"/> $<t t-esc="'{:.2f}'.format(new_price)"/> for the new plan</li>
+                                        <li>Your new subscription starts today with a new billing cycle</li>
+                                        <li>New discounts will apply to all future purchases</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Payment Form -->
+                                <div id="payment-form" class="mb-4">
+                                    <h5 class="mb-3">Payment Information</h5>
+                                    
+                                    <div class="mb-3">
+                                        <label for="card-holder-name" class="form-label">Cardholder Name</label>
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="card-holder-name" 
+                                               placeholder="John Doe" 
+                                               required="required"/>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="card-element" class="form-label">Card Details</label>
+                                        <div id="card-element" class="form-control" style="height: 40px; padding-top: 10px;">
+                                            <!-- Stripe Card Element will be inserted here -->
+                                        </div>
+                                        <div id="card-errors" class="text-danger mt-2" role="alert"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Confirm Upgrade Section -->
+                                <div class="text-center">
+                                    <button type="button" 
+                                            id="confirm-upgrade-btn" 
+                                            class="btn btn-primary btn-lg px-5">
+                                        <span id="button-text">
+                                            Confirm Upgrade - <t t-esc="currency"/> $<t t-esc="'{:.2f}'.format(new_price)"/>/month
+                                        </span>
+                                        <span id="spinner" class="spinner-border spinner-border-sm d-none" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </span>
+                                    </button>
+                                    
+                                    <div class="mt-3">
+                                        <a href="/my_subscription" class="text-muted">
+                                            Cancel and keep current plan
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-4">
+                                    <p class="text-muted small mb-0">
+                                        🔒 Secure payment powered by Stripe
+                                    </p>
+                                    <t t-if="is_test_mode">
+                                        <p class="text-warning small mb-0">
+                                            <strong>TEST MODE</strong>
+                                        </p>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script src="https://js.stripe.com/v3/"></script>
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    
+                    // Initialize Stripe
+                    const stripe = Stripe('<t t-esc="stripe_publishable_key"/>');
+                    const elements = stripe.elements();
+                    
+                    // Create card element
+                    const cardElement = elements.create('card', {
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                color: '#32325d',
+                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                                '::placeholder': {
+                                    color: '#aab7c4'
+                                }
+                            },
+                            invalid: {
+                                color: '#dc3545',
+                                iconColor: '#dc3545'
+                            }
+                        }
+                    });
+                    
+                    cardElement.mount('#card-element');
+                    
+                    // Handle card errors
+                    cardElement.on('change', function(event) {
+                        const displayError = document.getElementById('card-errors');
+                        if (event.error) {
+                            displayError.textContent = event.error.message;
+                        } else {
+                            displayError.textContent = '';
+                        }
+                    });
+                    
+                    // Handle upgrade confirmation
+                    const confirmButton = document.getElementById('confirm-upgrade-btn');
+                    const buttonText = document.getElementById('button-text');
+                    const spinner = document.getElementById('spinner');
+                    
+                    confirmButton.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        
+                        const cardholderName = document.getElementById('card-holder-name').value.trim();
+                        
+                        if (!cardholderName) {
+                            alert('Please enter cardholder name');
+                            return;
+                        }
+                        
+                        // Disable button and show spinner
+                        confirmButton.disabled = true;
+                        buttonText.classList.add('d-none');
+                        spinner.classList.remove('d-none');
+                        
+                        try {
+                            // Create payment method
+                            const {paymentMethod, error} = await stripe.createPaymentMethod({
+                                type: 'card',
+                                card: cardElement,
+                                billing_details: {
+                                    name: cardholderName,
+                                }
+                            });
+                            
+                            if (error) {
+                                throw new Error(error.message);
+                            }
+                            
+                            // Process upgrade via backend
+                            const response = await fetch('/subscription/process_upgrade', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    jsonrpc: '2.0',
+                                    method: 'call',
+                                    params: {
+                                        new_subscription_type: '<t t-esc="new_subscription_type"/>',
+                                        new_price_id: '<t t-esc="new_price_id"/>',
+                                        payment_method_id: paymentMethod.id
+                                    }
+                                })
+                            });
+                            
+                            const result = await response.json();
+                            const data = result.result;
+                            
+                            if (data.status === 'success') {
+                                window.location.href = data.redirect;
+                            } else if (data.status === 'requires_action') {
+                                // Handle 3D Secure if needed
+                                const {error: confirmError} = await stripe.confirmCardPayment(
+                                    data.client_secret
+                                );
+                                
+                                if (confirmError) {
+                                    throw new Error(confirmError.message);
+                                } else {
+                                    window.location.href = '/my_subscription?upgraded=1';
+                                }
+                            } else {
+                                throw new Error(data.message || 'Upgrade failed');
+                            }
+                            
+                        } catch (error) {
+                            console.error('Upgrade error:', error);
+                            alert('Upgrade failed: ' + error.message);
+                            
+                            // Re-enable button
+                            confirmButton.disabled = false;
+                            buttonText.classList.remove('d-none');
+                            spinner.classList.add('d-none');
+                        }
+                    });
+                })();
+            </script>
+            
+            <style>
+                .plan-box {
+                    transition: transform 0.3s ease;
+                }
+                
+                .plan-box:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .btn-primary {
+                    background: #0a2351 !important;
+                    border: none;
+                    font-weight: 600;
+                }
+                
+                .btn-primary:hover {
+                    background: #0d2f6e !important;
+                    box-shadow: 0 5px 20px rgba(10, 35, 81, 0.4);
+                }
+                
+                #card-element {
+                    border: 1px solid #ced4da;
+                    border-radius: 0.375rem;
+                }
+                
+                #card-element.StripeElement--focus {
+                    border-color: #0a2351;
+                    box-shadow: 0 0 0 0.25rem rgba(10, 35, 81, 0.25);
+                }
+            </style>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,230 @@
+<odoo>
+    <template id="team_page_template" name="Cricket Academy Teams">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <!-- Heading Section -->
+                <div class="text-center mb-5">
+                    <h1 class="display-4" style="color:#f0022d">Meet Our Cricket Teams</h1>
+                    <p class="lead text-light">Building Champions Across All Age Groups</p>
+                </div>
+
+                <!-- Teams Overview Section -->
+                <div class="row mb-4">
+                    <div class="col-md-12 text-center">
+                        <div class="bg-light p-4 rounded shadow-lg">
+                            <h2 class="text-accent">Our Cricket Teams</h2>
+                            <p class="text-dark">We take pride in developing young cricketers with a focus on skills,
+                                fitness, and teamwork. Here’s a look at our teams across various age groups:
+                            </p>
+                            <p class="text-muted">From beginners to advanced, our academy has a team for every age and
+                                skill level!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teams Section -->
+                <div class="row text-center mt-4">
+                    <t t-foreach="teams" t-as="team">
+                        <div class="col-md-4 mb-3">
+                            <div class="team-card bg-white p-4 rounded shadow-lg">
+                                <h3 class="card-heading">
+                                    <t t-esc="team.name"/>
+                                </h3>
+                                <t t-if="team.image">
+                                    <img t-att-src="'/web/image/our.team/%d/image' % team.id"
+                                         alt="Team Image"
+                                         class="img-fluid rounded-circle shadow-lg w-100"/>
+                                </t>
+                                <p class="text-dark mt-2">
+                                    <t t-esc="team.description"/>
+                                </p>
+                                <ul class="list-unstyled text-dark">
+                                    <li><strong>Coach:</strong> <t t-esc="team.coach_name"/></li>
+                                    <li><strong>Training:</strong> <t t-esc="team.training_timing"/></li>
+                                    <li><strong>Age Group:</strong> <t t-esc="team.age_group"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- Add a distinct border or separator between the sections -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="my-4"></hr>
+                    </div>
+                </div>
+
+
+                <!-- Team Achievements Section -->
+                <div class="row mt-5 text-center">
+                    <div class="col-md-12">
+                        <div class="bg-success p-4 rounded shadow-lg">
+                            <h2 class="text-white">Team Achievements</h2>
+                            <p class="text-white">Our teams have participated in numerous tournaments, leagues, and
+                                championships. Here are a few of our proud moments:
+                            </p>
+                            <ul class="list-unstyled text-white">
+                                <li>
+                                    <strong>2023 Regional Championship - Under 13 Champions</strong>
+                                </li>
+                                <li>
+                                    <strong>2022 Best Team Performance - Under 15 National League</strong>
+                                </li>
+                                <li>
+                                    <strong>Under 11 Team - 1st Place in District Tournament</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Player Development Program Section -->
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center">
+                        <div class="bg-light p-4 rounded shadow-lg">
+                            <h2 class="text-accent" style="color:#f0022d">Player Development Program</h2>
+                            <p class="text-dark">Our academy is committed to nurturing players from grassroots to elite
+                                levels. We provide a comprehensive development program that focuses on technical skills,
+                                fitness, mental toughness, and match strategy.
+                            </p>
+                            <p class="text-muted">Whether you're just starting or looking to take your game to the next
+                                level, our expert coaches are here to guide you every step of the way!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Program Cards (Grouped within one section) -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="development-card bg-white p-4 rounded shadow-lg mb-4">
+                            <h4 class="text-accent" style="color:#f0022d">Comprehensive Training</h4>
+                            <p class="text-dark">Our program includes batting, bowling, fielding, and fitness training,
+                                along with sessions focusing on match awareness, leadership, and decision-making skills.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="development-card bg-white p-4 rounded shadow-lg mb-4">
+                            <h4 class="text-accent" style="color:#f0022d">Experienced Coaches</h4>
+                            <p class="text-dark">Our coaching staff comprises experienced former cricketers and
+                                certified trainers who provide personalized guidance to each player based on their
+                                strengths and areas of improvement.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Join Our Teams Section -->
+                <div class="mt-5 text-center">
+                    <h2 class="text-accent" style="color:#f0022d">Join Our Cricket Academy!</h2>
+                    <p class="text-muted text-light">Are you passionate about cricket and eager to develop your skills? Our academy
+                        is always looking for talented young players to join our teams. Get in touch to be part of the
+                        future champions!
+                    </p>
+                    <a href="/contactus" class="btn btn-danger btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </t>
+        <style>
+                   body{
+                background: linear-gradient(to right, #2c3e50, #822f3f); /* Dark navy to dark maroon */
+}
+            /* Custom Styling for Team Page */
+            .text-accent {
+            color: #ff6f61; /* Vibrant Coral */
+            }
+            .bg-light {
+            background-color: #f8f9fa !important;
+            }
+            .bg-success {
+            background-color: #28a745 !important;
+            }
+            .team-card {
+            padding: 20px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+            }
+            .team-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+            .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            }
+            .card-heading {
+            color: #d63384;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+            }
+            h1.display-4 {
+            font-size: 3rem;
+            font-weight: bold;
+            }
+            h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            }
+            .btn-danger {
+            background-color: #d63384;
+            border: none;
+            }
+            .btn-danger:hover {
+            background-color: #a02969;
+            }
+        </style>
+    </template>
+
+    <template id="custom_contact_info" inherit_id="website.s_contact_info">
+        <xpath expr="//section" position="replace">
+                <section class="s_contact_info pt48 pb64 o_cc o_cc1">
+
+            <div class="container">
+            <div class="row o_grid_mode" data-row-count="11">
+                <div class="o_grid_item g-col-lg-6 g-height-5 col-lg-6 col-10 offset-1 order-lg-0" style="order: 2;--grid-item-padding-x: 0px; --grid-item-padding-y: 24px; grid-area: 1 / 1 / 6 / 7; z-index: 1;" data-name="Title block">
+                    <h2>Contact Us</h2>
+                    <p class="lead">We'd love to hear from you! If you have any questions, feedback, or need assistance, please feel free to reach out to us using the contact details provided. Our team is here to help and will respond as soon as possible. Thank you for getting in touch!</p>
+                </div>
+                <div class="o_grid_item g-col-lg-6 g-height-2 col-lg-6 col-10 offset-1 order-lg-0" style="order: 3; --grid-item-padding-x: 0px; --grid-item-padding-y: 16px; grid-area: 6 / 1 / 8 / 7; z-index: 2;" data-name="Info block">
+                    <h3 class="h5-fs">
+                        <i class="fa fa-fw fa-envelope-o" role="presentation"/>
+                        Email
+                    </h3>
+                    <p>
+                        &#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="mail-to:info@yourcompany.example.com" title="Send an email">info@usarena.com</a>
+                    </p>
+                </div>
+                <div class="o_grid_item g-col-lg-6 g-height-2 col-lg-6 col-10 offset-1 order-lg-0" style="order: 4; --grid-item-padding-x: 0px; --grid-item-padding-y: 16px; grid-area: 8 / 1 / 10 / 7; z-index: 3;" data-name="Info block">
+                    <h3 class="h5-fs">
+                        <i class="fa fa-fw fa-phone" role="presentation"/>
+                        Phone
+                    </h3>
+                    <p>
+                        &#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="tel:+1555-555-5556" title="Call Customer Service">(508) 709-5635</a>
+                    </p>
+                </div>
+                <div class="o_grid_item g-col-lg-6 g-height-2 col-lg-6 col-10 offset-1 order-lg-0" style="order: 5; --grid-item-padding-x: 0px; --grid-item-padding-y: 16px; grid-area: 10 / 1 / 12 / 7; z-index: 4;" data-name="Info block">
+                    <h3 class="h5-fs">
+                        <i class="fa fa-fw fa-building-o" role="presentation"/>
+                        Office
+                    </h3>
+                    <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;839 Upper Union Street, Franklin-MA-02038</p>
+                </div>
+                <div class="o_grid_item o_grid_item_image g-col-lg-6 g-height-6 col-lg-6 col-10 offset-1 order-lg-0" style="order: 1; --grid-item-padding-x: 0px; --grid-item-padding-y: 0px; grid-area: 6 / 7 / 12 / 13; z-index: 5;" data-name="Image block">
+                    <img class="img img-fluid rounded" src="/web/image/website.s_cover_default_image" alt=""/>
+                </div>
+            </div>
+        </div>
+                </section>
+        </xpath>
+    </template>
+</odoo>

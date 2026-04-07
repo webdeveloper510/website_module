@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--
+            Scheduled Action: Release Expired Lane Slot Reservations
+            Runs every 5 minutes.
+            Finds draft sale orders whose product.slot reservation_expiry has
+            passed and cancels them, which in turn resets is_booked, sale_id
+            and releases any extra.addons (bowling machine) reservations too.
+        -->
+        <record id="ir_cron_release_expired_reservations" model="ir.cron">
+            <field name="name">Release Expired Lane Slot Reservations</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_release_expired_reservations()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="active">True</field>
+            <field name="priority">5</field>
+        </record>
+    </data>
+</odoo>

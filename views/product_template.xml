@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='rent_ok']" position="before">
+                    <field name="is_box_cricket" string="Enable Box Cricket"/>
+                    <label class="o_form_label" for="is_box_cricket"></label>
+                </xpath>
+               <xpath expr="//page[@name='general_information']" position="after">
+                   <page string="Box Configuration" invisible="(is_box_cricket == False)">
+                        <field name="box_configuration_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="lane_id" widget="many2many_tags"/>
+                                <field name="is_publish"/>
+                            </list>
+                        </field>
+                    </page>
+               </xpath>
+
+                 <xpath expr="//page[@name='general_information']" position="after">
+                   <page string="Extra Addons" invisible="1">
+                        <field name="extra_addons_ids">
+                            <list editable="bottom">
+                                <field name="date"/>
+                                <field name="time"/>
+                                <field name="sale_id"/>
+                                <field name = "is_book"/>
+                            </list>
+                        </field>
+                    </page>
+               </xpath>
+               <xpath expr="//field[@name='categ_id']" position="after">
+                 <field name="product_type"/>
+                   <field name="validity_period"
+                   widget="selection"
+                    invisible="(product_type != 'subscription')"/>
+
+            <field name="video_checkbox"
+                   depends="product_type"
+                   invisible="(product_type != 'addons')"/>
+           <field name="is_publish"
+           depends="product_type"
+           invisible="(product_type != 'addons')"/>
+
+        </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page string="Time Slots">
+
+                        <field name="time_slot_ids">
+                            <list editable="bottom">
+                                <field name="days"/>
+                                 <field name="morning_start_time"/>
+                                <field name="morning_end_time"/>
+                                <field name="evening_start_time"/>
+                                <field name="evening_end_time"/>
+                                <field name="morning_price"/>
+                                <field name="evening_price"/>
+                            </list>
+                        </field>
+
+
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page string="Peak Times" invisible="product_type != 'lane_rental'">
+                        <group>
+                            <field name="peak_price"/>
+                        </group>
+                        <field name="peak_time_ids">
+                            <list editable="bottom">
+                                <field name="days"/>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+
+
+</odoo>

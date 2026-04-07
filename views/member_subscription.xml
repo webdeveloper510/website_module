@@ -1,0 +1,155 @@
+<odoo>
+
+    <record id="membership_action" model="ir.actions.act_window">
+        <field name="name">Membership</field>
+        <field name="res_model">member.subscription</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_membership" name="Membership" parent="menu_arena" sequence="2" action="membership_action"/>
+
+    <record id="view_membership_tree" model="ir.ui.view">
+        <field name="name">membership.tree</field>
+        <field name="model">member.subscription</field>
+        <field name="arch" type="xml">
+            <list string="Memberships">
+                <field name="name"/>
+                <field name="price"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_membership_form" model="ir.ui.view">
+        <field name="name">membership.form</field>
+        <field name="model">member.subscription</field>
+        <field name="arch" type="xml">
+            <form string="Membership">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+<!--                        <field name="price"/>-->
+                        <table class="o_group">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Monthly (8 Hours)</th>
+                                    <th>Quarterly (24 Hours)</th>
+                                    <th>Half-Yearly (48 Hours)</th>
+                                    <th>Not Applicable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Group Coaching</td>
+                                    <td>
+                                        <field name="group_coaching_monthly"/>
+                                    </td>
+                                    <td>
+                                        <field name="group_coaching_quarterly"/>
+                                    </td>
+                                    <td>
+                                        <field name="group_coaching_half_yearly"/>
+                                    </td>
+                                    <td>
+                                        <field name="group_coaching_not_applicable"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Semi-Private</td>
+                                    <td>
+                                        <field name="semi_private_monthly"/>
+                                    </td>
+                                    <td>
+                                        <field name="semi_private_quarterly"/>
+                                    </td>
+                                    <td>
+                                        <field name="semi_private_half_yearly"/>
+                                    </td>
+                                    <td>
+                                        <field name="semi_private_not_applicable"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1:1 Coaching</td>
+                                    <td>
+                                        <field name="one_to_one_monthly"/>
+                                    </td>
+                                    <td>
+                                        <field name="one_to_one_quarterly"/>
+                                    </td>
+                                    <td>
+                                        <field name="one_to_one_half_yearly"/>
+                                    </td>
+                                    <td>
+                                        <field name="one_to_one_not_applicable"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bowling Machine</td>
+                                    <td>
+                                        <field name="bowling_machine_monthly"/>
+                                    </td>
+                                    <td>
+                                        <field name="bowling_machine_quarterly"/>
+                                    </td>
+                                    <td>
+                                        <field name="bowling_machine_half_yearly"/>
+                                    </td>
+                                    <td>
+                                        <field name="bowling_machine_not_applicable"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gym Access</td>
+                                    <td>
+                                        <field name="gym_access_monthly"/>
+                                    </td>
+                                    <td>
+                                        <field name="gym_access_quarterly"/>
+                                    </td>
+                                    <td>
+                                        <field name="gym_access_half_yearly"/>
+                                    </td>
+                                    <td>
+                                        <field name="gym_access_not_applicable"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Lane Hours</td>
+                                    <td>
+                                        <field name="lane_hours_monthly"/>
+                                    </td>
+                                    <td>
+                                        <field name="lane_hours_quarterly"/>
+                                    </td>
+                                    <td>
+                                        <field name="lane_hours_half_yearly"/>
+                                    </td>
+                                    <td>
+                                        <field name="lane_hours_not_applicable"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </group>
+
+                    <group>
+                        <field name="frequency_ids">
+                            <list editable="bottom">
+                                <field name="name" placeholder="Frequency Type (e.g., Monthly)"/>
+                                <field name="price" placeholder="Price"/>
+                            </list>
+                            <form string="Frequency">
+                                <group>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

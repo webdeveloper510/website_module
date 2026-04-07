@@ -1,0 +1,1069 @@
+<odoo>
+    <template id="home_page_template" name="Beautiful Homepage">
+        <t t-call="website.layout">
+            
+            <t t-set="title" t-value="'Welcome to United Sports Arena'"/>
+            <section
+                    class="s_cover o_cc o_cc5 pb-5 pt-5 o_colored_level o_background_video s_parallax_no_overflow_hidden oe_img_bg o_bg_img_center"
+                    data-scroll-background-ratio="0"
+                    data-snippet="s_cover"
+                    data-name="Cover"
+                    data-bg-video-src="https://www.youtube.com/embed/HFNav66VOig?rel=0&amp;autoplay=1&amp;mute=1&amp;enablejsapi=1&amp;controls=0&amp;loop=1&amp;playlist=HFNav66VOig&amp;fs=0"
+                    style="height: 60vh !important;
+           border-bottom: 5px solid #d7af43;">
+
+                <div class="content position-relative d-flex flex-column align-items-center justify-content-center text-center text-white"
+                     style="height: 50vh;">
+
+                    <!-- Heading -->
+                    <h1 class="fw-bold text-white px-4 py-2 rounded section-heading"
+                        style="background-color: #0066cc; font-size: 40px; font-family: Roboto !important">
+                        Welcome to United Sports Arena
+                    </h1>
+                    <!-- Subtitle -->
+                    <h4 class="fw-bold mt-4 section-content"
+                        style="font-size: 32px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); font-family: Roboto !important">
+                       New England’s Premier indoor cricket Destination
+                    </h4>
+<!--                     <p class="section-content text-light" style="font-size: 1.4rem; font-family: Roboto !important;">
+                        Join Boston’s leading cricket academy, where champions are made.
+                    </p> -->
+                </div>
+            </section>
+
+
+            <style>
+                .custom-btn {
+                color: white;
+                padding: 10px 20px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                border-radius: 5px;
+                transition: background-color 0.3s ease-in-out;
+                }
+
+                .custom-btn:hover {
+                background-color: #003366 !important;
+                }
+
+                .section-heading {
+                opacity: 0;
+                transform: translateX(-100px); /* Starts offscreen from left */
+                transition: transform 1s, opacity 1s ease-out;
+                }
+
+                /* Animation for paragraph and button to come from the right */
+                .section-content {
+                opacity: 0;
+                transform: translateX(100px); /* Starts offscreen from right */
+                transition: transform 1s, opacity 1s ease-out;
+                }
+
+                /* When the section is in view, the content will move into place */
+                .section-visible .section-heading {
+                opacity: 1;
+                transform: translateX(0);
+                }
+
+                .section-visible .section-content {
+                opacity: 1;
+                transform: translateX(0);
+                }
+            </style>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                const section = document.querySelector('.s_cover');
+                const heading = document.querySelector('.section-heading');
+                const content = document.querySelectorAll('.section-content');
+
+                // Create an intersection observer to detect when the section enters the viewport
+                const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                section.classList.add('section-visible');
+                observer.disconnect(); // Stop observing after triggering the animation
+                }
+                });
+                }, {
+                threshold: 0.5
+                });
+
+                observer.observe(section);
+                });
+            </script>
+
+
+            <section class="container my-5">
+                <div class="text-center mb-4">
+                    <h3 class=""
+                        style="color: #d4a017; padding-bottom: 10px; font-size: 32px;font-weight: 600; font-family:Roboto!important;">
+                        What's New at United Sports Arena
+                    </h3>
+                    <p class="text-muted px-3" style="max-width: 800px; font-family:Roboto!important; margin: auto; line-height: 1.6; font-size:18px;">
+                        Stay updated with the latest announcements, events, and special offerings from United Sports
+                        Arena.
+                        Check this section regularly for new flyers and important updates about our cricket facility and
+                        programs.
+                    </p>
+                </div>
+
+                <div id="multiImageCarousel" class="carousel slide mt-4" data-bs-ride="carousel"
+                     data-bs-interval="3000">
+                    <div class="carousel-inner">
+                        <!-- Carousel Item 1 -->
+                        <div class="carousel-item active">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image1.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image2.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image3.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel Item 2 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image4.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image5.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image6.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel Item 3 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image7.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image8.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image9.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image10.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image11.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image12.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item ">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image2.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image1.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image3.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image4.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image5.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-lg border-0">
+                                        <div class="overflow-hidden">
+                                            <img src="/us_arena_website/static/src/img/Image6.jpg"
+                                                 class="d-block w-100 rounded shadow fast-load"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more carousel items if needed -->
+                    </div>
+
+                    <div class="carousel-indicators d-flex justify-content-center mt-3">
+                        <button type="button" data-bs-target="#multiImageCarousel" data-bs-slide-to="0" class="active"
+                                aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#multiImageCarousel" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#multiImageCarousel" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#multiImageCarousel" data-bs-slide-to="3"
+                                aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#multiImageCarousel" data-bs-slide-to="4"
+                                aria-label="Slide 5"></button>
+                        <button type="button" data-bs-target="#multiImageCarousel" data-bs-slide-to="5"
+                                aria-label="Slide 6"></button>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                .text-center h3 {
+                font-size: 36px; /* Adjusted to match image */
+                font-weight: 700; /* Bold style */
+                color: #d4a017; /* Matching color from image */
+                letter-spacing: 0.5px;
+                }
+
+                /* Update Paragraph Text Font Style */
+                .text-center p {
+                font-size: 18px; /* Adjusted for readability */
+                font-weight: 400; /* Normal weight */
+                color: #6c757d; /* Text color from image */
+                line-height: 1.6;
+                }
+
+                /* Font Styling for Text-muted Class */
+                .text-muted.fade-up {
+                margin-top: 15px; /* Optional: Adds a little extra space if necessary */
+                }
+
+                /* Font Styling for Custom Quote Class */
+                .custom-quote-font {
+                font-family: 'Playfair Display', serif; /* Elegant serif font for quotes */
+                font-weight: 400; /* Optional: To make the quote text normal weight */
+                }
+
+                /* Font Styling for h5 */
+                h5 {
+                letter-spacing: 1px; /* Adds space between the letters */
+                }
+
+                /* Border and Color Customizations */
+                .border-primary {
+                border-color: #d4a017 !important; /* Custom color for borders */
+                }
+
+                .text-primary {
+                color: #d4a017 !important;
+                }
+
+
+                .custom-quote-font {
+                margin-bottom: 15px;
+                }
+
+
+                .text-center p {
+                font-size: 1.1rem;
+                font-weight: 400;
+                }
+
+                .fast-load {
+                min-height: 400px;
+                aspect-ratio: 16/9;
+                object-fit: cover;
+                will-change: transform, opacity;
+                }
+
+                .carousel-item .fast-load {
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+                }
+
+                .carousel-item.active .fast-load {
+                opacity: 1;
+                }
+
+                .carousel-indicators button {
+                background-color: #d4a017;
+                border: none;
+                width: 12px;
+                height: 12px;
+                margin: 0 4px;
+                border-radius: 50%;
+                transition: background-color 0.3s ease;
+                }
+
+                .carousel-indicators .active {
+                background-color: #fff;
+                }
+
+                /* Ensure carousel slides one image at a time */
+                .carousel-inner {
+                display: flex;
+                }
+
+                .carousel-item {
+                flex: 0 0 100%;
+                }
+            </style>
+            <!-- About Us Section -->
+            <section class="container my-5" id="about-us-section">
+                <div class="row align-items-stretch">
+                    <!-- Left Text Section -->
+                    <div class="col-md-4 d-flex flex-column justify-content-center animate-left">
+                        <div>
+                            <h5 class="text-uppercase text-primary fw-bold zoom-animation" style="font-family:Roboto!important">About Us</h5>
+                            <h2 class="fw-bold" style="font-size:32px; font-family:Roboto!important">Who We
+                                Are
+                            </h2>
+                            <p class="text-muted zoom-animation" style="font-family: Roboto !important; font-size:18px;">
+                                Established in 2024, United Sports Arena is a cutting-edge cricket academy focused on
+                                nurturing talent with top-tier coaching and advanced training facilities. Our mission is
+                                to foster skilled, confident players ready to compete internationally.
+                            </p>
+                        </div>
+                        <hr class="w-25 border-primary"/>
+                    </div>
+
+                    <!-- Image Section with Blue Background and Shadow -->
+                    <div class="col-md-4 d-flex align-items-stretch animate-right">
+                        <div class="border border-primary p-2 w-100 rounded shadow-lg custom-image-wrapper">
+                            <img src="/us_arena_website/static/src/img/bgimgae.png"
+                                 alt="Indoor Cricket Arena" class="img-fluid w-100 h-100 rounded zoom-effect"/>
+                        </div>
+                    </div>
+
+                    <!-- Right Section with Quote and Button -->
+                    <div class="col-md-4 d-flex flex-column justify-content-between">
+                        <div class="p-3 border rounded shadow-sm bg-light">
+                            <blockquote class="blockquote text-primary fw-bold custom-quote-font pulse-animation">
+                                "I have always believed that process is more important than results."
+                            </blockquote>
+                            <footer class="blockquote-footer  custom-quote-font" style="color:#0a2351;font-size:18px; font-weight:600">M.S.Dhoni</footer>
+                        </div>
+                        <p class="text-muted fade-up" style="font-family: Roboto!important; font-size:18px;">
+                            At United Sports Arena, we believe that cricket is more than a game—it’s a journey that
+                            teaches
+                            invaluable life lessons. Our approach is centered around fostering a supportive environment
+                            where
+                            young athletes can grow both personally and professionally.
+                        </p>
+                        <a href="/about" class="btn text-center text-dark  mt-2 custom-btn-hover  align-items-center justify-content-center bounce-animation"
+                                style="background-color:#d7af43; font-family: 'Poppins', sans-serif; font-size: 14px; padding: 6px 12px; height: 35px; width: 40%; min-width: 120px;">
+                            More About Us
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                .custom-quote-font {
+                font-family: 'Playfair Display', serif; /* Elegant serif font for quotes */
+                font-weight: 400;
+                margin-bottom: 15px; /* Added margin to create space below the quote box */
+                }
+
+                .text-muted.fade-up {
+                font-family: 'Open Sans', sans-serif;
+                margin-top: 15px; /* Optional: Adds a little extra space if necessary */
+                }
+
+                /* Font Styling */
+
+
+                .custom-quote-font {
+                font-family: 'Playfair Display', serif; /* Elegant serif font for quotes */
+                font-weight: 400;
+                }
+
+                h5 {
+                letter-spacing: 1px;
+                }
+
+                .border-primary {
+                border-color: #d4a017 !important;
+                }
+
+                .text-primary {
+                color: #d4a017 !important;
+                }
+
+                .custom-btn-hover {
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                font-family: 'Poppins', sans-serif; /* Clean, modern font for buttons */
+                }
+
+                .custom-btn-hover:hover {
+                background-color: #003366 !important; /* Dark Blue on Hover */
+                color: white;
+                transform: scale(0.95);
+                }
+
+                .custom-image-wrapper {
+                background-color: #0066cc; /* Blue Background */
+                padding: 10px;
+                border-radius: 8px;
+                box-shadow: 0 8px 16px rgba(0, 102, 204, 0.5); /* Blue Shadow */
+                }
+
+                .zoom-effect {
+                animation: zoomInOut 3s infinite ease-in-out;
+                }
+
+                .zoom-animation {
+                animation: zoomInOut 3s infinite ease-in-out;
+                }
+
+                /* Slide-in Animations */
+                .animate-left {
+                opacity: 0;
+                transform: translateX(-100%);
+                transition: all 1s ease-out;
+                }
+
+                .animate-right {
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 1s ease-out;
+                }
+
+                .animate-left.active, .animate-right.active {
+                opacity: 1;
+                transform: translateX(0);
+                }
+            </style>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                const aboutSection = document.getElementById('about-us-section');
+                const leftText = document.querySelector('.animate-left');
+                const rightImage = document.querySelector('.animate-right');
+
+                // Create an intersection observer to detect when the section is in view
+                const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                // Add active class to trigger the animation
+                leftText.classList.add('active');
+                rightImage.classList.add('active');
+                } else {
+                // Remove active class when the section goes out of view
+                leftText.classList.remove('active');
+                rightImage.classList.remove('active');
+                }
+                });
+                }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+
+                // Start observing the section
+                observer.observe(aboutSection);
+                });
+            </script>
+
+
+        <section class="my-5" id="featureSection">
+    <div class="d-flex justify-content-center gap-3 feature-container">
+        <div class="feature-card light-bg animate-left">
+            <h2 class="text-primary fw-bold">12</h2>
+            <p class="fw-bold">Lanes</p>
+        </div>
+        <div class="feature-card dark-bg animate-right">
+            <h2 class="text-white fw-bold">4</h2>
+            <p class="text-white fw-bold">Bowling Machines</p>
+        </div>
+        <div class="feature-card light-bg animate-top">
+            <h2 class="text-primary fw-bold">2</h2>
+            <p class="fw-bold">Indoor Cricket Fields</p>
+        </div>
+        <a href="/shop-page" class="text-decoration-none feature-card-link">
+            <div class="feature-card dark-bg animate-right">
+                <h2 class="text-white fw-bold">1</h2>
+                <p class="text-white fw-bold">Pro Shop</p>
+            </div>
+        </a>
+        <div class="feature-card light-bg animate-left">
+            <h2 class="text-primary fw-bold">1</h2>
+            <p class="fw-bold">Gym</p>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Global Font Styling */
+body, .feature-card, .feature-card p, .feature-card h2 {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Feature Container */
+.feature-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100vw;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    gap: 15px;
+}
+
+/* Feature Card */
+.feature-card {
+    width: 220px; /* Increased width */
+    height: 120px; /* Increased height */
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 12px;
+    transform: skewX(-5deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    flex-shrink: 0;
+}
+
+/* Background Colors */
+.light-bg { background-color: #bbd9dd; }
+.dark-bg { background-color: #5a5d63; }
+
+/* Font Styling */
+.feature-card h2 {
+    font-size: 26px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.feature-card p {
+    font-size: 15px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .feature-container {
+        flex-wrap: wrap;
+    }
+    .feature-card {
+        width: 240px;
+        height: 130px;
+    }
+}
+@media (max-width: 768px) {
+    .feature-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .feature-card {
+        width: 90%;
+        max-width: 270px;
+        height: auto;
+        transform: none;
+        padding: 20px;
+    }
+    .feature-card-link {
+        width: 100%;
+        max-width: 270px;
+        display: flex;
+        justify-content: center;
+    }
+    .feature-card-link .feature-card {
+        width: 100%;
+    }
+}
+
+/* Animation Keyframes */
+@keyframes slideFromLeft {
+    from { transform: translateX(-100px) skewX(-5deg); opacity: 0; }
+    to { transform: translateX(0) skewX(-5deg); opacity: 1; }
+}
+@keyframes slideFromRight {
+    from { transform: translateX(100px) skewX(-5deg); opacity: 0; }
+    to { transform: translateX(0) skewX(-5deg); opacity: 1; }
+}
+@keyframes slideFromTop {
+    from { transform: translateY(-50px) skewX(-5deg); opacity: 0; }
+    to { transform: translateY(0) skewX(-5deg); opacity: 1; }
+}
+
+/* Assigning Animations */
+.animate-left.show { animation: slideFromLeft 1s ease-in-out forwards; }
+.animate-right.show { animation: slideFromRight 1s ease-in-out forwards; }
+.animate-top.show { animation: slideFromTop 1s ease-in-out forwards; }
+
+/* Delayed Animation for Staggered Effect */
+.animate-left:nth-child(1) { animation-delay: 0.2s; }
+.animate-right:nth-child(2) { animation-delay: 0.4s; }
+.animate-top:nth-child(3) { animation-delay: 0.6s; }
+.animate-right:nth-child(4) { animation-delay: 0.8s; }
+.animate-left:nth-child(5) { animation-delay: 1s; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let observer = new IntersectionObserver(function (entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            } else {
+                entry.target.classList.remove("show"); // Reset animation when out of view
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll(".feature-card").forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
+
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+            <section class="facility-section1">
+                <div class="overlay2"></div>
+                <h2 class="facility-title" style="font-family:Roboto !important; color:#d4a017;font-size:32px;">Discover Our Facility</h2>
+                <p class="facility-subtitle" style="font-family:Roboto !important; font-size:18px;">
+                    We provide top-tier facilities to enhance player development, ensuring a professional environment
+                    for every cricketer.
+                </p>
+
+                <div class="container">
+                    <div class="row mt-4">
+                        <!-- Card 1 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="800">
+                            <div class="facility-card" style="font-family:Roboto; !important">
+                                <img src="https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0853.webp"
+                                     alt="Advanced Cricket Lanes" class="facility-img"/>
+                                <div class="facility-content">
+                                    <h3 style="font-family:Roboto !important;color:#d4a017;">Advanced Cricket Lanes</h3>
+                                    <p style="font-family:Roboto !important; font-size:18px;">Our facility boasts 12 advanced cricket lanes equipped with professional-grade
+                                        Gabba nets. These lanes are designed to simulate real-match conditions, allowing
+                                        players to practice various scenarios and hone their skills effectively.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="900">
+                            <div class="facility-card">
+                                <img src="https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0853.webp"
+                                     alt="High-Tech Bowling Machine" class="facility-img"/>
+                                <div class="facility-content">
+                                    <h3 style="font-family:Roboto !important;color:#d4a017;">High-Tech Bowling Machine</h3>
+                                    <p style="font-family:Roboto !important;font-size:18px;">Equipped with the latest technology, our bowling machines include features like
+                                        variable speed controls, spin and swing options, and automated line adjustments.
+                                        These machines provide consistent and challenging deliveries, helping players
+                                        improve their batting under diverse conditions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="1000">
+                            <div class="facility-card">
+                                <img src="https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0853.webp"
+                                     alt="Video Analysis" class="facility-img"/>
+                                <div class="facility-content">
+                                    <h3 style="font-family:Roboto !important;color:#d4a017;">Video Analysis</h3>
+                                    <p style="font-family:Roboto !important;font-size:18px;">Video analysis in cricket coaching improves technique, tracks performance, and refines strategies using slow-motion replays, motion tracking, and AI insights, helping players enhance skills, prevent injuries, and optimize training sessions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <!-- Card 4 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="1100">
+                            <div class="facility-card">
+                                <img src="https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0853.webp"
+                                     alt="Fitness Gym" class="facility-img"/>
+                                <div class="facility-content">
+                                    <h3 style="font-family:Roboto !important;color:#d4a017;">Comprehensive Fitness Gym</h3>
+                                    <p style="font-family:Roboto !important; font-size:18px;">Our gym is tailored specifically for cricketers, with equipment and training
+                                        programs designed to enhance strength, flexibility, endurance, and agility. The
+                                        fitness area is integral to our holistic approach to player development,
+                                        ensuring physical conditioning that complements technical cricket training.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="1200">
+                            <div class="facility-card">
+                                <img src="https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0853.webp"
+                                     alt="Relaxation Areas" class="facility-img"/>
+                                <div class="facility-content">
+                                    <h3 style="font-family:Roboto !important;color:#d4a017;">Relaxation Areas</h3>
+                                    <p style="font-family:Roboto !important; font-size:18px;">Players can relax and strategize in dedicated areas designed for team meetings
+                                        and strategy discussions. These spaces are equipped with comfortable seating and
+                                        multimedia systems for reviewing game footage and conducting tactical sessions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up" data-aos-duration="1300">
+                            <div class="facility-card">
+                                <img src="https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0853.webp"
+                                     alt="ProShop and Gear Store" class="facility-img"/>
+                                <div class="facility-content">
+                                    <h3 style="font-family:Roboto !important;color:#d4a017;">ProShop and Gear Store</h3>
+                                    <p style="font-family:Roboto !important;font-size:18px;">Our on-site ProShop is stocked with the latest cricket gear and apparel from
+                                        leading brands. Whether you need a new bat, custom-fitted gear, or the latest
+                                        accessories, our store ensures that you have everything you need to play your
+                                        best game.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                /* Custom Font Styling */
+                .custom-quote-font {
+                font-family: 'Playfair Display', serif; /* Elegant serif font for quotes */
+                font-weight: 400;
+                margin-bottom: 15px; /* Added margin to create space below the quote box */
+                }
+
+                .text-muted.fade-up {
+                font-family: 'Open Sans', sans-serif;
+                margin-top: 15px; /* Optional: Adds a little extra space if necessary */
+                }
+
+
+
+                /* Specific Quote Font */
+                .custom-quote-font {
+                font-family: 'Playfair Display', serif; /* Elegant serif font for quotes */
+                font-weight: 400;
+                }
+
+                h5 {
+                letter-spacing: 1px;
+                }
+
+                .border-primary {
+                border-color: #d4a017 !important;
+                }
+
+                .text-primary {
+                color: #d4a017 !important;
+                }
+
+                .custom-btn-hover {
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                font-family: 'Poppins', sans-serif; /* Clean, modern font for buttons */
+                }
+
+                .custom-btn-hover:hover {
+                background-color: #003366 !important; /* Dark Blue on Hover */
+                color: white;
+                transform: scale(0.95);
+                }
+
+                .custom-image-wr {
+                /* Add any necessary styling here */
+                }
+
+                /* Section Styling */
+                .facility-section1 {
+                text-align: center;
+                background: url('https://22yardsaustin.com/wp-content/uploads/2024/05/batch_IMG_0161.webp') no-repeat
+                center center/cover;
+                background-size: cover;
+                padding: 60px 0;
+                color: white;
+                position: relative;
+
+                }
+                body{
+                overflow-x:hidden;
+                }
+
+                .overlay2 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                }
+
+                .facility-title {
+                font-size: 36px;
+                font-weight: bold;
+                color: #f6b10a;
+                }
+
+                .facility-subtitle {
+                max-width: 800px;
+                margin: 10px auto 40px;
+                font-size: 18px;
+                }
+
+                /* Card Styling */
+                .facility-card {
+                position: relative;
+                border: 6px solid white;
+                overflow: hidden;
+                border-radius: 4px;
+                height: 430px; /* Set a fixed height */
+                transition: transform 0.3s ease-in-out;
+                }
+
+                .facility-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.6); /* Dim the image */
+                transition: filter 0.3s ease;
+                }
+
+                /* Card Text */
+                .facility-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                background: rgba(0, 0, 0, 0.6);
+                width: 90%;
+                padding: 20px;
+                transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+                }
+
+                .facility-card:hover .facility-content {
+                background: rgba(0, 0, 0, 0.9);
+                transform: translate(-50%, -45%);
+                width: 95%;
+                }
+
+                .facility-card:hover .facility-img {
+                filter: brightness(0.7);
+                }
+
+                .facility-content h3 {
+                font-size: 22px;
+                font-weight: bold;
+                color: #f6b10a;
+                }
+
+                .facility-content p {
+                font-size: 18px;
+                }
+
+                .facility-card:hover {
+                transform: translateY(-10px);
+                }
+            </style>
+
+            <!-- Initialize AOS -->
+            <script>
+                AOS.init();
+            </script>
+
+
+        <section class="hero-section">
+    <div class="hero-overlay"></div> <!-- Dimmed overlay -->
+    <div class="hero-content">
+        <h1 style="color:#d4a017; font-family:Roboto!important; font-size:32px;">Start Your Cricket Journey with
+            United Sports Arena
+        </h1>
+        <p style="font-family: Roboto !important;font-size:18px;">
+            Whether you’re looking to refine your skills in a professional setting or seeking expert
+            guidance to take your game to the next level, United Sports Arena has you covered. Choose from our
+            tailored options to best suit your cricketing needs.
+        </p>
+        <div class="hero-buttons">
+            <a href="/book-lanes" class="btn btn-blue">
+                BOOK A LANE <span>+</span>
+            </a>
+            <a href="/coming-soon" class="btn btn-yellow">
+                ENROLL FOR COACHING 📖
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        margin-top: 30px;
+        position: relative;
+        background: url('/us_arena_website/static/src/img/bgimgae.png') no-repeat center center / cover;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 0 20px;
+    }
+
+    /* Dimmed background overlay */
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    /* Buttons */
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .btn {
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+
+        gap: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    /* Blue Button */
+    .btn-blue {
+        background: #0056b3;
+        color: white;
+    }
+
+    .btn-blue:hover {
+        background: #003d80; /* Darker Blue on Hover */
+        transform: scale(0.98);
+    }
+
+    /* Yellow Button */
+    .btn-yellow {
+        background: #f6b10a;
+        color: black;
+    }
+
+    .btn-yellow:hover {
+        background: #c58a00; /* Darker Gold on Hover */
+        transform: scale(0.98);
+    }
+</style>
+
+
+        </t>
+
+    </template>
+</odoo>

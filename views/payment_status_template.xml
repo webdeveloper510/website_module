@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment_status_disable_clicks" inherit_id="payment.payment_status">
+        <!-- Add style to disable all clicks -->
+        <xpath expr="//div[@class='wrap']" position="before">
+            <style>
+                body, body * {
+                    pointer-events: none !important;
+                    user-select: none !important;
+                    cursor: wait !important;
+                }
+            </style>
+        </xpath>
+        
+        <!-- Also add it as attribute on the wrap div for extra safety -->
+        <xpath expr="//div[@class='wrap']" position="attributes">
+            <attribute name="style">pointer-events: none !important; user-select: none !important;</attribute>
+        </xpath>
+    </template>
+</odoo>
